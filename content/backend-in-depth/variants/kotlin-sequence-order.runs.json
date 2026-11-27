@@ -1,0 +1,1478 @@
+[
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-001",
+  "params": {
+   "nums": "3, 8, 5, 6, 9, 4",
+   "n": 1,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "4c460db464b21e4237a5f947e9317e4b6c603c6b5f99dd4dfcb21b4e9a26516d",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "e4b4806e4b52b1e38c95c7c97968d7b50d4b202740023048eeb568cbd43e17a8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "ede6256c70e9e4ca678be26dd6ab4f219710e8e32c91f629b8cf2032ee3f06b2"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "1864f79cc3ac2f2e0c7039abb509039c5c9c4e05e7c7c95a2a2d2a33c39577b7"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "028a54a5ea946cc8641c60d711c43c6db283bd487a1bb16c9f0de0767082e0ea"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-002",
+  "params": {
+   "nums": "3, 8, 5, 6, 9, 4",
+   "n": 2,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "e27fe6be744a9a777bf11d7a67dfaf3a505472a2198b9c5fc47911360ab3911c",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "03df1a8ed90f142cee211aa86a1be63065d41c638f540a24cf290a17db397628",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "ea63a413fb0c249d9c9ea1558413a3ff5adc928c9263f1aaa0db9bce48496894"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "af3db9e99ef3ef2134e088a3fab6423c7239d4f07aaed4c7303d96e88e1a7cf2"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "122a99b7831aa559dbb03699eebc99bd9ee1a946051c396750bb2791e4e8d46d"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-003",
+  "params": {
+   "nums": "3, 8, 5, 6, 9, 4",
+   "n": 3,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "06f7735a733dfff74c46dfdfca108243a52860737e7582049bfbfd3b5738492f",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "91ae945da13ec234af5fd38d9f5689976b62b40aa4d40bae56cf4f91cf904433",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "5594c6a033db86f21c734074e73d02b27008ee2e012aaa551a3dd83d5506fa61"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "b4c92f1d1d88818b1a121937b743b42d4d0fffd21e3a2ddd013de2d034d48864"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "0ff5ef902ca2b957af3d7328b87b0948906c28413f0e842c41c49def7294d72d"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-004",
+  "params": {
+   "nums": "2, 7, 4, 9, 6, 1",
+   "n": 1,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "294baf89177c81abd38ffa6f7516225d49fdce2edf88aff8f9f11ca6a550d2f9",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "87794508f5d98a76a87df0b61e0d62ac22017f8774be86a68348736fb8ca4330",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "b5e83135c34b72c25cc92310a040d688048b66c6acb3091cee1c37f9e6daa3f4"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "5fdccd3a44515b441fefae4656897f39d28c2ee9450d19aeb476770a11c02b05"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "1f3db283abb1e0d42fd8eb65a0d74e5371bdd7f4b61731b63a53b98180ccd0ee"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-005",
+  "params": {
+   "nums": "2, 7, 4, 9, 6, 1",
+   "n": 2,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "222f4aab9fc6d00acdb28ae5ee46706dd8cd939c7b8c6b06b0bbf88f6aef6834",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "1df76531464a972c150010a9fc11b8a9424d914828f11b8b3c173dc2b6fd5e08",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "67659232553e01bb944a01f9f419168824480e453add4a6605b52937eb75eb56"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "9df0a9b3e169593eedecbc1e731235ea0e75489e5db07478d1c9b94ab85dcaca"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "090cb9eb602ae7f716fb711c727bb7a76d94941f4e58a4edfec4ececfc3470cf"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-006",
+  "params": {
+   "nums": "2, 7, 4, 9, 6, 1",
+   "n": 3,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "6f51db568289f3d83b07b1bb09b4c44b60d8e3bcc7c6d725261a6b2063d27b3d",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "c8578fe088ac4e642b65f3c5fae44b54f9bfa80d998a816a66720207591fb36a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "c84fb998221af789053819872b8d376372c44ef51785a33a41e79937d964f0f6"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "34400107d0930e37698ea42a0a5066b1830c504427bb4fabacde833cf21e2427"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "bfa6c8fbb6f03db4f58e1f6a0a86f0d037509980111bf03e5fd82a391252c85b"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-007",
+  "params": {
+   "nums": "5, 4, 7, 2, 8, 3",
+   "n": 1,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "93028a4e94c0e378b691ec95fdc278638b755228635bc776773d8d63ca5c81d8",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "a5500d92a4f0acbef33073020f1ec8706ecbd30f01a03207760ba04d6913e4bd",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "c1b292ef8d44a92b1aae9be33e4b89ddf077b338bbd93e64bb036e1c1c16ad43"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "d8565653f1039fb267deed284aff15d0a47ee7f501efa3e6c20534e56260af77"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "12795741afb896d2e715ce06d18c7c05aed97458b46a042e171ed9801d7b491c"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-008",
+  "params": {
+   "nums": "5, 4, 7, 2, 8, 3",
+   "n": 2,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "69bee4a15d81efde02212e7475e516abc9dac5e32ae85df1fb49a89b2b45dd07",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "6fba61f6f4f444c43517dc66f06ce02d78404e6754f1452274fcd680c85418ef",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "8c1773cf82163a489ffcd8c8b4d64484251a636b2a6421cd40d4b3bc1a484b3a"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "a86a49c17359272982c9a698d0b2d492810f322dec9813711968dfeb84fdaa98"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "22a05b2419c22fdfb1f1155e3c7b6b5b9bd8e903e3627f75822fe3f80d184da6"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-009",
+  "params": {
+   "nums": "5, 4, 7, 2, 8, 3",
+   "n": 3,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "b653705da32e18e21f5229833cad839d4940d55a331f3fd042aa56aaf10214b8",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "acb28767b886efcd907152fcabe3043d95571273617efd15983bf43b3ae09686",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "b5679601140d022807b9d25d2f9b5b73b3e93ed054d4e69e3027a416d7915f57"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "e43987a88e106c9bb180774b9c2b52c7a7acb6401bd68be24c36a6c8973459cf"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "31c5aff2a9d9b34bc7c89dbd19f2a0bd94ca4e336df61bdf8bdb6297832ba994"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-010",
+  "params": {
+   "nums": "6, 1, 8, 3, 2, 5",
+   "n": 1,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "113540a01bcfdcbd81f3f4dccdd894d987a374e01993930cbb03a565d2cd30e0",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "65e925c39c186a0ce881a12bb717ae5dff3448768e7e8db19826449dc60574b3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "2d75174a156e933f58ed1826faae2f978f7beeb95e48d7b09521d481f3f1dd2a"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "7d4df3a31c4c8306fc67f9047468536cedb3e01a782955d9720ab118cc5f8f9b"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "ef86f040e03c79868a73b38acc8e21d259868b3fecf537059348f44a2bb997e5"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-011",
+  "params": {
+   "nums": "6, 1, 8, 3, 2, 5",
+   "n": 2,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "8942ad713eaef1d3268e8692e06ccb1faf697fd6e4d5bcfc6472bae984368bb9",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "74e8435584b4f23b94b3e9f63004349a5bdcec25b43c19b8f20c3d8a0ef75764",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "f476fb0b27a43b5e2c7d3c1afff8b9b3d2d2ab97cab55baed628a7813dc44da3"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "29f0893ef95cd1571eb6e4710f2398593ec739ff6f4478676e9c888ba7c44490"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "2a185f853a4554df25b84bf16469a1912ee7ccf50da7ba5c6b922c9daad65ad9"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-012",
+  "params": {
+   "nums": "6, 1, 8, 3, 2, 5",
+   "n": 3,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "0394c3b1ec40bc07366feae173d23742abb6f512b4ab10bad048cbfa0aeaf623",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "54ba64cc071fe1006e226ae85a885adbbffdcbb1911addb81389f123bacf08bc",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "a58c8f81eea7ff4674ce54b9c7f5f4781ef0023246b35758d3812106e53e3556"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "4855124ad7a32f000781d418574c04cf1afbb0c563df5c2855ac37e85d582f25"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "cfb26ffa81bddf31f11ae5f0b25e17b171412cd7f76a1f90797b4d3c9503be1e"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-013",
+  "params": {
+   "nums": "1, 2, 3, 4, 5, 6",
+   "n": 1,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "960c045a735e1a808523dcc3b753240a879e71720410e294d9d040efc55ea367",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "d4942372f2bc993d594f8a17452dcadafe8660d1f98db591971bf246a1848951",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "4c8e78b4f9c61aab28f7965ce0da2f2f6af0bc8d838d214ac55e6b00e15d64fa"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "f6375e65cb3f347bd8c34ad0d2a0369a655b9fb29c57de22b70761e5c4e55b2e"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "a5f6021c8dba342141519d01fc708117411b1b13ce3bfdb803b3c1a6b84c300d"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-014",
+  "params": {
+   "nums": "1, 2, 3, 4, 5, 6",
+   "n": 2,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "1edec23c5863143c595d8aee8113536f84dc674956e91e16f45a612cb757ed6f",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "b4f0a9038eacc159e8abeabbd90b7c6e37056d4147d0c7800dda9a86430bc956",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "59d4c730952e93f8774b0c42c479ccbe166c788e23cef76fb44941b6e8ade8ac"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "0dd73644b16a10938bd7ea426310d4833cf7524bbe0151c364e0c147a1dbf7a7"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "210a38ef0120d62fe89bbd0f4fee240dcbfa4136790a6befc040725c6216ba6b"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-015",
+  "params": {
+   "nums": "1, 2, 3, 4, 5, 6",
+   "n": 3,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "c86782ce2ab1fc33ee194e43e4e7dfdb59e9e1e74c9aea9fd74b631657902833",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "3e0dfb99f4d9591bbf81e567db30a428ead8389f7476dae1caddf1ccf5433ee8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "21134a20708d4f93d71e6e9e64dca99471d7b88891060336ddd0ac41d663a06b"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "68a849c990f00fcbbb50f29c7b00f2a1fb3ade303eb07f01b435c6cf9f5fd996"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "7f623d4cfcfc4889fdc708aadd70c969fd38ed8ae883ce1b9ad4fb1a1b710cbb"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-016",
+  "params": {
+   "nums": "4, 9, 6, 7, 2, 8",
+   "n": 1,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "8a1dd8858ece4163cc2d09c9e31140719341676737f11e73eb4ffb7505408740",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "142170e4e6b66e501c2dc3aab2af84b81f52a494cc8f44eb627af621cd74fdb7",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "6576290af6adcb8d545cd574d2e16113dfdc6f2239feafdb8cb94823d282a4e1"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "a263b967692c015de25cbf8b6fd92a95f4bc6c749ba7cf434c1d466c6ad5525a"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "5a57bdeeed1d470d30cf8bfed93e2d171f227619db05ea224e6ec5be68917a51"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-017",
+  "params": {
+   "nums": "4, 9, 6, 7, 2, 8",
+   "n": 2,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "739ff68e3405005cab502eb6644116dea8eb2da565d28df3b9dcc5e17f984c10",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "fc0453333d7bb94e8382504dddd790ba455b8482b628c2754c06f71968da962f",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "bbb401ab684a84684ce48ddef6e266ad076b302a6d8959a94378c850c0552567"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "eeee41aea3dd681be12acdd3e93bbc708b6b63596f266dbfa2b9daa163cb091c"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "d4bc0f530ca37e1128f4516581ee7bb4d8460d45ab158b6c0ea9cb3accde6261"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-018",
+  "params": {
+   "nums": "4, 9, 6, 7, 2, 8",
+   "n": 3,
+   "via": "",
+   "citation": "kotlin-docs-sequences#iterable",
+   "why": "A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log."
+  },
+  "source_sha256": "391cee91dcdf7f36a84c4a12125f70b695b911a99bf5ab9048ce2fab4b1d676e",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "861cd3c3a652fe0af5caf50624f376f6ba233dc6a55af2d9b8b6e14958e96297",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the list pipeline is lazy like a sequence",
+    "stdout_sha256": "e71a8c89ba9b1355dcb8658ec953a260c907a7e40f9242135fe95f1c594bc6dc"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "06491d472597fd48dda7fa23283b4d588d2036d7b5670c2fa28363da005ceab3"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "390f4a496228625db110e5cdefedd1f1ead697b2799e253b95ece0277a2f2d03"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-019",
+  "params": {
+   "nums": "3, 8, 5, 6, 9, 4",
+   "n": 1,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "d2044be9f224257bb72a3ea28ffd779ba29c162aee49dac99da4c428695d5ecc",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "ede6256c70e9e4ca678be26dd6ab4f219710e8e32c91f629b8cf2032ee3f06b2",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "e4b4806e4b52b1e38c95c7c97968d7b50d4b202740023048eeb568cbd43e17a8"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "7679a174655da77674274df71a2b3ba4182a62904d79509815f8b1db79b09845"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "33add8371a4fe1c55429217b451d908b3b009cfb36e1c8d6986093067a97d2dc"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-020",
+  "params": {
+   "nums": "3, 8, 5, 6, 9, 4",
+   "n": 2,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "08293f2c9c33959030621dee47d266e8c3fa146dd8c3374a69eee20fab1f9815",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "ea63a413fb0c249d9c9ea1558413a3ff5adc928c9263f1aaa0db9bce48496894",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "03df1a8ed90f142cee211aa86a1be63065d41c638f540a24cf290a17db397628"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "09a3b695547914f362c9c067a4f76b2ee5f23f7eaa4907282ed89d845f034988"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "0cb6fdf1e7e036b51d89b1d7e799b0eb579587c9fce97e10bb7fbb60c476d429"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-021",
+  "params": {
+   "nums": "3, 8, 5, 6, 9, 4",
+   "n": 3,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "d59335dee8600616f1413a697c65906e87089e142eb1db4650051b4437417c6f",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "5594c6a033db86f21c734074e73d02b27008ee2e012aaa551a3dd83d5506fa61",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "91ae945da13ec234af5fd38d9f5689976b62b40aa4d40bae56cf4f91cf904433"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "5073379c0af482aceb5f5185e1a498df1481cd99c43cccf1b5b2ceab6b760cdc"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "fcbf5aa1ae8129af464b97c968852b7f19949d4e3969043cac45b5c9aff71be8"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-022",
+  "params": {
+   "nums": "2, 7, 4, 9, 6, 1",
+   "n": 1,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "25af2afb14b1e27dcca4fc95bf984bbd9963037a5bd6bf8f20736ef014fc7843",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "b5e83135c34b72c25cc92310a040d688048b66c6acb3091cee1c37f9e6daa3f4",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "87794508f5d98a76a87df0b61e0d62ac22017f8774be86a68348736fb8ca4330"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "b66e74433e5d9092fd72dc61da88b353b70d34a98e642241251e1393711ba143"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "d58dcdd7fcb7abe19d6a98af1df893e26e7015eb3948be43aef32da5e59b6be0"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-023",
+  "params": {
+   "nums": "2, 7, 4, 9, 6, 1",
+   "n": 2,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "2ba48ffb64fd8283563a78510d23710e4255a937561d8a07310136bda2ae42db",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "67659232553e01bb944a01f9f419168824480e453add4a6605b52937eb75eb56",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "1df76531464a972c150010a9fc11b8a9424d914828f11b8b3c173dc2b6fd5e08"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "3ac2918c44041cdcff6092297c88f4ee81956fbe3b83bddb7d7f698a58202116"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "f39a94af059f2e6b3d6440ee2caf11c8990e13126bfe3d3cfd6daeb9184b37df"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-024",
+  "params": {
+   "nums": "2, 7, 4, 9, 6, 1",
+   "n": 3,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "a97ec797eb273b257698992afd5e3b48f2d0b83b8317531964d65212dc536b77",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "c84fb998221af789053819872b8d376372c44ef51785a33a41e79937d964f0f6",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "c8578fe088ac4e642b65f3c5fae44b54f9bfa80d998a816a66720207591fb36a"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "aee3bfd066db0761104dea0f4543cbc17ab537b0a6d3577ffee679bbf69f7123"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "9000970abd57ead14268a53f6aa2bb0b25c8a7f08b05cf93252badd5391c3ec3"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-025",
+  "params": {
+   "nums": "5, 4, 7, 2, 8, 3",
+   "n": 1,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "e791f5797d64af0a61ed908db402e0cb37aa061b8a8dfae4a5baf605a97b5365",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "c1b292ef8d44a92b1aae9be33e4b89ddf077b338bbd93e64bb036e1c1c16ad43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "a5500d92a4f0acbef33073020f1ec8706ecbd30f01a03207760ba04d6913e4bd"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "135a744417d14ee15eb00356f843a3f6e088a394dfdc8be595855ffaa664994d"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "acad17ce0ba7363c553c4d56125df19d8352784549d5b002a9dc2553c7a68d7e"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-026",
+  "params": {
+   "nums": "5, 4, 7, 2, 8, 3",
+   "n": 2,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "38e39477853f512e270d3d783947f4b45227bb2a87036661bd9052f3ea1cb9b2",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "8c1773cf82163a489ffcd8c8b4d64484251a636b2a6421cd40d4b3bc1a484b3a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "6fba61f6f4f444c43517dc66f06ce02d78404e6754f1452274fcd680c85418ef"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "5ca8ee675063403927286653fe6ae8867f215e59144ebdca65b2cc477ffdc058"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "64acac905823221657c56f5aa90b538c2bc69fc79312f5d9e4b071885ef513b6"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-027",
+  "params": {
+   "nums": "5, 4, 7, 2, 8, 3",
+   "n": 3,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "9372e1627b45af3af0e029ebcb3fa599f63344a05c635fe6d2e8588e0ff95759",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "b5679601140d022807b9d25d2f9b5b73b3e93ed054d4e69e3027a416d7915f57",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "acb28767b886efcd907152fcabe3043d95571273617efd15983bf43b3ae09686"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "33c8d3c0ff787f61ac5798ffc3d53e8e0c466c7b831b156f91f1b05ff9d1aca9"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "95decb5b92c2fa79563e1a844807025086e1027784ec92a29756207cd980d842"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-028",
+  "params": {
+   "nums": "6, 1, 8, 3, 2, 5",
+   "n": 1,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "09ef139791b2a7e89878eb861db5bd0935ca1e54be3e61c12fbef71517d3b8f1",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "2d75174a156e933f58ed1826faae2f978f7beeb95e48d7b09521d481f3f1dd2a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "65e925c39c186a0ce881a12bb717ae5dff3448768e7e8db19826449dc60574b3"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "9b0c19b240810f93b4e63ed0fd991ef40b128d1919870107238235d00f68c92d"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "7c3f72bd04a7b0546ae0ca240341c2cef3000540c5c316dfe2f5bb7b323d7a8b"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-029",
+  "params": {
+   "nums": "6, 1, 8, 3, 2, 5",
+   "n": 2,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "ca299dedec6a92538209a3b45d0e6520b9951f6d58dd595170f4a7982b400f50",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "f476fb0b27a43b5e2c7d3c1afff8b9b3d2d2ab97cab55baed628a7813dc44da3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "74e8435584b4f23b94b3e9f63004349a5bdcec25b43c19b8f20c3d8a0ef75764"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "f03643bd7ccb9cce12ed25d6702a4fc735dc25a0c8442b14fc86eded6c63272d"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "0b392f51d01ef1384d53bc65b379a733c6358672ae5ace84d69b226d1aa23745"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-030",
+  "params": {
+   "nums": "6, 1, 8, 3, 2, 5",
+   "n": 3,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "97859122a71d2e92188285b7008321c4931e413e4142ef6fe77d3a3bd40c93a6",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "a58c8f81eea7ff4674ce54b9c7f5f4781ef0023246b35758d3812106e53e3556",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "54ba64cc071fe1006e226ae85a885adbbffdcbb1911addb81389f123bacf08bc"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "d6d664cb9d8ba412526412ac66fe41167f398dd38f4f49bd1f1e81e8a8e4579b"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "d4c2ec59a74d927f99f4196cf024f0b54c15a10ab5c222e4187784e539801540"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-031",
+  "params": {
+   "nums": "1, 2, 3, 4, 5, 6",
+   "n": 1,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "739ba680d9cb333cb1b943891ddd7ca040a3b8e6c28b4f35a464b9b54d9da06d",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "4c8e78b4f9c61aab28f7965ce0da2f2f6af0bc8d838d214ac55e6b00e15d64fa",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "d4942372f2bc993d594f8a17452dcadafe8660d1f98db591971bf246a1848951"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "1b4167d8e94a6ac68031b2ecc4973ed16e7c2f6ff5bb06343a847403ac12f706"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "c23cd28c00239c0876b09fca36ad86330dfe43e795761d3f874e810befc38a9b"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-032",
+  "params": {
+   "nums": "1, 2, 3, 4, 5, 6",
+   "n": 2,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "1c0518d35efe2ca5ab92541d0ec5db1184076db0fbe11328ab9de38d71a039c5",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "59d4c730952e93f8774b0c42c479ccbe166c788e23cef76fb44941b6e8ade8ac",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "b4f0a9038eacc159e8abeabbd90b7c6e37056d4147d0c7800dda9a86430bc956"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "2246f6e2982c7f844e0eafddf0afa618c08ab6de61e591fae5031a3341c4eedc"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "ceb4cfa3c576375796cd6b89f22fd05316f43281f80244f6a18e9ff81ae040be"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-033",
+  "params": {
+   "nums": "1, 2, 3, 4, 5, 6",
+   "n": 3,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "2e133770aad0ff9b88236c1e78fd14e772a6a91a1aea9dec33e30be1fdca2736",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "21134a20708d4f93d71e6e9e64dca99471d7b88891060336ddd0ac41d663a06b",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "3e0dfb99f4d9591bbf81e567db30a428ead8389f7476dae1caddf1ccf5433ee8"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "6d244e8dd2211135c66935c00b15277d3cb9e0e5aed7c57cbac802cd71575d77"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "6ce13c9eac08c9c2269d55bf82ed8f8d6d184b6284bde17f20f0f019c265a872"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-034",
+  "params": {
+   "nums": "4, 9, 6, 7, 2, 8",
+   "n": 1,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "c9cd002761760fc58278dba85eb2a30022b4e46b8e152668a64262c825bef140",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "6576290af6adcb8d545cd574d2e16113dfdc6f2239feafdb8cb94823d282a4e1",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "142170e4e6b66e501c2dc3aab2af84b81f52a494cc8f44eb627af621cd74fdb7"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "85bde4fd37ef09c0e29acefbd54dbb6c59725c36045bf5aea5c8bb96023f3dd3"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "5bb0c2481cf02da518ce98fb5cacadc155815e9ff7af8611f9335866bd7fd547"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-035",
+  "params": {
+   "nums": "4, 9, 6, 7, 2, 8",
+   "n": 2,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "63d377219124787938214975c6fef33e33987363cf2a3d5c6e941b24e8d27f9c",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "bbb401ab684a84684ce48ddef6e266ad076b302a6d8959a94378c850c0552567",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "fc0453333d7bb94e8382504dddd790ba455b8482b628c2754c06f71968da962f"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "68c5f105ee19975f28a5ba36e38e4295a61293aefe9991eb1e166593aeef528d"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "905d8044bf0f15fdded5c2408d10f880f088da61acd969b731c3460096424a8a"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sequence-order-036",
+  "params": {
+   "nums": "4, 9, 6, 7, 2, 8",
+   "n": 3,
+   "via": ".asSequence()",
+   "citation": "kotlin-docs-sequences#sequence",
+   "why": "A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited."
+  },
+  "source_sha256": "2be4bf7b1ba7a179b790129c756aa1491b3e6f3dc493b9737628f676f7068aa7",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "e71a8c89ba9b1355dcb8658ec953a260c907a7e40f9242135fe95f1c594bc6dc",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "believing the sequence runs `filter` over every element before `map`",
+    "stdout_sha256": "861cd3c3a652fe0af5caf50624f376f6ba233dc6a55af2d9b8b6e14958e96297"
+   },
+   {
+    "mistake": "putting `map` before `filter`",
+    "stdout_sha256": "ab6bf59b9480aae237c17af1e50e8383b625647ed27afd806af0f68edf1fa9c2"
+   },
+   {
+    "mistake": "using `drop` where `take` was needed",
+    "stdout_sha256": "4d60e3ad7fb9b68fc18c89e2210000dbe7eedf596ac7d0685109856616f1b3d3"
+   }
+  ]
+ }
+]

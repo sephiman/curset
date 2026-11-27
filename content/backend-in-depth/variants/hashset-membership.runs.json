@@ -1,0 +1,1442 @@
+[
+ {
+  "id": "m02-l01-v-hashset-membership-001",
+  "params": {
+   "a": 12,
+   "step": "System.out.println(tags.add(new Tag(12)));",
+   "probe": "new Tag(12)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(12)` equals the stored one",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(12)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(12)`, finds an equal element and returns `false`. `contains(new Tag(12))` is `true` because the set holds an equal element, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(new Tag(12)));"
+  },
+  "source_sha256": "d227963130b29cce749d7a4bdd33f21c06afba8de9b137e76e584cf479910e68",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-002",
+  "params": {
+   "a": 1000,
+   "step": "System.out.println(tags.add(new Tag(250)));",
+   "probe": "new Tag(250)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 1,
+   "flip": "false",
+   "stepwhy": "`add` returns `true` when the set contains no equal element, and `Tag(250)` does not equal `Tag(1000)`",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(250)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(1000)` and `Tag(250)` are not equal. `contains(new Tag(250))` is `true` because the set holds an equal element, and the set holds two elements.",
+   "steponly": "System.out.println(tags.add(new Tag(250)));"
+  },
+  "source_sha256": "f281ce6058204fced727c19831e3a822d70996328a0909a1d0e108156d3fdb97",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ae89329bc25b05d9f8d8176d3957c6cc48aeffcbed688d29e08edf4ec6661e22",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "a4c594e4e3abaf3690d1d24fa5476d209acfc2cefdaa25d9a381a7fa3d7184a0"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-003",
+  "params": {
+   "a": 58,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "first",
+   "hash": "",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()",
+   "ident": "true",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "an object has the same hash code each time and equals itself",
+   "why": "`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "820fd654fea4c6f4810cbc9f9397e985085331f9dda043f5c5729bd173d0b2a2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking `contains` to be `false` for any element that was added",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-004",
+  "params": {
+   "a": 12,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "new Tag(12)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(12)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Adding `first` again returns `false` because the set already holds that object, `contains(new Tag(12))` is `true` because an equal element is present, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "6db9a6b857f5d443c873ab3b7cfadff0dc76fd49d2d6722f9745692de8420310",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-005",
+  "params": {
+   "a": 40,
+   "step": "System.out.println(tags.add(new Tag(40)));",
+   "probe": "new Tag(40)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(40)` equals the stored one",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(40)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(40)`, finds an equal element and returns `false`. `contains(new Tag(40))` is `true` because the set holds an equal element, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(new Tag(40)));"
+  },
+  "source_sha256": "bbfa5db48febd2257604b78ac69cc4c293976210b7acf6560bb9aa7620c91920",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-006",
+  "params": {
+   "a": 3,
+   "step": "System.out.println(tags.add(new Tag(7)));",
+   "probe": "new Tag(7)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 1,
+   "flip": "false",
+   "stepwhy": "`add` returns `true` when the set contains no equal element, and `Tag(7)` does not equal `Tag(3)`",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(7)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(3)` and `Tag(7)` are not equal. `contains(new Tag(7))` is `true` because the set holds an equal element, and the set holds two elements.",
+   "steponly": "System.out.println(tags.add(new Tag(7)));"
+  },
+  "source_sha256": "48f44f390109313eb19ec0a4ff9a70253f07c303b57da0aa48e844ece46529f6",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ae89329bc25b05d9f8d8176d3957c6cc48aeffcbed688d29e08edf4ec6661e22",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "a4c594e4e3abaf3690d1d24fa5476d209acfc2cefdaa25d9a381a7fa3d7184a0"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-007",
+  "params": {
+   "a": 7,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "first",
+   "hash": "",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()",
+   "ident": "true",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "an object has the same hash code each time and equals itself",
+   "why": "`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "350a2a1be264121f3f00445c847ed07c923c8c1dec31b3f85f73c59347ab2d7d",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking `contains` to be `false` for any element that was added",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-008",
+  "params": {
+   "a": 40,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "new Tag(40)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(40)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Adding `first` again returns `false` because the set already holds that object, `contains(new Tag(40))` is `true` because an equal element is present, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "1496f743012a61c43eb16979b50fab240b31d4779008ec4987577d3959ad04d3",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-009",
+  "params": {
+   "a": 3,
+   "step": "System.out.println(tags.add(new Tag(3)));",
+   "probe": "new Tag(3)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(3)` equals the stored one",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(3)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(3)`, finds an equal element and returns `false`. `contains(new Tag(3))` is `true` because the set holds an equal element, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(new Tag(3)));"
+  },
+  "source_sha256": "fe196d86fa265050060e3dc892ed79cd1aba8407729fa7cd76f53b5148841099",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-010",
+  "params": {
+   "a": 1000,
+   "step": "System.out.println(tags.add(new Tag(101)));",
+   "probe": "new Tag(101)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 1,
+   "flip": "false",
+   "stepwhy": "`add` returns `true` when the set contains no equal element, and `Tag(101)` does not equal `Tag(1000)`",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(101)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(1000)` and `Tag(101)` are not equal. `contains(new Tag(101))` is `true` because the set holds an equal element, and the set holds two elements.",
+   "steponly": "System.out.println(tags.add(new Tag(101)));"
+  },
+  "source_sha256": "e53d1ad0acc9c68ccba62aa4d8388fa1558487259b259df48677c0fa0e15984e",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ae89329bc25b05d9f8d8176d3957c6cc48aeffcbed688d29e08edf4ec6661e22",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "a4c594e4e3abaf3690d1d24fa5476d209acfc2cefdaa25d9a381a7fa3d7184a0"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-011",
+  "params": {
+   "a": 58,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "first",
+   "hash": "",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()",
+   "ident": "true",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "an object has the same hash code each time and equals itself",
+   "why": "`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "820fd654fea4c6f4810cbc9f9397e985085331f9dda043f5c5729bd173d0b2a2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking `contains` to be `false` for any element that was added",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-012",
+  "params": {
+   "a": 7,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "new Tag(7)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(7)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Adding `first` again returns `false` because the set already holds that object, `contains(new Tag(7))` is `true` because an equal element is present, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "31a113b14457e47c04a66893e0c81f90f9eed51ca63760e803c5b77ac78a856f",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-013",
+  "params": {
+   "a": 250,
+   "step": "System.out.println(tags.add(new Tag(250)));",
+   "probe": "new Tag(250)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(250)` equals the stored one",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(250)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(250)`, finds an equal element and returns `false`. `contains(new Tag(250))` is `true` because the set holds an equal element, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(new Tag(250)));"
+  },
+  "source_sha256": "59978510019e325e4b6b5f81e98fa98cc6ce8edb0216ddef29f3c09e265def8a",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-014",
+  "params": {
+   "a": 12,
+   "step": "System.out.println(tags.add(new Tag(1000)));",
+   "probe": "new Tag(1000)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 1,
+   "flip": "false",
+   "stepwhy": "`add` returns `true` when the set contains no equal element, and `Tag(1000)` does not equal `Tag(12)`",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(1000)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(12)` and `Tag(1000)` are not equal. `contains(new Tag(1000))` is `true` because the set holds an equal element, and the set holds two elements.",
+   "steponly": "System.out.println(tags.add(new Tag(1000)));"
+  },
+  "source_sha256": "536695f2c1b1e50b2e0694f1808e3a901b516ba885d0adf8c49ba1f2abf52b4e",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ae89329bc25b05d9f8d8176d3957c6cc48aeffcbed688d29e08edf4ec6661e22",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "a4c594e4e3abaf3690d1d24fa5476d209acfc2cefdaa25d9a381a7fa3d7184a0"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-015",
+  "params": {
+   "a": 58,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "first",
+   "hash": "",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()",
+   "ident": "true",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "an object has the same hash code each time and equals itself",
+   "why": "`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "820fd654fea4c6f4810cbc9f9397e985085331f9dda043f5c5729bd173d0b2a2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking `contains` to be `false` for any element that was added",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-016",
+  "params": {
+   "a": 250,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "new Tag(250)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(250)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Adding `first` again returns `false` because the set already holds that object, `contains(new Tag(250))` is `true` because an equal element is present, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "2c98f2c67b6db95dfa19133cc866f044e792cd560c5908a67662c37c8156b4c7",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-017",
+  "params": {
+   "a": 58,
+   "step": "System.out.println(tags.add(new Tag(58)));",
+   "probe": "new Tag(58)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(58)` equals the stored one",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(58)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(58)`, finds an equal element and returns `false`. `contains(new Tag(58))` is `true` because the set holds an equal element, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(new Tag(58)));"
+  },
+  "source_sha256": "bb2830bb1c10ca7020f14d6e5312339870ac4cc5e0a524d10f62ab48cca65a21",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-018",
+  "params": {
+   "a": 7,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "first",
+   "hash": "",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()",
+   "ident": "true",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "an object has the same hash code each time and equals itself",
+   "why": "`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "350a2a1be264121f3f00445c847ed07c923c8c1dec31b3f85f73c59347ab2d7d",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking `contains` to be `false` for any element that was added",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-019",
+  "params": {
+   "a": 7,
+   "step": "System.out.println(tags.add(new Tag(7)));",
+   "probe": "new Tag(7)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(7)` equals the stored one",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(7)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(7)`, finds an equal element and returns `false`. `contains(new Tag(7))` is `true` because the set holds an equal element, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(new Tag(7)));"
+  },
+  "source_sha256": "1732023ada7cb451c00446cc764b5aa14472bef102ef63ea4fa0a3b49b07bb05",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-020",
+  "params": {
+   "a": 58,
+   "step": "System.out.println(tags.add(new Tag(101)));",
+   "probe": "new Tag(101)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 1,
+   "flip": "false",
+   "stepwhy": "`add` returns `true` when the set contains no equal element, and `Tag(101)` does not equal `Tag(58)`",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(101)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(58)` and `Tag(101)` are not equal. `contains(new Tag(101))` is `true` because the set holds an equal element, and the set holds two elements.",
+   "steponly": "System.out.println(tags.add(new Tag(101)));"
+  },
+  "source_sha256": "a74b3823a80572606da36f78efe433423c0d2561ee58d89d13908f668cd27107",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ae89329bc25b05d9f8d8176d3957c6cc48aeffcbed688d29e08edf4ec6661e22",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "a4c594e4e3abaf3690d1d24fa5476d209acfc2cefdaa25d9a381a7fa3d7184a0"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-021",
+  "params": {
+   "a": 12,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "first",
+   "hash": "",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()",
+   "ident": "true",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "an object has the same hash code each time and equals itself",
+   "why": "`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "12cf19108e136ae7b698e965b83b90b2b027a7b4f2f76c890f6365d6246ea3c3",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking `contains` to be `false` for any element that was added",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-022",
+  "params": {
+   "a": 1000,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "new Tag(1000)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(1000)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Adding `first` again returns `false` because the set already holds that object, `contains(new Tag(1000))` is `true` because an equal element is present, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "784cbb4c44002c88a74b84ebb17e6ea44fa44e0531abcc847eca748c966d7b94",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-023",
+  "params": {
+   "a": 250,
+   "step": "System.out.println(tags.add(new Tag(250)));",
+   "probe": "new Tag(250)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(250)` equals the stored one",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(250)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(250)`, finds an equal element and returns `false`. `contains(new Tag(250))` is `true` because the set holds an equal element, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(new Tag(250)));"
+  },
+  "source_sha256": "59978510019e325e4b6b5f81e98fa98cc6ce8edb0216ddef29f3c09e265def8a",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-024",
+  "params": {
+   "a": 1000,
+   "step": "System.out.println(tags.add(new Tag(12)));",
+   "probe": "new Tag(12)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 1,
+   "flip": "false",
+   "stepwhy": "`add` returns `true` when the set contains no equal element, and `Tag(12)` does not equal `Tag(1000)`",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(12)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(1000)` and `Tag(12)` are not equal. `contains(new Tag(12))` is `true` because the set holds an equal element, and the set holds two elements.",
+   "steponly": "System.out.println(tags.add(new Tag(12)));"
+  },
+  "source_sha256": "e7564660c185b1b8f1cc341853ee647f6a9d08fe98b5aa187b756bf2504ea7d9",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ae89329bc25b05d9f8d8176d3957c6cc48aeffcbed688d29e08edf4ec6661e22",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "a4c594e4e3abaf3690d1d24fa5476d209acfc2cefdaa25d9a381a7fa3d7184a0"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-025",
+  "params": {
+   "a": 3,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "first",
+   "hash": "",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()",
+   "ident": "true",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "an object has the same hash code each time and equals itself",
+   "why": "`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "955fdfb9f1facb5a05caf21ced895b993988eca0ad49608396356f13ef46d8b8",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking `contains` to be `false` for any element that was added",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-026",
+  "params": {
+   "a": 7,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "new Tag(7)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(7)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Adding `first` again returns `false` because the set already holds that object, `contains(new Tag(7))` is `true` because an equal element is present, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "31a113b14457e47c04a66893e0c81f90f9eed51ca63760e803c5b77ac78a856f",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-027",
+  "params": {
+   "a": 58,
+   "step": "System.out.println(tags.add(new Tag(58)));",
+   "probe": "new Tag(58)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(58)` equals the stored one",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(58)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(58)`, finds an equal element and returns `false`. `contains(new Tag(58))` is `true` because the set holds an equal element, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(new Tag(58)));"
+  },
+  "source_sha256": "bb2830bb1c10ca7020f14d6e5312339870ac4cc5e0a524d10f62ab48cca65a21",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-028",
+  "params": {
+   "a": 58,
+   "step": "System.out.println(tags.add(new Tag(3)));",
+   "probe": "new Tag(3)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 1,
+   "flip": "false",
+   "stepwhy": "`add` returns `true` when the set contains no equal element, and `Tag(3)` does not equal `Tag(58)`",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(3)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(58)` and `Tag(3)` are not equal. `contains(new Tag(3))` is `true` because the set holds an equal element, and the set holds two elements.",
+   "steponly": "System.out.println(tags.add(new Tag(3)));"
+  },
+  "source_sha256": "7def13ab55463c9653ce872dc4043444d4c58f82f53b9467ebe6833a7c789026",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ae89329bc25b05d9f8d8176d3957c6cc48aeffcbed688d29e08edf4ec6661e22",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "a4c594e4e3abaf3690d1d24fa5476d209acfc2cefdaa25d9a381a7fa3d7184a0"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-029",
+  "params": {
+   "a": 250,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "first",
+   "hash": "",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()",
+   "ident": "true",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "an object has the same hash code each time and equals itself",
+   "why": "`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "395724daa523868852047bf49dbca667cb567831793b92be0167c5e7aedbf2ef",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking `contains` to be `false` for any element that was added",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-030",
+  "params": {
+   "a": 12,
+   "step": "System.out.println(tags.add(new Tag(12)));",
+   "probe": "new Tag(12)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(12)` equals the stored one",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(12)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(12)`, finds an equal element and returns `false`. `contains(new Tag(12))` is `true` because the set holds an equal element, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(new Tag(12)));"
+  },
+  "source_sha256": "d227963130b29cce749d7a4bdd33f21c06afba8de9b137e76e584cf479910e68",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-031",
+  "params": {
+   "a": 250,
+   "step": "System.out.println(tags.add(new Tag(58)));",
+   "probe": "new Tag(58)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 1,
+   "flip": "false",
+   "stepwhy": "`add` returns `true` when the set contains no equal element, and `Tag(58)` does not equal `Tag(250)`",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(58)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(250)` and `Tag(58)` are not equal. `contains(new Tag(58))` is `true` because the set holds an equal element, and the set holds two elements.",
+   "steponly": "System.out.println(tags.add(new Tag(58)));"
+  },
+  "source_sha256": "c590eafcbbe761023d7c1c0557c4e23bbb83c06e6845c93d8a4a5fd0f2e48d8e",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ae89329bc25b05d9f8d8176d3957c6cc48aeffcbed688d29e08edf4ec6661e22",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "a4c594e4e3abaf3690d1d24fa5476d209acfc2cefdaa25d9a381a7fa3d7184a0"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-032",
+  "params": {
+   "a": 101,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "first",
+   "hash": "",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()",
+   "ident": "true",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "an object has the same hash code each time and equals itself",
+   "why": "`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "8320d61d237311212e4e45a2d652e405e53ddb4cdf323e279d4530a3093dbf7a",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking `contains` to be `false` for any element that was added",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-033",
+  "params": {
+   "a": 7,
+   "step": "System.out.println(tags.add(new Tag(7)));",
+   "probe": "new Tag(7)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(7)` equals the stored one",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(7)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(7)`, finds an equal element and returns `false`. `contains(new Tag(7))` is `true` because the set holds an equal element, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(new Tag(7)));"
+  },
+  "source_sha256": "1732023ada7cb451c00446cc764b5aa14472bef102ef63ea4fa0a3b49b07bb05",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-034",
+  "params": {
+   "a": 12,
+   "step": "System.out.println(tags.add(new Tag(58)));",
+   "probe": "new Tag(58)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 1,
+   "flip": "false",
+   "stepwhy": "`add` returns `true` when the set contains no equal element, and `Tag(58)` does not equal `Tag(12)`",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(58)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(12)` and `Tag(58)` are not equal. `contains(new Tag(58))` is `true` because the set holds an equal element, and the set holds two elements.",
+   "steponly": "System.out.println(tags.add(new Tag(58)));"
+  },
+  "source_sha256": "2a2c94ad7838df3c7ad95da71bfc956e0baa3b3ad74ee3e8e895ab41a13dbd3a",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ae89329bc25b05d9f8d8176d3957c6cc48aeffcbed688d29e08edf4ec6661e22",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "a4c594e4e3abaf3690d1d24fa5476d209acfc2cefdaa25d9a381a7fa3d7184a0"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-035",
+  "params": {
+   "a": 3,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "first",
+   "hash": "",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()",
+   "ident": "true",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "an object has the same hash code each time and equals itself",
+   "why": "`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "955fdfb9f1facb5a05caf21ced895b993988eca0ad49608396356f13ef46d8b8",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   },
+   {
+    "mistake": "taking `contains` to be `false` for any element that was added",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-hashset-membership-036",
+  "params": {
+   "a": 40,
+   "step": "System.out.println(tags.add(first));",
+   "probe": "new Tag(40)",
+   "hash": "@Override\n        public int hashCode() {\n            return Objects.hash(code);\n        }",
+   "citation": "javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)",
+   "ident": "false",
+   "sizealt": 2,
+   "flip": "true",
+   "stepwhy": "`add` returns `false` when an equal element is present, and an object is equal to itself",
+   "lookupwhy": "the set holds a `Tag` equal to `Tag(40)` and `Tag` overrides `hashCode` consistently with `equals`",
+   "why": "`Tag` overrides `hashCode` consistently with `equals`. Adding `first` again returns `false` because the set already holds that object, `contains(new Tag(40))` is `true` because an equal element is present, and the set holds one element.",
+   "steponly": "System.out.println(tags.add(first));"
+  },
+  "source_sha256": "1496f743012a61c43eb16979b50fab240b31d4779008ec4987577d3959ad04d3",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dcfa5f3645af9efb0f4774f0e89462d5f5d42629c25e0b48661341eb0a079f43",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "taking `contains` to find only the identical object",
+    "stdout_sha256": "05a0d5c6e00e1f00ed6c1f9fd7dbb455a53871d3f303fd3262027a732b5add5e"
+   },
+   {
+    "mistake": "reading the size as the number of `add` calls",
+    "stdout_sha256": "8869370ec882dd8d9aff9d190fdfd8631298d3b253138c8aa685111f7d5194cf"
+   },
+   {
+    "mistake": "taking the step line to print the opposite boolean",
+    "stdout_sha256": "8d0291dd3e9e3f64978a7bd129aebfd17fb8817dc64afba6af6f7c0a37ef7949"
+   }
+  ]
+ }
+]

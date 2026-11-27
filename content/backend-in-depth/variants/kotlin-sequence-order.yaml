@@ -1,0 +1,82 @@
+exercise: m04-l02-ex-sequence-order
+lesson: m04-l02
+citation: kotlin-docs-sequences#sequence
+file: Main.kt
+prompt: What does this program print? The first line is the `log` of every `filter` and `map` call in order, the second the resulting list.
+difficulty: 3
+tags:
+- kotlin
+- sequences
+parameters:
+  nums:
+  - 3, 8, 5, 6, 9, 4
+  - 2, 7, 4, 9, 6, 1
+  - 5, 4, 7, 2, 8, 3
+  - 6, 1, 8, 3, 2, 5
+  - 1, 2, 3, 4, 5, 6
+  - 4, 9, 6, 7, 2, 8
+  n:
+  - 1
+  - 2
+  - 3
+cases:
+- via: ''
+  citation: kotlin-docs-sequences#iterable
+  why: A list runs `filter` for every element before `map` starts, so `map` runs only for the even numbers that are left. `take` then cuts the finished list, so it cannot remove any `filter` or `map` call from the log.
+- via: .asSequence()
+  citation: kotlin-docs-sequences#sequence
+  why: A sequence sends one element at a time through `filter` and `map`, and nothing runs until `toList()`. Once the result reaches the size that `take` asks for, the processing stops, so the remaining elements, if any, are never visited.
+template: |
+  fun main() {
+      val log = StringBuilder()
+      val result = listOf(@@nums@@)@@via@@
+          .filter { log.append("f$it "); it % 2 == 0 }
+          .map { log.append("m$it "); it * 10 }
+          .take(@@n@@)
+          .toList()
+      println(log.toString().trim())
+      println(result)
+  }
+explanation: '`filter` keeps the even numbers of `@@nums@@`, `map` multiplies each by `10` and `take(@@n@@)` limits the result. @@why@@ The first line is the log and the second the list, so the program prints @@key@@.'
+mistakes:
+- name: believing the list pipeline is lazy like a sequence
+  replace:
+  - |
+    listOf(@@nums@@)
+  - |
+    listOf(@@nums@@).asSequence()
+  why: A list runs `filter` for every element before `map` starts, and `take` cuts only the finished list.
+- name: believing the sequence runs `filter` over every element before `map`
+  replace:
+  - .asSequence()
+  - ''
+  why: A sequence sends one element at a time through `filter` and `map`, and the processing stops once the result reaches the size that `take` asks for.
+- name: putting `map` before `filter`
+  replace:
+  - |2
+            .filter { log.append("f$it "); it % 2 == 0 }
+            .map { log.append("m$it "); it * 10 }
+  - |2
+            .map { log.append("m$it "); it * 10 }
+            .filter { log.append("f$it "); it % 2 == 0 }
+  why: The pipeline calls `filter` first, so `map` receives only the even numbers.
+- name: using `drop` where `take` was needed
+  replace:
+  - .take(@@n@@)
+  - .drop(@@n@@)
+  why: '`take(@@n@@)` keeps the results up to a size of `@@n@@`, and `drop(@@n@@)` would skip that many instead.'
+- name: inverting the `filter` condition
+  replace:
+  - it % 2 == 0
+  - it % 2 != 0
+  why: '`filter` keeps the elements for which the lambda returns `true`, here the even numbers.'
+- name: taking one result too many from `take`
+  replace:
+  - .take(@@n@@)
+  - .take(@@n@@ + 1)
+  why: '`take(@@n@@)` limits the result to a size of `@@n@@`.'
+- name: ignoring the multiplication in `map`
+  replace:
+  - it * 10 }
+  - it }
+  why: '`map` returns `it * 10`, so each kept number is multiplied by `10`.'

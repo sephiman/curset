@@ -1,0 +1,1260 @@
+[
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-001",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 28,
+   "h": 12,
+   "mi": 0,
+   "call": "plusDays(1)",
+   "swapped": "plusHours(24)",
+   "citation": "javadoc-zoneddatetime#plusDays(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-03-28T12:00+01:00[Europe/Madrid]`. `plusDays(1)` works on the local time-line, so it adds 1 day to the local date-time `2026-03-28T12:00` and the zone rules then give the offset. The local date-time `2026-03-29T12:00` has offset `+02:00` in `Europe/Madrid`."
+  },
+  "source_sha256": "9854d96c7f338657a5b5eddf9535bdbc814602891455dfae9d2523d9e55ae51e",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "9937dd1d4a28afb6d43d1c8ec44c25353344e1abeff168e3d5d7085ee0ad590a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "8cf2287d9c65758c5806cfec2a5bd76f58ae463e09fe8f3331abd4b77cc874ac"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "520dcc84872879deb9f4258a05982027019f9719158ce9616de4930d8f1eaec6"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "b840047a6efdb06a61b98ab5b5213aecb364e81bfbab5ac363b5d97a5f54c715"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-002",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 28,
+   "h": 12,
+   "mi": 0,
+   "call": "plusHours(24)",
+   "swapped": "plusDays(1)",
+   "citation": "javadoc-zoneddatetime#plusHours(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-03-28T12:00+01:00[Europe/Madrid]`. `plusHours(24)` works on the instant time-line, so the result is exactly 24 hours after `2026-03-28T12:00+01:00[Europe/Madrid]`. The local date-time `2026-03-29T13:00` has offset `+02:00`, because the clocks changed in between."
+  },
+  "source_sha256": "18801acd2f1a1c47fde55917d62fe2ab6da01674ea6dc9c8435c9bc32e5b91bd",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8cf2287d9c65758c5806cfec2a5bd76f58ae463e09fe8f3331abd4b77cc874ac",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "9937dd1d4a28afb6d43d1c8ec44c25353344e1abeff168e3d5d7085ee0ad590a"
+   },
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "5ac3f0474882e71dab1576bcf2531c88e9accf99bf582e2d3fadcdd173436072"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "55f2f3956d41b2cde99bd468a3ac79d9cf19f0b1753bbb3c1fbac50d8a7a083b"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-003",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 28,
+   "h": 2,
+   "mi": 30,
+   "call": "plusDays(1)",
+   "swapped": "plusHours(24)",
+   "citation": "javadoc-zoneddatetime#plusDays(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-03-28T02:30+01:00[Europe/Madrid]`. `plusDays(1)` works on the local time-line, so it adds 1 day to the local date-time `2026-03-28T02:30` and the zone rules then give the offset. The local date-time `2026-03-29T02:30` falls in the gap, so it is adjusted forward by the length of the gap to `2026-03-29T03:30` with offset `+02:00`."
+  },
+  "source_sha256": "9cfa917be5306f68640c24f4153987d8b425c85cfef2a427a84904ae28eb1ec9",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6cef0df5a18e13de499367d2731488e190c91e71d3700e41d3765eccbd23a411",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "3e1a3daa5a0f2acdf588280f78d8bd7f6e606964a90019ee2583b96fe894ed08"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "46bc35c35dd28c2392e6cdcda30a5d3860f9b639428be3136e341edf0a1a8bfb"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "a559c9981e44c5715ed1b4a4170e513a0bf64e539c86a5279da0ec8a84c78213"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-004",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 27,
+   "h": 2,
+   "mi": 30,
+   "call": "plusDays(2)",
+   "swapped": "plusHours(48)",
+   "citation": "javadoc-zoneddatetime#plusDays(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-03-27T02:30+01:00[Europe/Madrid]`. `plusDays(2)` works on the local time-line, so it adds 2 days to the local date-time `2026-03-27T02:30` and the zone rules then give the offset. The local date-time `2026-03-29T02:30` falls in the gap, so it is adjusted forward by the length of the gap to `2026-03-29T03:30` with offset `+02:00`."
+  },
+  "source_sha256": "353e0be75455e5ca12943e76b88150fa76997d2985142a48b5c49569cf2a40ae",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "d036b4e55848f134e619b48d049ed52c4f4cbcad2a9d5f9797ba3083937519ef",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "3e50330c4af8985438c3b7dd109e1bde007d99a2c06019eec2c5f21ccecfa895"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "28d4d73017ea85e957da68b7aa8a86dec30928901d75b805806ad80e2317b1bf"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "6bdd70e0d8fc3ebe1e633b2ea1c715d93e1e6c19575a6f4eff907c70fa5825e4"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-005",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 22,
+   "h": 12,
+   "mi": 0,
+   "call": "plusWeeks(1)",
+   "swapped": "plusHours(168)",
+   "citation": "javadoc-zoneddatetime#plusWeeks(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-03-22T12:00+01:00[Europe/Madrid]`. `plusWeeks(1)` works on the local time-line, so it adds 1 week to the local date-time `2026-03-22T12:00` and the zone rules then give the offset. The local date-time `2026-03-29T12:00` has offset `+02:00` in `Europe/Madrid`."
+  },
+  "source_sha256": "8f2ab235889d9ef8e363c351eac0acac8f86c5ee33039bd38ae3a7b30e9f5483",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "2a6b7192299807d93238427bcaa0dbb6f82824df9e855b0203be1af7619c8507",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "c3bd06929a26d6a504b6d54c000b51d1db511470595c017e7fd929b7d51052d6"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "ce70021e706924b1d052df34fcbec535a5ab3c9edc5517cd3d96128c749bbc84"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "6b355d43c248dca11c0aaa52f2b8769c0ec01d38ec44272bf516301fae4ab319"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-006",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 27,
+   "h": 18,
+   "mi": 15,
+   "call": "plusDays(2)",
+   "swapped": "plusHours(48)",
+   "citation": "javadoc-zoneddatetime#plusDays(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-03-27T18:15+01:00[Europe/Madrid]`. `plusDays(2)` works on the local time-line, so it adds 2 days to the local date-time `2026-03-27T18:15` and the zone rules then give the offset. The local date-time `2026-03-29T18:15` has offset `+02:00` in `Europe/Madrid`."
+  },
+  "source_sha256": "e2ad8ecc37d4b9f032ff273844a00a69c971ed7c5693de1f09d9eb5b894e4741",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "39f0e535cc218464e53d4053a6fcb48dac232b8c73fa57d7b8c4776ef6ed2c12",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "17937d7e8caacf91df4d7f26cda2083a52547ace9e4262d409a59caec2a948a2"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "575621b400db31bbf6ee0cfa59ec00eae9b4be017f6d2b2953864a728c435368"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "15e8f8630b39eb465226eaf31ce917bbff6a9924436b4e36c49ed0e0ecca2a4a"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-007",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 28,
+   "h": 9,
+   "mi": 45,
+   "call": "plusHours(24)",
+   "swapped": "plusDays(1)",
+   "citation": "javadoc-zoneddatetime#plusHours(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-03-28T09:45+01:00[Europe/Madrid]`. `plusHours(24)` works on the instant time-line, so the result is exactly 24 hours after `2026-03-28T09:45+01:00[Europe/Madrid]`. The local date-time `2026-03-29T10:45` has offset `+02:00`, because the clocks changed in between."
+  },
+  "source_sha256": "b2050613734547fb8405aa9a637df1c095655b1ed0bf16dd3d36ad7642a335dd",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "590d7c7ff467972a46cbe0ae9d1e603bfc5855f7aaeaa5d3005b7e489bf9e75f",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "23e2bb45d940252cf1dfd000312bec6c9869105d1fff06e08d1cc0415d9d3baf"
+   },
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "87240bbc4e98bb4e2d038366499f74b16750ba87c8a01411596e94a951c8cdb4"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "12d1b17deb2dae317a7a28fd55b49f3a756e7caff2b52fa6a7efa703a265cc1a"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-008",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 27,
+   "h": 12,
+   "mi": 0,
+   "call": "plusHours(48)",
+   "swapped": "plusDays(2)",
+   "citation": "javadoc-zoneddatetime#plusHours(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-03-27T12:00+01:00[Europe/Madrid]`. `plusHours(48)` works on the instant time-line, so the result is exactly 48 hours after `2026-03-27T12:00+01:00[Europe/Madrid]`. The local date-time `2026-03-29T13:00` has offset `+02:00`, because the clocks changed in between."
+  },
+  "source_sha256": "8f2f5b5ed2a76ac0e6df1e7d3ff299907b60f35feb235f794de139c053fefa49",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "129b37141a13562afa965d35787ee72a11c57f7c7cd252ae179ec82bc49f9dda",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "86d79a5ba86ce4327b1f9ee481fd2a5bf25760a43cbd6a5e0d599159f36ddb33"
+   },
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "49553af3325562eb4ce276d00f8ba2f88a6fed590f6275537259021e79e4da2a"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "fa8d569b3bed85096e2409d863ba620321398f5906debfe345c4539eaa010e2e"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-009",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 22,
+   "h": 2,
+   "mi": 30,
+   "call": "plusWeeks(1)",
+   "swapped": "plusHours(168)",
+   "citation": "javadoc-zoneddatetime#plusWeeks(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-03-22T02:30+01:00[Europe/Madrid]`. `plusWeeks(1)` works on the local time-line, so it adds 1 week to the local date-time `2026-03-22T02:30` and the zone rules then give the offset. The local date-time `2026-03-29T02:30` falls in the gap, so it is adjusted forward by the length of the gap to `2026-03-29T03:30` with offset `+02:00`."
+  },
+  "source_sha256": "a3df780706cd5b1cc0e42316c710cf7ef6b7e0c7d154e166f62cd3b9a6ee5ab7",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "7c9b2a57935986f889faa2341974bdf661ca5ef9fb8de9fd59d397a70c9a82d8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "5b0c0a47cdd2b523c718fb7c4db361851bc36c1391b3c92085985fabee2711fd"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "c9534399b8647a98dd28e5e7ea5a8f430fc273f7e04845ec484ae7865210b245"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "62f3f2fccafad16c971ad169e01ae35302c9430f4c5cf1df9dee0f20f8f545a4"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-010",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 28,
+   "h": 23,
+   "mi": 0,
+   "call": "plusMinutes(1440)",
+   "swapped": "plusDays(1)",
+   "citation": "javadoc-zoneddatetime#plusMinutes(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-03-28T23:00+01:00[Europe/Madrid]`. `plusMinutes(1440)` works on the instant time-line, so the result is exactly 1440 minutes after `2026-03-28T23:00+01:00[Europe/Madrid]`. The local date-time `2026-03-30T00:00` has offset `+02:00`, because the clocks changed in between."
+  },
+  "source_sha256": "4837b5b3c90498933026cf78d0dfba8f6930d11bccdac3676d38ce0402c0b071",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "e4f7cd221b672f703fae5c119b7b5629190f8f95989a31efe32ec7ad72ad9159",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "2970e3ba55d5e73bd1ad8c709829badb7b8b1c7ea39ecb3b48ee46271624e415"
+   },
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "0cc8bbb5c8f30ef40843488f9b712fb1ca9c86abf224aacdbae7acefe351fb76"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "3faafc2aad4966da0056d2ee6054f4505dffcad0d3d3da428ad37d727c948f63"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-011",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 27,
+   "h": 1,
+   "mi": 30,
+   "call": "plusDays(3)",
+   "swapped": "plusHours(72)",
+   "citation": "javadoc-zoneddatetime#plusDays(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-03-27T01:30+01:00[Europe/Madrid]`. `plusDays(3)` works on the local time-line, so it adds 3 days to the local date-time `2026-03-27T01:30` and the zone rules then give the offset. The local date-time `2026-03-30T01:30` has offset `+02:00` in `Europe/Madrid`."
+  },
+  "source_sha256": "90d1627c3b1dadf9275445ed3dc5e08ee8d306fe28a0befae7e3188d16f5ee04",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8724aaef9042f43d6f50bf8e017ba0bed74ac38fbe182792075b15977ece24f9",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "1932b14055e7041651a2d4768dd95a1d5443edf62c78566b22ddd6047e979e67"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "e639093d94967c5377a6df1db606a2fc4a8e30c024e6abe9370da12a273c2bf6"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "6b779610f6a239b1361e1b18af195ab0f32b00919c7d317d75b7a0bbad1f4a59"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-012",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 15,
+   "h": 2,
+   "mi": 30,
+   "call": "plusWeeks(2)",
+   "swapped": "plusHours(336)",
+   "citation": "javadoc-zoneddatetime#plusWeeks(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-03-15T02:30+01:00[Europe/Madrid]`. `plusWeeks(2)` works on the local time-line, so it adds 2 weeks to the local date-time `2026-03-15T02:30` and the zone rules then give the offset. The local date-time `2026-03-29T02:30` falls in the gap, so it is adjusted forward by the length of the gap to `2026-03-29T03:30` with offset `+02:00`."
+  },
+  "source_sha256": "e19f55f8004ff8b0caeacaaec6801d37d45a4c9b8259aced3fbac5f93bcf881c",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "fb73f6ba0367d2d8491d852a9f933daa8a934e0bcac7deb85a645f14682ee966",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "3097df93a5306d3987a517234a55b3c9d4725fba34c80da8c63e1aeb31c7acb7"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "a5454697d64ebc67734fda82170b59664dbcfc9bd30385dbb268b51321f19b1a"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "63e2d4881ad3c64655c2a4d3b3c196f6ab663d9f62fb3623dc813e4ccb188286"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-013",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 24,
+   "h": 12,
+   "mi": 0,
+   "call": "plusDays(1)",
+   "swapped": "plusHours(24)",
+   "citation": "javadoc-zoneddatetime#plusDays(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-10-24T12:00+02:00[Europe/Madrid]`. `plusDays(1)` works on the local time-line, so it adds 1 day to the local date-time `2026-10-24T12:00` and the zone rules then give the offset. The local date-time `2026-10-25T12:00` has offset `+01:00` in `Europe/Madrid`."
+  },
+  "source_sha256": "46888378b1ec730e22ca735a4f2b4a89c7e86d5a37025d9f46df562709cf1ffc",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "2733166ded22103e164cb1aabeebf1f4ae4bfe0b9f17497bbe9ebc132f303ea5",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "77a222db4421c5d6af4f1a2ef069d64dd37669536de212fe86401de7451b7a21"
+   },
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "b3ef070fd9f3eb4aff54d9da91e5ad438f173e15f7012f731aac851a73501ab1"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "173d5c3729c9132a2984291964220da66c4d2811c864e60d3041035efca29408"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-014",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 24,
+   "h": 12,
+   "mi": 0,
+   "call": "plusHours(24)",
+   "swapped": "plusDays(1)",
+   "citation": "javadoc-zoneddatetime#plusHours(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-10-24T12:00+02:00[Europe/Madrid]`. `plusHours(24)` works on the instant time-line, so the result is exactly 24 hours after `2026-10-24T12:00+02:00[Europe/Madrid]`. The local date-time `2026-10-25T11:00` has offset `+01:00`, because the clocks changed in between."
+  },
+  "source_sha256": "26652fb0948b7640912663104b118851fcda37e313daa41cb760add0964391aa",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "77a222db4421c5d6af4f1a2ef069d64dd37669536de212fe86401de7451b7a21",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "2733166ded22103e164cb1aabeebf1f4ae4bfe0b9f17497bbe9ebc132f303ea5"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "4313d67b4ebbbd1d8173228873b2e34b838d3a0c36c7f2bb6ed37e8a38799135"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "6d9b0655e1de7b73b12076afa41c716b20d491a986febbd6c2b7fddc43807b71"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-015",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 18,
+   "h": 12,
+   "mi": 0,
+   "call": "plusWeeks(1)",
+   "swapped": "plusHours(168)",
+   "citation": "javadoc-zoneddatetime#plusWeeks(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-10-18T12:00+02:00[Europe/Madrid]`. `plusWeeks(1)` works on the local time-line, so it adds 1 week to the local date-time `2026-10-18T12:00` and the zone rules then give the offset. The local date-time `2026-10-25T12:00` has offset `+01:00` in `Europe/Madrid`."
+  },
+  "source_sha256": "6155c002241130adc4dac6f2421f1efd648242b3d190628c7085284fb2e5f1da",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "62d3d8aae85e5be5cde1b002b85dbed930b3a355ac59f223767ed810f629ca42",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "efccb92d8b182934e2cdb465c1e17c7fe04b93dda5aa157cec605e6b2a5d5390"
+   },
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "08a667c06f3abbad3bf95cf938cc4fa762fff0a5a90445707fcd2f6ef523d2c8"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "5cb887bceb344096a892a0c6a4efe4eea29780bd9189507eac819405bc92c42d"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-016",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 23,
+   "h": 18,
+   "mi": 15,
+   "call": "plusDays(2)",
+   "swapped": "plusHours(48)",
+   "citation": "javadoc-zoneddatetime#plusDays(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-10-23T18:15+02:00[Europe/Madrid]`. `plusDays(2)` works on the local time-line, so it adds 2 days to the local date-time `2026-10-23T18:15` and the zone rules then give the offset. The local date-time `2026-10-25T18:15` has offset `+01:00` in `Europe/Madrid`."
+  },
+  "source_sha256": "c2865c8d21c3f50c6dba70984315c23261224da75458bb1da31b944d9671ddcb",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "a7ae1636180d5db8af61cfea1520bdaf6cfa5ca7dbc35c064f526f0ced68dfaa",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "dcdca4183f2bfa237b71c3598f302e1ece43de409fab59cc2e98968e4532850e"
+   },
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "7d6781e2d83c14744ce5a35d5681bb0f57ceb0f5e6b2b4f360a4718b39724789"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "6fc618a3322f5657fb008764cc3c559d0c4e158ddbf8d9bec94f5a2f88a1bd1e"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-017",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 24,
+   "h": 9,
+   "mi": 45,
+   "call": "plusHours(24)",
+   "swapped": "plusDays(1)",
+   "citation": "javadoc-zoneddatetime#plusHours(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-10-24T09:45+02:00[Europe/Madrid]`. `plusHours(24)` works on the instant time-line, so the result is exactly 24 hours after `2026-10-24T09:45+02:00[Europe/Madrid]`. The local date-time `2026-10-25T08:45` has offset `+01:00`, because the clocks changed in between."
+  },
+  "source_sha256": "5d94bb99f79814bd2635810cc2354bed379f16e1dd4f8a1c960cdd4c0d316df1",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "b26c00ac0d169faa80d468c459d7a7129fde2abf7dabbec78c90d5255b648ca3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "0c3c977408c3002054019bcb2b70ca48ec9658bea5ec9832108d9fc57fa8ff89"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "3a34e52633a9df9d8da88511cc32c687e863063e066cb50a87f1606411ded94d"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "d6daebfc0b4b8a92762ea62aa2de7a7dec08a02d6db31b8834c0659b3843c6ab"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-018",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 23,
+   "h": 12,
+   "mi": 0,
+   "call": "plusHours(48)",
+   "swapped": "plusDays(2)",
+   "citation": "javadoc-zoneddatetime#plusHours(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-10-23T12:00+02:00[Europe/Madrid]`. `plusHours(48)` works on the instant time-line, so the result is exactly 48 hours after `2026-10-23T12:00+02:00[Europe/Madrid]`. The local date-time `2026-10-25T11:00` has offset `+01:00`, because the clocks changed in between."
+  },
+  "source_sha256": "232035f515f8a5ba4a5634e1f60b6bbdb34fe67bf053ab14f04ee70345b440e0",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "37677e99a655beac93671d12916baab72a675fb415fc8c398cbb4828f37a478a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "deee16dbf150235c9c9a4cb08adcf2a901b95ed36e67f5e8235481794a8db29b"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "246393583c033194c8d904f7e473c2b0a21081fcfa7c82f0bc49dd1262126792"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "774cc3177fa87a9f3c1b029ed0e56bc5da4267f861080fe07f01b2859bd98fcc"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-019",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 24,
+   "h": 23,
+   "mi": 0,
+   "call": "plusMinutes(1440)",
+   "swapped": "plusDays(1)",
+   "citation": "javadoc-zoneddatetime#plusMinutes(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-10-24T23:00+02:00[Europe/Madrid]`. `plusMinutes(1440)` works on the instant time-line, so the result is exactly 1440 minutes after `2026-10-24T23:00+02:00[Europe/Madrid]`. The local date-time `2026-10-25T22:00` has offset `+01:00`, because the clocks changed in between."
+  },
+  "source_sha256": "0f904931327a4690f47cd1d9a27d4e82e467bb73028f0c0d08fd48106b0ba5f8",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ee44665c74736edda4806adc104355fa95a3ddc9869c33ff46c744f8fd71ffd9",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "b183022393ffe0aaf874d872629770e2e7c1b1a7ba82e810356a3b071f1b52ce"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "dc2890a00fa3beea0f94590f86db67ce9096aeecc1047c46daa8c8d3c609d9d8"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "73bed313d0384821425b2cc668a6805a021125aaf7aa2105abdac9c88f34076c"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-020",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 24,
+   "h": 8,
+   "mi": 0,
+   "call": "plusDays(2)",
+   "swapped": "plusHours(48)",
+   "citation": "javadoc-zoneddatetime#plusDays(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-10-24T08:00+02:00[Europe/Madrid]`. `plusDays(2)` works on the local time-line, so it adds 2 days to the local date-time `2026-10-24T08:00` and the zone rules then give the offset. The local date-time `2026-10-26T08:00` has offset `+01:00` in `Europe/Madrid`."
+  },
+  "source_sha256": "c3bd9a3661d3a931ec1bfa0738fab85e1912f79fe709c83b3694b7eac17fdf70",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "95f664caf153028a42820f8cbd76df688be78431cc214604a6ae13ca4326782b",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "931aab4ebf197c8e585cabd76bf39f3faa4695dce200bb1e45dd34bb4ed9ab2e"
+   },
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "7d35f9e57b2623d0d9a6b6ac0d0bb87c805263d27ecede5a3c2df176b498c4cb"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "9d2fa3d5468f167a460995dc3ff6d1b2bd14c66b305c533c39286d752a7e1902"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-021",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 24,
+   "h": 20,
+   "mi": 0,
+   "call": "plusHours(24)",
+   "swapped": "plusDays(1)",
+   "citation": "javadoc-zoneddatetime#plusHours(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-10-24T20:00+02:00[Europe/Madrid]`. `plusHours(24)` works on the instant time-line, so the result is exactly 24 hours after `2026-10-24T20:00+02:00[Europe/Madrid]`. The local date-time `2026-10-25T19:00` has offset `+01:00`, because the clocks changed in between."
+  },
+  "source_sha256": "21a08d1bef33a045f3820b823316a28d71d7fa120854e9405a7f36410e64b6aa",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "75d1687e99b0fcd7cf35946382283048fe4b5a249b0debee2cec02803d966d73",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "d9b076c022d887752ef2b086ce643801b60951c1f280fd773e20b070a4755796"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "b0fb9af40460261aaa81acfe0d2419b7ee282f55c2cf129155dcc7237b6a3df1"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "0867f4801d69f1eda537ad2a828edfc9846714af1b5b48740a29e6d270ab1db2"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-022",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 28,
+   "h": 6,
+   "mi": 30,
+   "call": "plusDays(1)",
+   "swapped": "plusHours(24)",
+   "citation": "javadoc-zoneddatetime#plusDays(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-03-28T06:30+01:00[Europe/Madrid]`. `plusDays(1)` works on the local time-line, so it adds 1 day to the local date-time `2026-03-28T06:30` and the zone rules then give the offset. The local date-time `2026-03-29T06:30` has offset `+02:00` in `Europe/Madrid`."
+  },
+  "source_sha256": "dcf4472f3643fa69ac04d837480418244d9314521e07a699c04873fae5e123b2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "fbb3b45c8755d841385636300fcba23c71acb179e310b48496a536c9eae1d367",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "3491ff89dc2785ae5c209a4ac155b63cca5fe093f257f83e4e2808f400656c00"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "c85fa9022f2e56c1550ce41c8ede8e6ded7cb5dbc0a3dfe639da4dba3f3366d9"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "1461a2c30d76c756e2c8a1eee9a473b8bc0d61005118a5b90e083b91ec60bd33"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-023",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 28,
+   "h": 15,
+   "mi": 0,
+   "call": "plusHours(24)",
+   "swapped": "plusDays(1)",
+   "citation": "javadoc-zoneddatetime#plusHours(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-03-28T15:00+01:00[Europe/Madrid]`. `plusHours(24)` works on the instant time-line, so the result is exactly 24 hours after `2026-03-28T15:00+01:00[Europe/Madrid]`. The local date-time `2026-03-29T16:00` has offset `+02:00`, because the clocks changed in between."
+  },
+  "source_sha256": "c361c3a228025d0767900d18742be20539a4f3473561e07db11d0b91cb7248d7",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "e79b7b043c0f2d7f8f09692456f71a46ed1026ffde2a003448daf694c1e36c12",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "40ddf8a5abc5f855f9b168486c45f94212e377af20e3eea24ec55fb3d60c252e"
+   },
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "f590995ab229c522fca2a962c3765dd2a694ad00b238c501ed79c84ef38bf08f"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "038752910e2b7c10cd50c84dddf297587df3cfc8f0aa8eea59f4c032bac15892"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-024",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 24,
+   "h": 6,
+   "mi": 30,
+   "call": "plusDays(1)",
+   "swapped": "plusHours(24)",
+   "citation": "javadoc-zoneddatetime#plusDays(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-10-24T06:30+02:00[Europe/Madrid]`. `plusDays(1)` works on the local time-line, so it adds 1 day to the local date-time `2026-10-24T06:30` and the zone rules then give the offset. The local date-time `2026-10-25T06:30` has offset `+01:00` in `Europe/Madrid`."
+  },
+  "source_sha256": "ba94b81ab3cd0eec3335730277851992c7f0a0388b8bfff7d4408ddfbb88dd58",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "18722823309b5e33689376dafb21eeabee5391898b38fb3faf83b8a451c2cdfe",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "36a159094e5cfc8c161fbd841ab3f3f9ffe46405f4f34a1e611576063ee94432"
+   },
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "cbc26213fe87d5171df022a97ae5c52c884dae744cf9da164d992e94dc30aa90"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "80be7eb1d16333b07a5832bab62552584e2bab8f9ae37101350a9355100e41f3"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-025",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 24,
+   "h": 15,
+   "mi": 0,
+   "call": "plusHours(24)",
+   "swapped": "plusDays(1)",
+   "citation": "javadoc-zoneddatetime#plusHours(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-10-24T15:00+02:00[Europe/Madrid]`. `plusHours(24)` works on the instant time-line, so the result is exactly 24 hours after `2026-10-24T15:00+02:00[Europe/Madrid]`. The local date-time `2026-10-25T14:00` has offset `+01:00`, because the clocks changed in between."
+  },
+  "source_sha256": "cc761bf26cde2ae820a39551b0125a388b0934565bee57f31533c1ede42b9840",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "72c497027cf8bd0b0fd87e6edd49602aa7250ad139b55a7f13eafdbdeb7892bc",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "56a2cfd1d05cfa4c54e34a8cd7ab47f7ceeb640f3c8120dd22a4246693d92df5"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "a4c7577674815630c7feda38435acc2cc8ff29a6153512bcf112d3aa5767c8a1"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "04499366ca4b78e3541430f50bd4b8f4e8cd75ff3e0dbaf2e84fb6e60cf3335c"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-026",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 26,
+   "h": 12,
+   "mi": 0,
+   "call": "plusDays(3)",
+   "swapped": "plusHours(72)",
+   "citation": "javadoc-zoneddatetime#plusDays(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-03-26T12:00+01:00[Europe/Madrid]`. `plusDays(3)` works on the local time-line, so it adds 3 days to the local date-time `2026-03-26T12:00` and the zone rules then give the offset. The local date-time `2026-03-29T12:00` has offset `+02:00` in `Europe/Madrid`."
+  },
+  "source_sha256": "55d2581bbda4e8e1ce5725321afee3cc6f41f3be236ac40c326d92284a0e0322",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "f7bd3278258221d5380c0b31eceab04cb7e7ef779f23a3e3a0d031982c261450",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "8b50db669ab637f023fc9ecaa49f5d9325dbeff916eda701cf6cca043ee016eb"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "9af703f5e66a64eef7544b7c7af4c681b1208aa68ee3e302abf74e2bb9064b80"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "8edc2472f7062194a2d8acbd33e23f7ef37bd6b61258f7a806036bf7f7e060cb"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-027",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 26,
+   "h": 12,
+   "mi": 0,
+   "call": "plusHours(72)",
+   "swapped": "plusDays(3)",
+   "citation": "javadoc-zoneddatetime#plusHours(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-03-26T12:00+01:00[Europe/Madrid]`. `plusHours(72)` works on the instant time-line, so the result is exactly 72 hours after `2026-03-26T12:00+01:00[Europe/Madrid]`. The local date-time `2026-03-29T13:00` has offset `+02:00`, because the clocks changed in between."
+  },
+  "source_sha256": "656429bc3377c4ce4b255b8f486b093d05c285a6d7042ee63b3c063ab8293ea7",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8b50db669ab637f023fc9ecaa49f5d9325dbeff916eda701cf6cca043ee016eb",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "f7bd3278258221d5380c0b31eceab04cb7e7ef779f23a3e3a0d031982c261450"
+   },
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "a70b24072a70128b53132cc0da831c1aeb89cac006a768612a34df09385bc6d4"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "c769784834f9e563b24ecd131394dcc331da46a1aad4d20a17135fee8d60efe0"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-028",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 22,
+   "h": 12,
+   "mi": 0,
+   "call": "plusDays(3)",
+   "swapped": "plusHours(72)",
+   "citation": "javadoc-zoneddatetime#plusDays(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-10-22T12:00+02:00[Europe/Madrid]`. `plusDays(3)` works on the local time-line, so it adds 3 days to the local date-time `2026-10-22T12:00` and the zone rules then give the offset. The local date-time `2026-10-25T12:00` has offset `+01:00` in `Europe/Madrid`."
+  },
+  "source_sha256": "ed296bb73bfd031500a6912a247dd45ab67ec2651e4e8672c55bcb67ddd6992e",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "c20829cbefe1d3263e014b0ae638e5f66ee5a529d045b953cb75d8eabe1cb71d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "6d723a1e8995a20c00490a323f96d5570c373a2da92c2e850655e969b401b2d1"
+   },
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "b4bad4e5a7c65c2882d4652c3ff1b48914b9ed4a7ad14134b05891b809932456"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "9194882a275f567f13d4cc928cda84094d7054af39fb31b8aad5f79f52af1ef6"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-029",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 22,
+   "h": 12,
+   "mi": 0,
+   "call": "plusHours(72)",
+   "swapped": "plusDays(3)",
+   "citation": "javadoc-zoneddatetime#plusHours(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-10-22T12:00+02:00[Europe/Madrid]`. `plusHours(72)` works on the instant time-line, so the result is exactly 72 hours after `2026-10-22T12:00+02:00[Europe/Madrid]`. The local date-time `2026-10-25T11:00` has offset `+01:00`, because the clocks changed in between."
+  },
+  "source_sha256": "80f4be12ea1e7c5624c29c17fd7e7e02938661d553715e8324b4c7f2b432d335",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6d723a1e8995a20c00490a323f96d5570c373a2da92c2e850655e969b401b2d1",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "c20829cbefe1d3263e014b0ae638e5f66ee5a529d045b953cb75d8eabe1cb71d"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "fcdcabff1985b342cd350867c82d8a78525575fb19e18b4df4f305c975e360f4"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "93c68c4c0385b7ab6f7692e11f9844b399ac4f140c4bde4c152fa5c8be72e3e1"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-030",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 25,
+   "h": 2,
+   "mi": 30,
+   "call": "plusDays(4)",
+   "swapped": "plusHours(96)",
+   "citation": "javadoc-zoneddatetime#plusDays(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-03-25T02:30+01:00[Europe/Madrid]`. `plusDays(4)` works on the local time-line, so it adds 4 days to the local date-time `2026-03-25T02:30` and the zone rules then give the offset. The local date-time `2026-03-29T02:30` falls in the gap, so it is adjusted forward by the length of the gap to `2026-03-29T03:30` with offset `+02:00`."
+  },
+  "source_sha256": "890812f1297d3ae9c714919b19da45afeadac3576b351db15cdf44c52b017232",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "3f5071d8a51bce12c74eca49be81365f7b6fd081e528de677ca11ff47e88dc34",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "8dbbcc3740e80ec0dfc13ff6b465a59e5058acb67be97c20593f55334868ffb9"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "2435080718b55ad29961ceb48fc13ad4a4747946f68c1aad47f5710d2586cde3"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "f6b6b1f63218a0b3a6c56cff3f589be7ad9d2bdbd2b8cc203c7f14931df5ab10"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-031",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 23,
+   "h": 9,
+   "mi": 0,
+   "call": "plusWeeks(1)",
+   "swapped": "plusHours(168)",
+   "citation": "javadoc-zoneddatetime#plusWeeks(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-03-23T09:00+01:00[Europe/Madrid]`. `plusWeeks(1)` works on the local time-line, so it adds 1 week to the local date-time `2026-03-23T09:00` and the zone rules then give the offset. The local date-time `2026-03-30T09:00` has offset `+02:00` in `Europe/Madrid`."
+  },
+  "source_sha256": "96bd5626fab2295aa589137fd8dc413dee53091c05279a3ec1a38b3e1f5ad8b2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8eb3b13b35f43ce1146801bd114ad884a137dae9e516afc2b8316cda8081e4f2",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "57728053002d7927660af88a352756e60e1b5dc50195e5f39d94d91bb8bab813"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "04e5e60ce85c3c3770a33e471e85f63119f5bb599397e7a1f5f285f0321f4b5e"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "fa2ce127abfe4637ebc430e62fc4b84604623aa1843fc402fe1dd475f269389e"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-032",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 19,
+   "h": 9,
+   "mi": 0,
+   "call": "plusWeeks(1)",
+   "swapped": "plusHours(168)",
+   "citation": "javadoc-zoneddatetime#plusWeeks(long); javadoc-zoneddatetime#plusHours(long)",
+   "why": "The first line is the start, `2026-10-19T09:00+02:00[Europe/Madrid]`. `plusWeeks(1)` works on the local time-line, so it adds 1 week to the local date-time `2026-10-19T09:00` and the zone rules then give the offset. The local date-time `2026-10-26T09:00` has offset `+01:00` in `Europe/Madrid`."
+  },
+  "source_sha256": "0d82fe29b669b4216c1b5a6143d3250cfad7825e5146f9502440d43747484df5",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "e80b4b925784d088fd6c914a3974a2b9c3f8a0457d282a253f01466e2a8fcc29",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "17ef6eccc7f4a8d7f9e65d03a27fdee28e14188b6836f6c346ff30f0b97275e8"
+   },
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "e199e22bb77643b58b6fcfd339ade40e730181c95e7e53c2212266e300bec779"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "4be19043d5d972dcfdc89fb873c409d1a67bb776e5bc77361fdcbccad6c72c85"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-033",
+  "params": {
+   "y": 2026,
+   "mo": 3,
+   "d": 28,
+   "h": 4,
+   "mi": 0,
+   "call": "plusMinutes(1440)",
+   "swapped": "plusDays(1)",
+   "citation": "javadoc-zoneddatetime#plusMinutes(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-03-28T04:00+01:00[Europe/Madrid]`. `plusMinutes(1440)` works on the instant time-line, so the result is exactly 1440 minutes after `2026-03-28T04:00+01:00[Europe/Madrid]`. The local date-time `2026-03-29T05:00` has offset `+02:00`, because the clocks changed in between."
+  },
+  "source_sha256": "05853f11aed3c66dfdca9d13a9544aa0721b650c041634b263974471bad31c63",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "4a972e8ebdb03ff56ef9fdfa04b7f1cbe61fc6f2d546c7bdb87da865b6c023b4",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "70f13bd88238866321dd94eb4b90b9b1743c4a81d7b94e8c7563d58996eb547c"
+   },
+   {
+    "mistake": "adding one more hour to the result of `@@call@@`",
+    "stdout_sha256": "a8cb3d0e4bf007dcd547686cfd30b205dee0dc9970850aea1fb966366495d7ac"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "0b410f81745f5a5fc6f18246565e9f272ad5cd655860653e3a234d844081ad4f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-zone-change-arithmetic-034",
+  "params": {
+   "y": 2026,
+   "mo": 10,
+   "d": 24,
+   "h": 4,
+   "mi": 0,
+   "call": "plusMinutes(1440)",
+   "swapped": "plusDays(1)",
+   "citation": "javadoc-zoneddatetime#plusMinutes(long); javadoc-zoneddatetime#plusDays(long)",
+   "why": "The first line is the start, `2026-10-24T04:00+02:00[Europe/Madrid]`. `plusMinutes(1440)` works on the instant time-line, so the result is exactly 1440 minutes after `2026-10-24T04:00+02:00[Europe/Madrid]`. The local date-time `2026-10-25T03:00` has offset `+01:00`, because the clocks changed in between."
+  },
+  "source_sha256": "96fda2edafcd1213697f5bdf48db18884d1007959c0f34fd1b283b06da0dba82",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1013dbe65a8c4a9013021ba342baa977ef94ce10ee23a51a0e48221d0cbf66a8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "reading `@@call@@` as `@@swapped@@`",
+    "stdout_sha256": "370611a4b7e31d40e26932a787eed34f6c7c2f448b20b5f25ae95d5b32e5a7c6"
+   },
+   {
+    "mistake": "subtracting one hour from the result of `@@call@@`",
+    "stdout_sha256": "b709e538397ed87a63951cd7fe11ba65b2924ef63b0b9fa544270f771b0a356d"
+   },
+   {
+    "mistake": "keeping the starting offset on the result of `@@call@@`",
+    "stdout_sha256": "c45cae89e0cc27b7b6a111f4fe812bdb0a638a5113d30ca7bf789de7fd2b67da"
+   }
+  ]
+ }
+]

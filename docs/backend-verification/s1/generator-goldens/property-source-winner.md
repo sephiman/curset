@@ -1,4 +1,4 @@
-# Which property value wins (`property-source-winner`): 50 goldens
+# Property source precedence (`property-source-winner`): 50 goldens
 
 Generated items for the blind review (ambiguity, realism, key). Regenerate with `uv run python scripts/export_backend_goldens.py`.
 

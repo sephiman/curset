@@ -1,0 +1,474 @@
+exercise: m01-l01-ex-pattern-switch
+lesson: m01-l01
+citation: jep-441#Dominance-of-case-labels; jep-441#Case-refinement
+file: Main.java
+prompt: A pattern `switch` over `Object` runs on Java 25 with guarded and unguarded labels. What does this program print, line by line?
+difficulty: 2
+tags:
+- pattern-matching
+- switch
+parameters: {}
+cases:
+- limit: 20
+  len: 5
+  a: '18'
+  b: '30'
+  c: '"abcdef"'
+  d: '2.5'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(18)` matches `Integer`, but its guard `i > 20` is false, so the second `Integer` label applies. `describe(30)` matches `Integer` and its guard `i > 20` is true, so the first `Integer`
+    label applies. `describe("abcdef")` matches `String` and its guard `s.length() > 5` is true because the length is `6`, so the first `String` label applies. `describe(2.5)` passes a `Double`, which matches
+    neither `Integer` nor `String`, so only `default` applies.'
+- limit: 5
+  len: 2
+  a: '3'
+  b: '2'
+  c: '"ab"'
+  d: '"abcd"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(3)` matches `Integer`, but its guard `i > 5` is false, so the second `Integer` label applies. `describe(2)` matches `Integer`, but its guard `i > 5` is false, so the second `Integer` label
+    applies. `describe("ab")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies. `describe("abcd")` matches `String` and its guard
+    `s.length() > 2` is true because the length is `4`, so the first `String` label applies.'
+- limit: 3
+  len: 5
+  a: '13'
+  b: '1'
+  c: '"abcd"'
+  d: '"abcdef"'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(13)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(1)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label
+    applies. `describe("abcd")` matches `String`, but its guard `s.length() > 5` is false because the length is `4`, so the second `String` label applies. `describe("abcdef")` matches `String` and its guard
+    `s.length() > 5` is true because the length is `6`, so the first `String` label applies.'
+- limit: 5
+  len: 3
+  a: '6'
+  b: '7'
+  c: '"abcdef"'
+  d: '"id"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(6)` matches `Integer` and its guard `i > 5` is true, so the first `Integer` label applies. `describe(7)` matches `Integer` and its guard `i > 5` is true, so the first `Integer` label applies.
+    `describe("abcdef")` matches `String` and its guard `s.length() > 3` is true because the length is `6`, so the first `String` label applies. `describe("id")` matches `String`, but its guard `s.length()
+    > 3` is false because the length is `2`, so the second `String` label applies.'
+- limit: 5
+  len: 4
+  a: '3'
+  b: '6'
+  c: '"abcde"'
+  d: '2.5'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(3)` matches `Integer`, but its guard `i > 5` is false, so the second `Integer` label applies. `describe(6)` matches `Integer` and its guard `i > 5` is true, so the first `Integer` label
+    applies. `describe("abcde")` matches `String` and its guard `s.length() > 4` is true because the length is `5`, so the first `String` label applies. `describe(2.5)` passes a `Double`, which matches
+    neither `Integer` nor `String`, so only `default` applies.'
+- limit: 20
+  len: 2
+  a: '22'
+  b: '19'
+  c: '"ab"'
+  d: '"hello"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(22)` matches `Integer` and its guard `i > 20` is true, so the first `Integer` label applies. `describe(19)` matches `Integer`, but its guard `i > 20` is false, so the second `Integer`
+    label applies. `describe("ab")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies. `describe("hello")` matches `String` and its
+    guard `s.length() > 2` is true because the length is `5`, so the first `String` label applies.'
+- limit: 20
+  len: 2
+  a: '25'
+  b: '19'
+  c: '"ab"'
+  d: '"abc"'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(25)` matches `Integer` and its guard `i > 20` is true, so the first `Integer` label applies. `describe(19)` matches `Integer`, but its guard `i > 20` is false, so the second `Integer`
+    label applies. `describe("ab")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies. `describe("abc")` matches `String` and its
+    guard `s.length() > 2` is true because the length is `3`, so the first `String` label applies.'
+- limit: 3
+  len: 5
+  a: '1'
+  b: '0'
+  c: '"cart"'
+  d: '"abcdef"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(1)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(0)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label
+    applies. `describe("cart")` matches `String`, but its guard `s.length() > 5` is false because the length is `4`, so the second `String` label applies. `describe("abcdef")` matches `String` and its guard
+    `s.length() > 5` is true because the length is `6`, so the first `String` label applies.'
+- limit: 10
+  len: 4
+  a: '10'
+  b: '12'
+  c: '"abcde"'
+  d: '2.5'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(10)` matches `Integer`, but its guard `i > 10` is false, so the second `Integer` label applies. `describe(12)` matches `Integer` and its guard `i > 10` is true, so the first `Integer`
+    label applies. `describe("abcde")` matches `String` and its guard `s.length() > 4` is true because the length is `5`, so the first `String` label applies. `describe(2.5)` passes a `Double`, which matches
+    neither `Integer` nor `String`, so only `default` applies.'
+- limit: 3
+  len: 3
+  a: '4'
+  b: '5'
+  c: '"abcd"'
+  d: '"ab"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(4)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(5)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies.
+    `describe("abcd")` matches `String` and its guard `s.length() > 3` is true because the length is `4`, so the first `String` label applies. `describe("ab")` matches `String`, but its guard `s.length()
+    > 3` is false because the length is `2`, so the second `String` label applies.'
+- limit: 50
+  len: 3
+  a: '60'
+  b: '48'
+  c: '"cart"'
+  d: '"abc"'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(60)` matches `Integer` and its guard `i > 50` is true, so the first `Integer` label applies. `describe(48)` matches `Integer`, but its guard `i > 50` is false, so the second `Integer`
+    label applies. `describe("cart")` matches `String` and its guard `s.length() > 3` is true because the length is `4`, so the first `String` label applies. `describe("abc")` matches `String`, but its
+    guard `s.length() > 3` is false because the length is `3`, so the second `String` label applies.'
+- limit: 20
+  len: 2
+  a: '25'
+  b: '26'
+  c: '"ab"'
+  d: '"abc"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(25)` matches `Integer` and its guard `i > 20` is true, so the first `Integer` label applies. `describe(26)` matches `Integer` and its guard `i > 20` is true, so the first `Integer` label
+    applies. `describe("ab")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies. `describe("abc")` matches `String` and its guard
+    `s.length() > 2` is true because the length is `3`, so the first `String` label applies.'
+- limit: 50
+  len: 4
+  a: '51'
+  b: '50'
+  c: '"abc"'
+  d: '"ledger"'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(51)` matches `Integer` and its guard `i > 50` is true, so the first `Integer` label applies. `describe(50)` matches `Integer`, but its guard `i > 50` is false, so the second `Integer`
+    label applies. `describe("abc")` matches `String`, but its guard `s.length() > 4` is false because the length is `3`, so the second `String` label applies. `describe("ledger")` matches `String` and
+    its guard `s.length() > 4` is true because the length is `6`, so the first `String` label applies.'
+- limit: 5
+  len: 3
+  a: '7'
+  b: '8'
+  c: '"ledger"'
+  d: '"ab"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(7)` matches `Integer` and its guard `i > 5` is true, so the first `Integer` label applies. `describe(8)` matches `Integer` and its guard `i > 5` is true, so the first `Integer` label applies.
+    `describe("ledger")` matches `String` and its guard `s.length() > 3` is true because the length is `6`, so the first `String` label applies. `describe("ab")` matches `String`, but its guard `s.length()
+    > 3` is false because the length is `2`, so the second `String` label applies.'
+- limit: 3
+  len: 2
+  a: '13'
+  b: '3'
+  c: '"ab"'
+  d: '2.5'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(13)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(3)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label
+    applies. `describe("ab")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies. `describe(2.5)` passes a `Double`, which matches
+    neither `Integer` nor `String`, so only `default` applies.'
+- limit: 20
+  len: 3
+  a: '17'
+  b: '25'
+  c: '"hello"'
+  d: '"abc"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(17)` matches `Integer`, but its guard `i > 20` is false, so the second `Integer` label applies. `describe(25)` matches `Integer` and its guard `i > 20` is true, so the first `Integer`
+    label applies. `describe("hello")` matches `String` and its guard `s.length() > 3` is true because the length is `5`, so the first `String` label applies. `describe("abc")` matches `String`, but its
+    guard `s.length() > 3` is false because the length is `3`, so the second `String` label applies.'
+- limit: 5
+  len: 3
+  a: '5'
+  b: '6'
+  c: '"cart"'
+  d: '2.5'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(5)` matches `Integer`, but its guard `i > 5` is false, so the second `Integer` label applies. `describe(6)` matches `Integer` and its guard `i > 5` is true, so the first `Integer` label
+    applies. `describe("cart")` matches `String` and its guard `s.length() > 3` is true because the length is `4`, so the first `String` label applies. `describe(2.5)` passes a `Double`, which matches neither
+    `Integer` nor `String`, so only `default` applies.'
+- limit: 50
+  len: 2
+  a: '48'
+  b: '51'
+  c: '"abcd"'
+  d: '"ab"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(48)` matches `Integer`, but its guard `i > 50` is false, so the second `Integer` label applies. `describe(51)` matches `Integer` and its guard `i > 50` is true, so the first `Integer`
+    label applies. `describe("abcd")` matches `String` and its guard `s.length() > 2` is true because the length is `4`, so the first `String` label applies. `describe("ab")` matches `String`, but its guard
+    `s.length() > 2` is false because the length is `2`, so the second `String` label applies.'
+- limit: 100
+  len: 5
+  a: '99'
+  b: '105'
+  c: '"ledger"'
+  d: '"id"'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(99)` matches `Integer`, but its guard `i > 100` is false, so the second `Integer` label applies. `describe(105)` matches `Integer` and its guard `i > 100` is true, so the first `Integer`
+    label applies. `describe("ledger")` matches `String` and its guard `s.length() > 5` is true because the length is `6`, so the first `String` label applies. `describe("id")` matches `String`, but its
+    guard `s.length() > 5` is false because the length is `2`, so the second `String` label applies.'
+- limit: 3
+  len: 3
+  a: '3'
+  b: '8'
+  c: '"abcdef"'
+  d: '"ab"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(3)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(8)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label
+    applies. `describe("abcdef")` matches `String` and its guard `s.length() > 3` is true because the length is `6`, so the first `String` label applies. `describe("ab")` matches `String`, but its guard
+    `s.length() > 3` is false because the length is `2`, so the second `String` label applies.'
+- limit: 3
+  len: 2
+  a: '8'
+  b: '2'
+  c: '"id"'
+  d: '"abcdef"'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(8)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(2)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label
+    applies. `describe("id")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies. `describe("abcdef")` matches `String` and its guard
+    `s.length() > 2` is true because the length is `6`, so the first `String` label applies.'
+- limit: 10
+  len: 4
+  a: '21'
+  b: '20'
+  c: '"abcde"'
+  d: '"abc"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(21)` matches `Integer` and its guard `i > 10` is true, so the first `Integer` label applies. `describe(20)` matches `Integer` and its guard `i > 10` is true, so the first `Integer` label
+    applies. `describe("abcde")` matches `String` and its guard `s.length() > 4` is true because the length is `5`, so the first `String` label applies. `describe("abc")` matches `String`, but its guard
+    `s.length() > 4` is false because the length is `3`, so the second `String` label applies.'
+- limit: 10
+  len: 3
+  a: '7'
+  b: '11'
+  c: '"ab"'
+  d: '2.5'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(7)` matches `Integer`, but its guard `i > 10` is false, so the second `Integer` label applies. `describe(11)` matches `Integer` and its guard `i > 10` is true, so the first `Integer` label
+    applies. `describe("ab")` matches `String`, but its guard `s.length() > 3` is false because the length is `2`, so the second `String` label applies. `describe(2.5)` passes a `Double`, which matches
+    neither `Integer` nor `String`, so only `default` applies.'
+- limit: 3
+  len: 2
+  a: '-1'
+  b: '0'
+  c: '"abcd"'
+  d: '"id"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(-1)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(0)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer`
+    label applies. `describe("abcd")` matches `String` and its guard `s.length() > 2` is true because the length is `4`, so the first `String` label applies. `describe("id")` matches `String`, but its guard
+    `s.length() > 2` is false because the length is `2`, so the second `String` label applies.'
+- limit: 3
+  len: 2
+  a: '1'
+  b: '13'
+  c: '"abc"'
+  d: '"id"'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(1)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(13)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label
+    applies. `describe("abc")` matches `String` and its guard `s.length() > 2` is true because the length is `3`, so the first `String` label applies. `describe("id")` matches `String`, but its guard `s.length()
+    > 2` is false because the length is `2`, so the second `String` label applies.'
+- limit: 10
+  len: 4
+  a: '10'
+  b: '15'
+  c: '"ab"'
+  d: '"ledger"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(10)` matches `Integer`, but its guard `i > 10` is false, so the second `Integer` label applies. `describe(15)` matches `Integer` and its guard `i > 10` is true, so the first `Integer`
+    label applies. `describe("ab")` matches `String`, but its guard `s.length() > 4` is false because the length is `2`, so the second `String` label applies. `describe("ledger")` matches `String` and its
+    guard `s.length() > 4` is true because the length is `6`, so the first `String` label applies.'
+- limit: 50
+  len: 5
+  a: '60'
+  b: '48'
+  c: '"ab"'
+  d: '"abcdef"'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(60)` matches `Integer` and its guard `i > 50` is true, so the first `Integer` label applies. `describe(48)` matches `Integer`, but its guard `i > 50` is false, so the second `Integer`
+    label applies. `describe("ab")` matches `String`, but its guard `s.length() > 5` is false because the length is `2`, so the second `String` label applies. `describe("abcdef")` matches `String` and its
+    guard `s.length() > 5` is true because the length is `6`, so the first `String` label applies.'
+- limit: 3
+  len: 4
+  a: '6'
+  b: '5'
+  c: '"pay"'
+  d: '"ledger"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(6)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(5)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies.
+    `describe("pay")` matches `String`, but its guard `s.length() > 4` is false because the length is `3`, so the second `String` label applies. `describe("ledger")` matches `String` and its guard `s.length()
+    > 4` is true because the length is `6`, so the first `String` label applies.'
+- limit: 50
+  len: 2
+  a: '60'
+  b: '49'
+  c: '"ab"'
+  d: '"cart"'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(60)` matches `Integer` and its guard `i > 50` is true, so the first `Integer` label applies. `describe(49)` matches `Integer`, but its guard `i > 50` is false, so the second `Integer`
+    label applies. `describe("ab")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies. `describe("cart")` matches `String` and its
+    guard `s.length() > 2` is true because the length is `4`, so the first `String` label applies.'
+- limit: 100
+  len: 2
+  a: '110'
+  b: '98'
+  c: '"hello"'
+  d: '"id"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(110)` matches `Integer` and its guard `i > 100` is true, so the first `Integer` label applies. `describe(98)` matches `Integer`, but its guard `i > 100` is false, so the second `Integer`
+    label applies. `describe("hello")` matches `String` and its guard `s.length() > 2` is true because the length is `5`, so the first `String` label applies. `describe("id")` matches `String`, but its
+    guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies.'
+- limit: 50
+  len: 3
+  a: '51'
+  b: '47'
+  c: '"cart"'
+  d: '2.5'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(51)` matches `Integer` and its guard `i > 50` is true, so the first `Integer` label applies. `describe(47)` matches `Integer`, but its guard `i > 50` is false, so the second `Integer`
+    label applies. `describe("cart")` matches `String` and its guard `s.length() > 3` is true because the length is `4`, so the first `String` label applies. `describe(2.5)` passes a `Double`, which matches
+    neither `Integer` nor `String`, so only `default` applies.'
+- limit: 5
+  len: 4
+  a: '3'
+  b: '7'
+  c: '"ledger"'
+  d: '"abc"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(3)` matches `Integer`, but its guard `i > 5` is false, so the second `Integer` label applies. `describe(7)` matches `Integer` and its guard `i > 5` is true, so the first `Integer` label
+    applies. `describe("ledger")` matches `String` and its guard `s.length() > 4` is true because the length is `6`, so the first `String` label applies. `describe("abc")` matches `String`, but its guard
+    `s.length() > 4` is false because the length is `3`, so the second `String` label applies.'
+- limit: 50
+  len: 4
+  a: '50'
+  b: '51'
+  c: '"abc"'
+  d: '2.5'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(50)` matches `Integer`, but its guard `i > 50` is false, so the second `Integer` label applies. `describe(51)` matches `Integer` and its guard `i > 50` is true, so the first `Integer`
+    label applies. `describe("abc")` matches `String`, but its guard `s.length() > 4` is false because the length is `3`, so the second `String` label applies. `describe(2.5)` passes a `Double`, which matches
+    neither `Integer` nor `String`, so only `default` applies.'
+- limit: 3
+  len: 2
+  a: '5'
+  b: '4'
+  c: '"cart"'
+  d: '"ab"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(5)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(4)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies.
+    `describe("cart")` matches `String` and its guard `s.length() > 2` is true because the length is `4`, so the first `String` label applies. `describe("ab")` matches `String`, but its guard `s.length()
+    > 2` is false because the length is `2`, so the second `String` label applies.'
+- limit: 20
+  len: 5
+  a: '25'
+  b: '17'
+  c: '"pay"'
+  d: '2.5'
+  ifocus: Integer
+  sfocus: §
+  why: '`describe(25)` matches `Integer` and its guard `i > 20` is true, so the first `Integer` label applies. `describe(17)` matches `Integer`, but its guard `i > 20` is false, so the second `Integer`
+    label applies. `describe("pay")` matches `String`, but its guard `s.length() > 5` is false because the length is `3`, so the second `String` label applies. `describe(2.5)` passes a `Double`, which matches
+    neither `Integer` nor `String`, so only `default` applies.'
+- limit: 3
+  len: 4
+  a: '-1'
+  b: '0'
+  c: '"id"'
+  d: '"hello"'
+  ifocus: §
+  sfocus: String
+  why: '`describe(-1)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(0)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer`
+    label applies. `describe("id")` matches `String`, but its guard `s.length() > 4` is false because the length is `2`, so the second `String` label applies. `describe("hello")` matches `String` and its
+    guard `s.length() > 4` is true because the length is `5`, so the first `String` label applies.'
+template: |
+  public class Main {
+      static String describe(Object o) {
+          return switch (o) {
+              case Integer i when i > @@limit@@ -> "big " + i;
+              case Integer i -> "int " + i;
+              case String s when s.length() > @@len@@ -> "long " + s;
+              case String s -> "text " + s;
+              default -> "other";
+          };
+      }
+
+      public static void main(String[] args) {
+          System.out.println(describe(@@a@@));
+          System.out.println(describe(@@b@@));
+          System.out.println(describe(@@c@@));
+          System.out.println(describe(@@d@@));
+      }
+  }
+explanation: A pattern `switch` chooses the first case label that applies to the value, and a label with a `when` guard applies only while its guard is true. @@why@@ The program prints @@key@@.
+mistakes:
+- name: ignoring the `Integer` guard, so the first `Integer` label always wins
+  replace:
+  - |-
+    case @@ifocus@@ i when i > @@limit@@ -> "big " + i;
+                case Integer i -> "int " + i;
+  - case Integer i -> "big " + i;
+  why: A guard refines its pattern, so the first `Integer` label does not apply to an `Integer` that fails `i > @@limit@@`.
+- name: reading the `Integer` guard `i > @@limit@@` as its opposite
+  replace:
+  - '@@ifocus@@ i when i > @@limit@@'
+  - Integer i when i <= @@limit@@
+  why: The guard `i > @@limit@@` is true for values above `@@limit@@` only, and a label applies only while its guard is true.
+- name: sending an `Integer` that fails its guard to `default`
+  replace:
+  - |2
+                case @@ifocus@@ i -> "int " + i;
+  - ''
+  why: A failed guard only skips that label, and the next label that applies is chosen, here the unguarded `Integer` label before `default`.
+- name: reading `i > @@limit@@` as `i >= @@limit@@`
+  replace:
+  - '@@ifocus@@ i when i > @@limit@@'
+  - Integer i when i >= @@limit@@
+  why: The guard `i > @@limit@@` is false for exactly `@@limit@@`, so such an `Integer` reaches the second `Integer` label.
+- name: ignoring the `String` guard, so the first `String` label always wins
+  replace:
+  - |-
+    case @@sfocus@@ s when s.length() > @@len@@ -> "long " + s;
+                case String s -> "text " + s;
+  - case String s -> "long " + s;
+  why: A guard refines its pattern, so the first `String` label does not apply to a `String` that fails `s.length() > @@len@@`.
+- name: reading the `String` guard `s.length() > @@len@@` as its opposite
+  replace:
+  - '@@sfocus@@ s when s.length() > @@len@@'
+  - String s when s.length() <= @@len@@
+  why: The guard `s.length() > @@len@@` is true for longer strings only, and a label applies only while its guard is true.
+- name: sending a `String` that fails its guard to `default`
+  replace:
+  - |2
+                case @@sfocus@@ s -> "text " + s;
+  - ''
+  why: A failed guard only skips that label, and the next label that applies is chosen, here the unguarded `String` label before `default`.
+- name: reading `s.length() > @@len@@` as `s.length() >= @@len@@`
+  replace:
+  - '@@sfocus@@ s when s.length() > @@len@@'
+  - String s when s.length() >= @@len@@
+  why: The guard `s.length() > @@len@@` is false for a length of exactly `@@len@@`, so such a `String` reaches the second `String` label.

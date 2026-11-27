@@ -1,0 +1,1478 @@
+[
+ {
+  "id": "m11-l02-v-integer-overflow-001",
+  "params": {
+   "op": "addExact",
+   "sym": "+",
+   "other": "subtractExact",
+   "plain": "(x + y)",
+   "wide": "((long) x + y)",
+   "citation": "javadoc-math#addExact(int,int)",
+   "why": "`2147483647 + 3` is `2147483650`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 3)` returns `overflow`. `2000000000 + -460` is `1999999540`, which fits in an `int`, so `exact(2000000000, -460)` returns it as text. `2147483647 + 2` is `2147483649`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 2)` returns `overflow`.",
+   "a1": 2147483647,
+   "b1": 3,
+   "a2": 2000000000,
+   "b2": -460,
+   "a3": 2147483647,
+   "b3": 2
+  },
+  "source_sha256": "9c0a530e0c85eab5f9fb7862708d17473d9c747b691559693673d9c2e1aeb7c2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "f0c6582e5a624420bdc56a1d9b76382b0d00e1f12dd226a692e4d4692f5e8c9f",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "64647ac2a265f126113e56c8e433aeae89a71d8d6f537376d3455fcf17967c29"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "d6e2811704895ba0b2bf891221e7d86e39f79ba67c9f8c2269c5d5f151d49b73"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "39e1456df90653a4de3227fe78277e17fbabc7595c97f3df5b675c2773624ee9"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-002",
+  "params": {
+   "op": "addExact",
+   "sym": "+",
+   "other": "subtractExact",
+   "plain": "(x + y)",
+   "wide": "((long) x + y)",
+   "citation": "javadoc-math#addExact(int,int)",
+   "why": "`-2088165818 + -370306017` is `-2458471835`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(-2088165818, -370306017)` returns `overflow`. `471 + 100` is `571`, which fits in an `int`, so `exact(471, 100)` returns it as text. `2147483647 + 905086272` is `3052569919`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 905086272)` returns `overflow`.",
+   "a1": -2088165818,
+   "b1": -370306017,
+   "a2": 471,
+   "b2": 100,
+   "a3": 2147483647,
+   "b3": 905086272
+  },
+  "source_sha256": "49d478cabe12fe4d5f6ae5dfd5852edd56474a08e62d5d74c95eca0d1082d913",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "506a7f5af35d29f47d8101a263fd787caee61eea9153e5938050e300b0580c83",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "5605bd619ebe40e3bead687755834091f4c778b8851351ecda120ff481f67192"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "9d634382ee0da30fc3fb10de2805ee7179ed028597eff29edc20a1a20a852800"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "d293ed6fa6b321eff7f009bf421f084dce7e59a6a8acae5f600307f521d60e2b"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-003",
+  "params": {
+   "op": "addExact",
+   "sym": "+",
+   "other": "subtractExact",
+   "plain": "(x + y)",
+   "wide": "((long) x + y)",
+   "citation": "javadoc-math#addExact(int,int)",
+   "why": "`1000 + -100` is `900`, which fits in an `int`, so `exact(1000, -100)` returns it as text. `-2000000000 + 5000` is `-1999995000`, which fits in an `int`, so `exact(-2000000000, 5000)` returns it as text. `-2147483648 + -332469076` is `-2479952724`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(-2147483648, -332469076)` returns `overflow`.",
+   "a1": 1000,
+   "b1": -100,
+   "a2": -2000000000,
+   "b2": 5000,
+   "a3": -2147483648,
+   "b3": -332469076
+  },
+  "source_sha256": "15ab5e097dccee773fa25ebe71bee27015511559f154443b10e964f2e46b88aa",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "a675511f157bd6ead5c1c0bc845c2427da1861a127e077eb084a69d9953b1201",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "72035b048d03d91d3b1e36e14102afe8421e64c34f8afc953d2b4e45f4ae0db9"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "e3d5af7711c075a42e7cad7346aa151d42dd228a33536f7b3be4e2c6942f292b"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "a917b093b38f94b798ad96db212c6485146eb3cdd1edf27eb7e5d3842ee03384"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-004",
+  "params": {
+   "op": "addExact",
+   "sym": "+",
+   "other": "subtractExact",
+   "plain": "(x + y)",
+   "wide": "((long) x + y)",
+   "citation": "javadoc-math#addExact(int,int)",
+   "why": "`2147483647 + 70000` is `2147553647`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 70000)` returns `overflow`. `2147483647 + 0` is `2147483647`, which fits in an `int`, so `exact(2147483647, 0)` returns it as text. `-729 + -100` is `-829`, which fits in an `int`, so `exact(-729, -100)` returns it as text.",
+   "a1": 2147483647,
+   "b1": 70000,
+   "a2": 2147483647,
+   "b2": 0,
+   "a3": -729,
+   "b3": -100
+  },
+  "source_sha256": "d49c34d914a2c94ab4a94e37f91e5c6552b094818a76f52748bd33ab87ef6469",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "5a0c24f1f66df8316dd723d3baf3fe45f04b700eb1bcbd0dd4152c2495f440bc",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "f903a5f29c1e2a97a9a2c180bdd419416834b3f4375ce9bfc2d27b74a2494adb"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "6e23841648fb00e1764467c8d0a6c64b09622e83930654df5d8b7148a14a387d"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "eff58e09353f2c9eed51b11d7ee174f8d80cc6fd2f3685d27732c4283e22b0b3"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-005",
+  "params": {
+   "op": "addExact",
+   "sym": "+",
+   "other": "subtractExact",
+   "plain": "(x + y)",
+   "wide": "((long) x + y)",
+   "citation": "javadoc-math#addExact(int,int)",
+   "why": "`2000000000 + 46341` is `2000046341`, which fits in an `int`, so `exact(2000000000, 46341)` returns it as text. `2147483647 + 561355217` is `2708838864`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 561355217)` returns `overflow`. `2147483647 + 3` is `2147483650`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 3)` returns `overflow`.",
+   "a1": 2000000000,
+   "b1": 46341,
+   "a2": 2147483647,
+   "b2": 561355217,
+   "a3": 2147483647,
+   "b3": 3
+  },
+  "source_sha256": "9b1b1bb14090ed3d81b715aec77a5e11f9bf89795e84021723338f878b72a2bd",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6028cd33576b73f52f9f6d60958d72fc39a7a303f6ee1dab6e5dd6fcde92fbb3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "ee547021b4d677315f2e34629407afa980ec8e12bff75864d27a3e3a27a09ebb"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "8e6f6fa898d8d710056f69359f3d2f76c9e740b759559e39fd178a142a273603"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "c24caeedfbdb155441a96489f0581af44d4bb37e50b4ad3a0f8c78b077ec251d"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-006",
+  "params": {
+   "op": "addExact",
+   "sym": "+",
+   "other": "subtractExact",
+   "plain": "(x + y)",
+   "wide": "((long) x + y)",
+   "citation": "javadoc-math#addExact(int,int)",
+   "why": "`46340 + 1` is `46341`, which fits in an `int`, so `exact(46340, 1)` returns it as text. `-2147483648 + -362224996` is `-2509708644`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(-2147483648, -362224996)` returns `overflow`. `-2000000000 + 5000` is `-1999995000`, which fits in an `int`, so `exact(-2000000000, 5000)` returns it as text.",
+   "a1": 46340,
+   "b1": 1,
+   "a2": -2147483648,
+   "b2": -362224996,
+   "a3": -2000000000,
+   "b3": 5000
+  },
+  "source_sha256": "65b1e8dc5069b45d95d51b3add489140d95fce5f596d25547effe1e6cca423af",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "d8b23ad0fef764ab3f0c0424c40628166ca34913c7e9852396c930b183d5c06c",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "2d78217a98cedced383b767075dad28870158d445f61acfb69735984196a1db8"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "5f6d89dd345715c08f0384edeb571465c4d32b742c0d0639d27431224d64252e"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "a93ecb8718a213baed55d9dd7c8d524280893459de3f25b913eb7a0a61644c36"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-007",
+  "params": {
+   "op": "addExact",
+   "sym": "+",
+   "other": "subtractExact",
+   "plain": "(x + y)",
+   "wide": "((long) x + y)",
+   "citation": "javadoc-math#addExact(int,int)",
+   "why": "`2147483647 + 100000` is `2147583647`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 100000)` returns `overflow`. `-1712816801 + -473835213` is `-2186652014`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(-1712816801, -473835213)` returns `overflow`. `-2000000000 + 924` is `-1999999076`, which fits in an `int`, so `exact(-2000000000, 924)` returns it as text.",
+   "a1": 2147483647,
+   "b1": 100000,
+   "a2": -1712816801,
+   "b2": -473835213,
+   "a3": -2000000000,
+   "b3": 924
+  },
+  "source_sha256": "326acd7c6eb2b76a553752b9787b61e8f9a76aa68c769830c11961bff8cbe948",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1047b6e0ac5b4af39694f06f43fb0f85d3459f761ff63c70408d20dd5de7319a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "a15ea91f01f78298930ca595501fbfd17d61e27a66c9848cd1916ebf5acbce57"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "c5d1f11066610eacdd91fd9cbcadebbf7bc4a56da0a2a34e19171bd5202b4570"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "44092a978fdeaea4500a7f401dc9c526b3e8e289ed3e3add1199efd5cb986169"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-008",
+  "params": {
+   "op": "addExact",
+   "sym": "+",
+   "other": "subtractExact",
+   "plain": "(x + y)",
+   "wide": "((long) x + y)",
+   "citation": "javadoc-math#addExact(int,int)",
+   "why": "`46340 + -100` is `46240`, which fits in an `int`, so `exact(46340, -100)` returns it as text. `2147483647 + 3` is `2147483650`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 3)` returns `overflow`. `-2000000000 + 813` is `-1999999187`, which fits in an `int`, so `exact(-2000000000, 813)` returns it as text.",
+   "a1": 46340,
+   "b1": -100,
+   "a2": 2147483647,
+   "b2": 3,
+   "a3": -2000000000,
+   "b3": 813
+  },
+  "source_sha256": "8739b75eaa74fc05f696578e17bc2f9c78efe8e246293a99d81cbd833f242108",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "df2bd7b9d1dfacfdaa1c306fce62b151cc0f19a0dd79e95810265df9cd4837df",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "f7a4d3d7711adf04af8aeef649a0d0410fadf06185d425f69f77bf239f15ee5e"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "0410d76aeb93db01c96555db9d12fba0f87d29bce95517b3b9cf53ce21bc8962"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "78e2bd4afb9bef5680a62d64dd1866b02be36f89dd65ad93bcee6481fb42e968"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-009",
+  "params": {
+   "op": "addExact",
+   "sym": "+",
+   "other": "subtractExact",
+   "plain": "(x + y)",
+   "wide": "((long) x + y)",
+   "citation": "javadoc-math#addExact(int,int)",
+   "why": "`-2000000000 + -100` is `-2000000100`, which fits in an `int`, so `exact(-2000000000, -100)` returns it as text. `2147483647 + 348138670` is `2495622317`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 348138670)` returns `overflow`. `-267 + 0` is `-267`, which fits in an `int`, so `exact(-267, 0)` returns it as text.",
+   "a1": -2000000000,
+   "b1": -100,
+   "a2": 2147483647,
+   "b2": 348138670,
+   "a3": -267,
+   "b3": 0
+  },
+  "source_sha256": "ee01fbd5c0c2dfc67e970f4e485cdf2953798c66f3c2d72db32fd6e179b714b3",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "9342ff97807f237bce00de260de4d676becc3ee7f1ba9af1aea07a156726671d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "f396f6b9c033a5056342a36e29b72049306f2f59b8a2c1b35dc4129680bf6139"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "709e4d050098aea29f4a87e7d62a3dbe791f6cacd6da5ed6fc0abba7552f03c1"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "272b2f6e706bf29985096c398c63172043842767656155f42d4d90b5727aad42"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-010",
+  "params": {
+   "op": "addExact",
+   "sym": "+",
+   "other": "subtractExact",
+   "plain": "(x + y)",
+   "wide": "((long) x + y)",
+   "citation": "javadoc-math#addExact(int,int)",
+   "why": "`2147483647 + 5000` is `2147488647`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 5000)` returns `overflow`. `2147483647 + 200683961` is `2348167608`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 200683961)` returns `overflow`. `-2000000000 + 5000` is `-1999995000`, which fits in an `int`, so `exact(-2000000000, 5000)` returns it as text.",
+   "a1": 2147483647,
+   "b1": 5000,
+   "a2": 2147483647,
+   "b2": 200683961,
+   "a3": -2000000000,
+   "b3": 5000
+  },
+  "source_sha256": "a945edab6a4593346b2db5b5674b33202213940e746c96be90f509aae695a725",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "5d24f93c832c27d721852a92b2cef38edeae157f080e9c71c9b922c9f173219f",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "fae9e2327720352c3b8547a9cb87151d96c1d3cae91239c911f36dcc9b19c968"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "a474b45dbf927d7601653f6bd3ba3acea9fe4a78664a35369f9003ab2353a8ea"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "9c1353b6732b13a0668dd444dc8be0fa1df38f109ec9c8e571541ced3e58c85e"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-011",
+  "params": {
+   "op": "addExact",
+   "sym": "+",
+   "other": "subtractExact",
+   "plain": "(x + y)",
+   "wide": "((long) x + y)",
+   "citation": "javadoc-math#addExact(int,int)",
+   "why": "`2147483647 + 820648565` is `2968132212`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 820648565)` returns `overflow`. `-2147483648 + 0` is `-2147483648`, which fits in an `int`, so `exact(-2147483648, 0)` returns it as text. `2000000000 + 46341` is `2000046341`, which fits in an `int`, so `exact(2000000000, 46341)` returns it as text.",
+   "a1": 2147483647,
+   "b1": 820648565,
+   "a2": -2147483648,
+   "b2": 0,
+   "a3": 2000000000,
+   "b3": 46341
+  },
+  "source_sha256": "8605b34033317d559dd5e569ee2be73df6b3de1ec015d45c15e5525e220621c2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1cf0fe7450b537714d55a235c768ed5ea4ca2a7fa2a497eaa3622f90f1479006",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "54912e2e4c39064fb6ad0dea00ba3994ee45d3889a79dabdaf524a858c0bca05"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "3546f019ba5900b16520919c4e7075539a3fe302cbca4e8ecb81631d0a1e16db"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "4ca2ddb4e326e93d4be83f20bbed13b423be201806ce826dcf3018f892acee05"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-012",
+  "params": {
+   "op": "addExact",
+   "sym": "+",
+   "other": "subtractExact",
+   "plain": "(x + y)",
+   "wide": "((long) x + y)",
+   "citation": "javadoc-math#addExact(int,int)",
+   "why": "`46340 + 1` is `46341`, which fits in an `int`, so `exact(46340, 1)` returns it as text. `960 + 100` is `1060`, which fits in an `int`, so `exact(960, 100)` returns it as text. `2147483647 + 100000` is `2147583647`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 100000)` returns `overflow`.",
+   "a1": 46340,
+   "b1": 1,
+   "a2": 960,
+   "b2": 100,
+   "a3": 2147483647,
+   "b3": 100000
+  },
+  "source_sha256": "8a12734bdc99927796bd0a4a784697e38eca922cc3d972f9944593bc9daa99ae",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "35602a68e77f3d6f05b4e8f370fbe5c0efffa449e484f3bd5bd2150f3a77e99d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "7f2d45f02354e668bfc47f60375efe4497cf2106a58b62e5c33b98bb0ed0e8d2"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "7078c525ebf4004b04ebb74dada64a9617a9e7d3d0adcb4c30b58bfd9f7f11ef"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "61417acbf6cec87464776e34323c4a763c2e3ab1fa7e493e70a1354f74d4d5c7"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-013",
+  "params": {
+   "op": "subtractExact",
+   "sym": "-",
+   "other": "addExact",
+   "plain": "(x - y)",
+   "wide": "((long) x - y)",
+   "citation": "javadoc-math#subtractExact(int,int)",
+   "why": "`2000000000 - 1` is `1999999999`, which fits in an `int`, so `exact(2000000000, 1)` returns it as text. `2147483647 - 5000` is `2147478647`, which fits in an `int`, so `exact(2147483647, 5000)` returns it as text. `-2147483648 - 70000` is `-2147553648`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 70000)` returns `overflow`.",
+   "a1": 2000000000,
+   "b1": 1,
+   "a2": 2147483647,
+   "b2": 5000,
+   "a3": -2147483648,
+   "b3": 70000
+  },
+  "source_sha256": "d1728dd8e75cbebd1b5f8d983d6297e631a96a8165ba60c6f0cc7b1cba0e0ae0",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "20654ff99ec4ec40f4dc7b0b8a11bb23651a6639d50be12095f86517e525ebc3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "58bf7575a549555295ee4faaeae6109786006bfb8524ff5fafe199ac4946a1ba"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "73de4953444ae1d65962570d12240f64a7d346b93247fa64ac774e11ce47e608"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "7f430e3cba78651ac17cedf95decda54b27aa7353eb8041f3cf1112a59d35704"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-014",
+  "params": {
+   "op": "subtractExact",
+   "sym": "-",
+   "other": "addExact",
+   "plain": "(x - y)",
+   "wide": "((long) x - y)",
+   "citation": "javadoc-math#subtractExact(int,int)",
+   "why": "`2147483647 - 100` is `2147483547`, which fits in an `int`, so `exact(2147483647, 100)` returns it as text. `-2147483648 - 1` is `-2147483649`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 1)` returns `overflow`. `46340 - -100` is `46440`, which fits in an `int`, so `exact(46340, -100)` returns it as text.",
+   "a1": 2147483647,
+   "b1": 100,
+   "a2": -2147483648,
+   "b2": 1,
+   "a3": 46340,
+   "b3": -100
+  },
+  "source_sha256": "0e16a3826bd6bd085b76260ea9c8757b16827870b4653c2e54dddd69f4e52cf0",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "9ab126bded5197c7e86bc45a32099f221960be2f4c46ee84c79ec32b7d65293b",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "dda8d3939f036e1bc161e53cda620ae8d023f87647144299e5b0dd9c30fa5c1a"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "62d6a91cb93067010ee044abfbe989f2f5c440cf6b39515fa1f3db9d1965f6a0"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "32c2da5402ea6d84940c00a1f2a3b6068c786158948f7a66ad8ac309b2d8c995"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-015",
+  "params": {
+   "op": "subtractExact",
+   "sym": "-",
+   "other": "addExact",
+   "plain": "(x - y)",
+   "wide": "((long) x - y)",
+   "citation": "javadoc-math#subtractExact(int,int)",
+   "why": "`-2147483648 - 213646969` is `-2361130617`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 213646969)` returns `overflow`. `-2028929402 - 667731038` is `-2696660440`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2028929402, 667731038)` returns `overflow`. `1000 - 5000` is `-4000`, which fits in an `int`, so `exact(1000, 5000)` returns it as text.",
+   "a1": -2147483648,
+   "b1": 213646969,
+   "a2": -2028929402,
+   "b2": 667731038,
+   "a3": 1000,
+   "b3": 5000
+  },
+  "source_sha256": "6c27c0bec697ca06c1fb5e7fd7ef077223d1f4ccff8fe70be16e08f5df48235a",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "0bd69e8bb1998871b2b334bc7aba04fbc22e550c4b746f6b3e8865c48999821d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "caae56457c1e38996d7d7adc658e95ee90344baba634f9394705afa6494ad603"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "3358dbb836daabc524be34a82969d06a12723b3a9b4fc3d0f01f712d68148442"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "3622e2479acfd412e8ae22ee46429178c856c54da0d8d728474301c31923d0fc"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-016",
+  "params": {
+   "op": "subtractExact",
+   "sym": "-",
+   "other": "addExact",
+   "plain": "(x - y)",
+   "wide": "((long) x - y)",
+   "citation": "javadoc-math#subtractExact(int,int)",
+   "why": "`2147483647 - -1` is `2147483648`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(2147483647, -1)` returns `overflow`. `-2000000000 - 5000` is `-2000005000`, which fits in an `int`, so `exact(-2000000000, 5000)` returns it as text. `-2000000000 - 100` is `-2000000100`, which fits in an `int`, so `exact(-2000000000, 100)` returns it as text.",
+   "a1": 2147483647,
+   "b1": -1,
+   "a2": -2000000000,
+   "b2": 5000,
+   "a3": -2000000000,
+   "b3": 100
+  },
+  "source_sha256": "ec0c94a7876918c6b64b49b22ed332263b819d56e42588742041b1f8d41525a9",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "50930b0a48ac9800f0d3a25741c63cdb30542dd65a300bee1c5919679b965d3e",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "84a297bfe4d1c476916d2720d3bbe5badee3d6fe648c08cd4dd233f6c6c4b745"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "7369483511d6c638bb5835d4a0c0647d642c1c820cb3fb1fb397fe2a97f59177"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "d1b33ceab9066cb96815f785626e280539661739d9fcf9b5858bada072f6a1a2"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-017",
+  "params": {
+   "op": "subtractExact",
+   "sym": "-",
+   "other": "addExact",
+   "plain": "(x - y)",
+   "wide": "((long) x - y)",
+   "citation": "javadoc-math#subtractExact(int,int)",
+   "why": "`-2147483648 - 5000` is `-2147488648`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 5000)` returns `overflow`. `46340 - -100` is `46440`, which fits in an `int`, so `exact(46340, -100)` returns it as text. `-2147483648 - 0` is `-2147483648`, which fits in an `int`, so `exact(-2147483648, 0)` returns it as text.",
+   "a1": -2147483648,
+   "b1": 5000,
+   "a2": 46340,
+   "b2": -100,
+   "a3": -2147483648,
+   "b3": 0
+  },
+  "source_sha256": "f117632467c81c691c0b7f42a24a850ee97ccb37e533e1af9e68085869831945",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "be395ac334c34e5cdd247428b02210d8a5facbe7558b1d3bd0d8ee08d24e510c",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "02c9fa98926881ad2ffcbb353a8f41cb3470084e5e4f026701a6f2808ab05dc5"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "4d4dfb827bab8c43d370f9a4c981b2796a8034e138f48db7ecf54550190fb98a"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "de8df1aec1bb3a37d2e4bf4de519531b10ee4d38e848de051458fe2bdc3b11d1"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-018",
+  "params": {
+   "op": "subtractExact",
+   "sym": "-",
+   "other": "addExact",
+   "plain": "(x - y)",
+   "wide": "((long) x - y)",
+   "citation": "javadoc-math#subtractExact(int,int)",
+   "why": "`-2147483648 - 0` is `-2147483648`, which fits in an `int`, so `exact(-2147483648, 0)` returns it as text. `-2147483648 - 310537812` is `-2458021460`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 310537812)` returns `overflow`. `46340 - 46341` is `-1`, which fits in an `int`, so `exact(46340, 46341)` returns it as text.",
+   "a1": -2147483648,
+   "b1": 0,
+   "a2": -2147483648,
+   "b2": 310537812,
+   "a3": 46340,
+   "b3": 46341
+  },
+  "source_sha256": "a88d5864d49fb3ab46f1d17c502b7a16a137c2fd2661706de2489bab59724d3a",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "28d3810dbda9907a56c753658a0f2c4e8295ad69a14fb9e03936565ca0fe2f3b",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "3bb7c60c55b245607bf07cd54620346dc890fdaceda12863e0eff26b67996f29"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "a95fb0ddd06eb04a8c7145d262d347db0b3ad5374eeb047dcc14611f13463608"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "3db75b010505c93aa8c4840780e9facbf90f000a6cddd5508a8205eba5399d3f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-019",
+  "params": {
+   "op": "subtractExact",
+   "sym": "-",
+   "other": "addExact",
+   "plain": "(x - y)",
+   "wide": "((long) x - y)",
+   "citation": "javadoc-math#subtractExact(int,int)",
+   "why": "`-2147483648 - 5000` is `-2147488648`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 5000)` returns `overflow`. `-2147483648 - 0` is `-2147483648`, which fits in an `int`, so `exact(-2147483648, 0)` returns it as text. `2000000000 - -100` is `2000000100`, which fits in an `int`, so `exact(2000000000, -100)` returns it as text.",
+   "a1": -2147483648,
+   "b1": 5000,
+   "a2": -2147483648,
+   "b2": 0,
+   "a3": 2000000000,
+   "b3": -100
+  },
+  "source_sha256": "a1818d9f03ca0a2ac7488ff5b3571a8cfe7459e652e2fa75404169ef1a66616c",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "b8e333cb74cb8ab5179eb406f922ca64999e0e738b9febe89afe17e3944a8ef9",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "2df7d0801245ccb0dc2cbdfbb6706f2eae8dc44e971c4543136f979e8f9b1fb2"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "f7dc6f9185feaaf7d11d0f591e08b256e794a8d59dd17b768f5f702de45e97b6"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "d74f42163ea14347c6930de23c718d44285dd7525f844354f97aac9062e7e85e"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-020",
+  "params": {
+   "op": "subtractExact",
+   "sym": "-",
+   "other": "addExact",
+   "plain": "(x - y)",
+   "wide": "((long) x - y)",
+   "citation": "javadoc-math#subtractExact(int,int)",
+   "why": "`-2000000000 - 5000` is `-2000005000`, which fits in an `int`, so `exact(-2000000000, 5000)` returns it as text. `-164 - -100` is `-64`, which fits in an `int`, so `exact(-164, -100)` returns it as text. `-2147483648 - 5000` is `-2147488648`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 5000)` returns `overflow`.",
+   "a1": -2000000000,
+   "b1": 5000,
+   "a2": -164,
+   "b2": -100,
+   "a3": -2147483648,
+   "b3": 5000
+  },
+  "source_sha256": "f37c6c85b5444540fac4218d0371cdc58fce0a686845c7a2461bae8d4f57a56f",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "29b81f7869f01687c9acd2b2349c63c626a0c45775c8809d348f3b3a388c3418",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "3eddbe035393ba8a255631b4e319f5568a407c7400a3cffc12bfb08d4ca11477"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "d2d045b66b1aca664212c93cc9f1906fa8a568275f0c550cb1f545f0a7c0ea29"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "34c8e8e9881086df2305d9d2daf0d32a298c3ac67e932380a5c7b57dd4ab35b4"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-021",
+  "params": {
+   "op": "subtractExact",
+   "sym": "-",
+   "other": "addExact",
+   "plain": "(x - y)",
+   "wide": "((long) x - y)",
+   "citation": "javadoc-math#subtractExact(int,int)",
+   "why": "`1000 - -317` is `1317`, which fits in an `int`, so `exact(1000, -317)` returns it as text. `2147483647 - -379793263` is `2527276910`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(2147483647, -379793263)` returns `overflow`. `1000 - 0` is `1000`, which fits in an `int`, so `exact(1000, 0)` returns it as text.",
+   "a1": 1000,
+   "b1": -317,
+   "a2": 2147483647,
+   "b2": -379793263,
+   "a3": 1000,
+   "b3": 0
+  },
+  "source_sha256": "08e25b63e65da6d6386162a8b1d123d0d6d6006826661b82b2db0eda9b8da4d3",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "7109da556a655b0cdccabb41825b3bd758cb6b3b817c04a2ee1aa596519e5d42",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "984f07bee041591c1da0fecd8f79d51fa79727f9b28d831ded6ef7479816e23c"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "740797c33876369a41555439e9de5abc7dd7b4b2f52cad70565c1e7fafcd910d"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "fe95dd0249166c3e49adfbfd5cc26dc015fbf554ccf55c43ef2d000de0140421"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-022",
+  "params": {
+   "op": "subtractExact",
+   "sym": "-",
+   "other": "addExact",
+   "plain": "(x - y)",
+   "wide": "((long) x - y)",
+   "citation": "javadoc-math#subtractExact(int,int)",
+   "why": "`-2147483648 - 3` is `-2147483651`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 3)` returns `overflow`. `-2000000000 - 884` is `-2000000884`, which fits in an `int`, so `exact(-2000000000, 884)` returns it as text. `2147483647 - -150871584` is `2298355231`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(2147483647, -150871584)` returns `overflow`.",
+   "a1": -2147483648,
+   "b1": 3,
+   "a2": -2000000000,
+   "b2": 884,
+   "a3": 2147483647,
+   "b3": -150871584
+  },
+  "source_sha256": "9bc9cc01e9eba667a624f52de50ba988027e84d1552a01b733e10dbf3fef38f2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "114e5828f067107392f7b8a43f6ff4e4ad55bac5be745ce09e43e3b7dc243d1c",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "09cc0eeb2732dd04216d32ac49d9282b86333166d53abfdd30b1cd7b6565908f"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "e14b8dff2d040f674de85f2786396d2d777b1e6deb2ca73a05c4c008ddfe3d5d"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "b9a0844d0562debfd839d151c66f8644ee6fbc236e4dbf0c494db79943c7c3e7"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-023",
+  "params": {
+   "op": "subtractExact",
+   "sym": "-",
+   "other": "addExact",
+   "plain": "(x - y)",
+   "wide": "((long) x - y)",
+   "citation": "javadoc-math#subtractExact(int,int)",
+   "why": "`-1503223474 - 882530402` is `-2385753876`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-1503223474, 882530402)` returns `overflow`. `-987 - 0` is `-987`, which fits in an `int`, so `exact(-987, 0)` returns it as text. `-2147483648 - 70000` is `-2147553648`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 70000)` returns `overflow`.",
+   "a1": -1503223474,
+   "b1": 882530402,
+   "a2": -987,
+   "b2": 0,
+   "a3": -2147483648,
+   "b3": 70000
+  },
+  "source_sha256": "520e26b0533501b772da2c4927e2de12035eea6a997c09a5b2016c19f9dfdec6",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "9da1c3c1fc131dc267533b399cb8d88ff979c04f91ea596664ad21b35af340b1",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "9321db708c9881288b6247e98cfa2092f0351371cd435deffc26cd1d353ed6a6"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "1bc233eb4686385972c59c081f03826f1b2650dc963e2f0ae74a516b73042437"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "5878a336c28890833829038dd1f0749358fa1ee8e1de2595b71efb2a1bab1dc6"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-024",
+  "params": {
+   "op": "subtractExact",
+   "sym": "-",
+   "other": "addExact",
+   "plain": "(x - y)",
+   "wide": "((long) x - y)",
+   "citation": "javadoc-math#subtractExact(int,int)",
+   "why": "`-2147483648 - 100000` is `-2147583648`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 100000)` returns `overflow`. `46340 - 1` is `46339`, which fits in an `int`, so `exact(46340, 1)` returns it as text. `2000000000 - -100` is `2000000100`, which fits in an `int`, so `exact(2000000000, -100)` returns it as text.",
+   "a1": -2147483648,
+   "b1": 100000,
+   "a2": 46340,
+   "b2": 1,
+   "a3": 2000000000,
+   "b3": -100
+  },
+  "source_sha256": "afc2784a101a103f141ce504e8adb0214ca31a1dcd927862d365ad37ded7bf1a",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "f0aa0c932cafb3abbc749befbd6cd83929d562ef1040949ab507230bf7ee1366",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "515c7460a8a326b3146a92dfb0720cc0d89a44bf54a1218215cef85aa3fc39d0"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "abd84bb5808b8f44036558271856138a1b72c23aadbfccd0fe30884d432874c2"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "4ab5ab330805b051e696450cba491b884f0a9243a4636b94df445ab453df2cbd"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-025",
+  "params": {
+   "op": "multiplyExact",
+   "sym": "*",
+   "other": "addExact",
+   "plain": "(x * y)",
+   "wide": "((long) x * y)",
+   "citation": "javadoc-math#multiplyExact(int,int)",
+   "why": "`-2000000000 * 0` is `0`, which fits in an `int`, so `exact(-2000000000, 0)` returns it as text. `65536 * 100000` is `6553600000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(65536, 100000)` returns `overflow`. `1000000 * -894449194` is `-894449194000000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(1000000, -894449194)` returns `overflow`.",
+   "a1": -2000000000,
+   "b1": 0,
+   "a2": 65536,
+   "b2": 100000,
+   "a3": 1000000,
+   "b3": -894449194
+  },
+  "source_sha256": "49773e5f09ee6b4e9be12081055ff44842318185b8433a5a3b5a27cd568b5b74",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "7b000fdd40f4828039ce0c920c7b7e2305a679c90410d866d96b19891ed40d17",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "996080cc6c97b621567117da26ce06b7c64cbe8e726bc915d417c3d248e0b2c9"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "8f16e737ebba3e50699891d4b2d7abd1b0b024653dd2fbe36fdd2ada6c460ab2"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "ad16454731eb4e3eef8e2482117fb64017dfc315f4f3a982c689a51e85932e5e"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-026",
+  "params": {
+   "op": "multiplyExact",
+   "sym": "*",
+   "other": "addExact",
+   "plain": "(x * y)",
+   "wide": "((long) x * y)",
+   "citation": "javadoc-math#multiplyExact(int,int)",
+   "why": "`2000000000 * 1` is `2000000000`, which fits in an `int`, so `exact(2000000000, 1)` returns it as text. `1000 * 0` is `0`, which fits in an `int`, so `exact(1000, 0)` returns it as text. `2147483647 * 70000` is `150323855290000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(2147483647, 70000)` returns `overflow`.",
+   "a1": 2000000000,
+   "b1": 1,
+   "a2": 1000,
+   "b2": 0,
+   "a3": 2147483647,
+   "b3": 70000
+  },
+  "source_sha256": "e9207c4cad793ec7ff1d3bf7f0e3b032c776e09cb88675e5e2dda757efd42338",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "5ee7eb5496931602b5bfbe4eac8c9c1d3aab44e43aee58546d8ea234899a108d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "d015beb87aecb92cd10aa45c25791b47a3e3778129d1bb412510bc10d1f9ec42"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "58065b71400794a2640c481b94e0bf124a1a973c7b905c73ba7fa36807405481"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "1359e5b7bd1a179550bbe313c213155ea841a6af595bb97140345c27543edcde"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-027",
+  "params": {
+   "op": "multiplyExact",
+   "sym": "*",
+   "other": "addExact",
+   "plain": "(x * y)",
+   "wide": "((long) x * y)",
+   "citation": "javadoc-math#multiplyExact(int,int)",
+   "why": "`46340 * -100` is `-4634000`, which fits in an `int`, so `exact(46340, -100)` returns it as text. `46340 * 100` is `4634000`, which fits in an `int`, so `exact(46340, 100)` returns it as text. `-2147483648 * 5000` is `-10737418240000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(-2147483648, 5000)` returns `overflow`.",
+   "a1": 46340,
+   "b1": -100,
+   "a2": 46340,
+   "b2": 100,
+   "a3": -2147483648,
+   "b3": 5000
+  },
+  "source_sha256": "a8d863d24856ef13b53f8d42058aab34108ff1949b62b005fb9bd245d4995c50",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "b0eda38afaffc93249ff974276edb969f773420d96b2fc282df5b1d96138b8b1",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "dce89bcf9a7c39f6c31891a080acd8577242db7a1efa06b8bcdb843a0ba1fc8e"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "5c722fa6bede3a555e5693809f4b10b6348727b68da098bd4a3c8db1bd46f578"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "8f0e67de4c662b20f1326258e24d649bbe49a214ce3925d366480f58db8c4ecf"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-028",
+  "params": {
+   "op": "multiplyExact",
+   "sym": "*",
+   "other": "addExact",
+   "plain": "(x * y)",
+   "wide": "((long) x * y)",
+   "citation": "javadoc-math#multiplyExact(int,int)",
+   "why": "`46340 * 46341` is `2147441940`, which fits in an `int`, so `exact(46340, 46341)` returns it as text. `65536 * 70000` is `4587520000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(65536, 70000)` returns `overflow`. `1000000 * 227118160` is `227118160000000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(1000000, 227118160)` returns `overflow`.",
+   "a1": 46340,
+   "b1": 46341,
+   "a2": 65536,
+   "b2": 70000,
+   "a3": 1000000,
+   "b3": 227118160
+  },
+  "source_sha256": "47226daa5df2aaac16919aade1197c2ac36faab58365222af9b9e488aee9c108",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "0da1147455420796548912248cb1b7e53f18e1b375cac6b2cab0649cca5521ea",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "1b58e302f29ac709717eab51a288226988378a44349086fb20c076530c54b56f"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "7ee7326ae88890659aa0c743e01087960c48460a467e535d9940195f151d9482"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "7a99556228941f7d8e6e0fe997d006a0895ddb4812e602ab639086af95739538"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-029",
+  "params": {
+   "op": "multiplyExact",
+   "sym": "*",
+   "other": "addExact",
+   "plain": "(x * y)",
+   "wide": "((long) x * y)",
+   "citation": "javadoc-math#multiplyExact(int,int)",
+   "why": "`46340 * 100` is `4634000`, which fits in an `int`, so `exact(46340, 100)` returns it as text. `2000000000 * 1` is `2000000000`, which fits in an `int`, so `exact(2000000000, 1)` returns it as text. `50000 * 70000` is `3500000000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(50000, 70000)` returns `overflow`.",
+   "a1": 46340,
+   "b1": 100,
+   "a2": 2000000000,
+   "b2": 1,
+   "a3": 50000,
+   "b3": 70000
+  },
+  "source_sha256": "4838d294afeebe91d08a9b0c7c1d2b0bb50d2fc643bf3c7340a31f6c6a7d94f7",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ef9aa1a5a0951138efb65154e2315478512708959588872106684cc0ae36331a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "6663f16e69cdb28b0c1ec59281be9b745e634c406ed8a9b691d387d68a6cde4e"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "f40e77d72f7c0722afc08ebd2da4ff6aafd207bcc9bea15437bf967c5d611c16"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "0849ea9fc5c8a8b4df05197acb25ab01a19e60dde626b7174fa83380e1333dcf"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-030",
+  "params": {
+   "op": "multiplyExact",
+   "sym": "*",
+   "other": "addExact",
+   "plain": "(x * y)",
+   "wide": "((long) x * y)",
+   "citation": "javadoc-math#multiplyExact(int,int)",
+   "why": "`-2000000000 * 1` is `-2000000000`, which fits in an `int`, so `exact(-2000000000, 1)` returns it as text. `-2147483648 * 70000` is `-150323855360000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(-2147483648, 70000)` returns `overflow`. `-2147483648 * -1` is `2147483648`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(-2147483648, -1)` returns `overflow`.",
+   "a1": -2000000000,
+   "b1": 1,
+   "a2": -2147483648,
+   "b2": 70000,
+   "a3": -2147483648,
+   "b3": -1
+  },
+  "source_sha256": "b5697b2630c8cf6b11c7b9be9b96eb3685b2eb81cf5e6f14650f0c03803eb212",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "816bf10b333400b58db172eaa433b7a80cd6dad1dda436c1d863630dde31ab98",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "80293efe2897fcd6e71552a6c68b5bd64ec995606e7084480d0bfa6acb4e47fa"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "e8b58b4aa196b765ceb8c988be103d7376c68a966288e2193eff3097606cd32e"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "ad1c0b36c9f1c37ac3d85cedfe0d98152252f04d586d6246352d9a86d45b5efb"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-031",
+  "params": {
+   "op": "multiplyExact",
+   "sym": "*",
+   "other": "addExact",
+   "plain": "(x * y)",
+   "wide": "((long) x * y)",
+   "citation": "javadoc-math#multiplyExact(int,int)",
+   "why": "`716 * -100` is `-71600`, which fits in an `int`, so `exact(716, -100)` returns it as text. `1140506082 * -227028587` is `-258927484261366134`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(1140506082, -227028587)` returns `overflow`. `1000 * 1` is `1000`, which fits in an `int`, so `exact(1000, 1)` returns it as text.",
+   "a1": 716,
+   "b1": -100,
+   "a2": 1140506082,
+   "b2": -227028587,
+   "a3": 1000,
+   "b3": 1
+  },
+  "source_sha256": "942c3adb34ba482217441f4b739422085d4d89556875d73950263143af2ab946",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "4844aa7edd128a03645004f69979ff69e7996f74c18fb88d6ab9047b711d6209",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "0fb56de868594bfeb5efaf87172465027aaa1a95d8399c63f0a3e6bf4f0eb8a5"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "9ca0eae1c42f31b808ecfec86fee01519c41e9dff87d3960eef7c12ffa06a90e"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "f65d936eccc4ceb6e6631063159e0369b81874fa4fbad4777bce4195e2c3777b"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-032",
+  "params": {
+   "op": "multiplyExact",
+   "sym": "*",
+   "other": "addExact",
+   "plain": "(x * y)",
+   "wide": "((long) x * y)",
+   "citation": "javadoc-math#multiplyExact(int,int)",
+   "why": "`-1974381044 * 3` is `-5923143132`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(-1974381044, 3)` returns `overflow`. `-2000000000 * 1` is `-2000000000`, which fits in an `int`, so `exact(-2000000000, 1)` returns it as text. `1000 * -3` is `-3000`, which fits in an `int`, so `exact(1000, -3)` returns it as text.",
+   "a1": -1974381044,
+   "b1": 3,
+   "a2": -2000000000,
+   "b2": 1,
+   "a3": 1000,
+   "b3": -3
+  },
+  "source_sha256": "eadcd275194cd08d1228561540ede06df74de724a92367aefa96ab81c32a7da5",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "200c6befd336f58bdd6e4171ab2fc053c1a1a2abccdefeb8558aae490262cc03",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "22b1f53ff94bbe7b8b325e8fae39e2e9c10cbc29b48803a452830578f6f75a2c"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "312f4fb5ceba6629457fd22711c0784f43ed9e7768ac2408f97a38a2cc56417b"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "a6f60a5496f83b452bd23ea18a298dae45ba5a8b914f5288503a4fc3c80007ed"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-033",
+  "params": {
+   "op": "multiplyExact",
+   "sym": "*",
+   "other": "addExact",
+   "plain": "(x * y)",
+   "wide": "((long) x * y)",
+   "citation": "javadoc-math#multiplyExact(int,int)",
+   "why": "`-2147483648 * 0` is `0`, which fits in an `int`, so `exact(-2147483648, 0)` returns it as text. `-1638625268 * 3` is `-4915875804`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(-1638625268, 3)` returns `overflow`. `1000 * 0` is `0`, which fits in an `int`, so `exact(1000, 0)` returns it as text.",
+   "a1": -2147483648,
+   "b1": 0,
+   "a2": -1638625268,
+   "b2": 3,
+   "a3": 1000,
+   "b3": 0
+  },
+  "source_sha256": "6ef453cc8e87dd1b47d8bb540ac6fd45c6f647319fe01289ab63f9c4346a56fb",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "7163fa30cefb04f70c3d39373c7c5d361beb6e460e8f289b7688ccfaab64abc9",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "cc747044a33e263ba988f2613d2a375f95d23f44ea9f66b9f1a682fd7f17b013"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "86a99f6cc0dacc1ca6cb038b0a6ec953c2d468ca6db7fcfe1f7a1d22b604b7a4"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "08cf7033e89370ad8975317e3a5e7da078349979a53904641f888dcba49c4f25"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-034",
+  "params": {
+   "op": "multiplyExact",
+   "sym": "*",
+   "other": "addExact",
+   "plain": "(x * y)",
+   "wide": "((long) x * y)",
+   "citation": "javadoc-math#multiplyExact(int,int)",
+   "why": "`46340 * 0` is `0`, which fits in an `int`, so `exact(46340, 0)` returns it as text. `1000 * 331` is `331000`, which fits in an `int`, so `exact(1000, 331)` returns it as text. `-2147483648 * -799520836` is `1716957921545289728`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(-2147483648, -799520836)` returns `overflow`.",
+   "a1": 46340,
+   "b1": 0,
+   "a2": 1000,
+   "b2": 331,
+   "a3": -2147483648,
+   "b3": -799520836
+  },
+  "source_sha256": "82c858d3fd21e498d4106b30ae0702938b80d5e62e4eb4f2fc9f627a4abc4dde",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "2ee96efe05c21bba71fcb9e39ccee4725f4518b6902ea9c20b0008437a9523ec",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "10c9fd474df2aa137d922e355015ee7d4f5d804a2afc8f2dfee9f2597afed8a1"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "8ac77714ac2add137f1fe778df959a44492ae9c1fe850b25b1314aba0e7fbd32"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "5eea73e5e41932380348d2e5e9d14dca000b4133aa13849491a73ae86a5e9563"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-035",
+  "params": {
+   "op": "multiplyExact",
+   "sym": "*",
+   "other": "addExact",
+   "plain": "(x * y)",
+   "wide": "((long) x * y)",
+   "citation": "javadoc-math#multiplyExact(int,int)",
+   "why": "`1000 * 46341` is `46341000`, which fits in an `int`, so `exact(1000, 46341)` returns it as text. `65536 * -700319007` is `-45896106442752`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(65536, -700319007)` returns `overflow`. `2000000000 * 1` is `2000000000`, which fits in an `int`, so `exact(2000000000, 1)` returns it as text.",
+   "a1": 1000,
+   "b1": 46341,
+   "a2": 65536,
+   "b2": -700319007,
+   "a3": 2000000000,
+   "b3": 1
+  },
+  "source_sha256": "761cf8d90c0ad5698873ec12dc8f325eeee80fdef2a406ba0790ca92778bcd4a",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "0e565508615af0802b3667ee67770d75e6fc368a65e153b42b933bfc87872256",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "fe94acc517b8e88955ac714d481f61c1eae96015a791738d4324091b79a8f9a9"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "291653e953d925b43cdec639ee78e08af8374f8c496a200ac373200c643644c8"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "a6fc5c8517a02e401109411c2ae924567af765ee47f173f1e86fc25dc9011b40"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-overflow-036",
+  "params": {
+   "op": "multiplyExact",
+   "sym": "*",
+   "other": "addExact",
+   "plain": "(x * y)",
+   "wide": "((long) x * y)",
+   "citation": "javadoc-math#multiplyExact(int,int)",
+   "why": "`-2147483648 * 5000` is `-10737418240000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(-2147483648, 5000)` returns `overflow`. `423 * 100` is `42300`, which fits in an `int`, so `exact(423, 100)` returns it as text. `1000000 * 100000` is `100000000000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(1000000, 100000)` returns `overflow`.",
+   "a1": -2147483648,
+   "b1": 5000,
+   "a2": 423,
+   "b2": 100,
+   "a3": 1000000,
+   "b3": 100000
+  },
+  "source_sha256": "dd248e66c83e5dc9720e129cbeb26f441fa7e3deadfa9d9ca5e3d464a21b46f2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "844eb33904ad26b21bb51b21c118ac980482ed5903b7a919732dcf1b6b286d4f",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "using the plain `@@sym@@` operator instead of `Math.@@op@@`",
+    "stdout_sha256": "627c38d96ffa6c259b968b88fc44115c1eb3dfdb4696f48366826a9ea9df42d8"
+   },
+   {
+    "mistake": "computing the result as a `long` instead of calling `Math.@@op@@`",
+    "stdout_sha256": "8af39b872952c11f8e82bc5057133555fbfa1dc828131c3c968f7d1b8b3a934b"
+   },
+   {
+    "mistake": "reading `Math.@@op@@` as `Math.@@other@@`",
+    "stdout_sha256": "1991872a8d92e6d60d6f6d217857106fae36c79934d08ffe3acd38357cd5d6ad"
+   }
+  ]
+ }
+]

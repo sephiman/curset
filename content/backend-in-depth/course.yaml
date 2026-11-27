@@ -28,7 +28,7 @@ course:
   practice_presets: [lesson, module, review, code-reading, generators]
   option_labels: letters
   pdf_exercises: true
-  # Requirements 6.3 runtime generators (13 initial families, 18 added in round D3): equal weights, levels 1 and 2 drawn equally (no index fixes a mix).
+  # Requirements 6.3 runtime generators (13 initial families, 18 added in round D3, 6 in round D4): equal weights, levels 1 and 2 drawn equally (no index fixes a mix).
   practice_generators:
   - generator: capacity-estimation
     title:
@@ -102,7 +102,7 @@ course:
     difficulty: {1: 1, 2: 1}
   - generator: topological-order-valid
     title:
-      en: Which ordering is topological
+      en: Topological orderings
     weight: 1
     difficulty: {1: 1, 2: 1}
   - generator: union-find-sets
@@ -112,37 +112,37 @@ course:
     difficulty: {1: 1, 2: 1}
   - generator: hashmap-resize-point
     title:
-      en: When a hash table doubles
+      en: Hash table resizing
     weight: 1
     difficulty: {1: 1, 2: 1}
   - generator: thread-pool-state
     title:
-      en: Threads, queue and rejections of a thread pool
+      en: Thread pool queuing and rejection
     weight: 1
     difficulty: {1: 1, 2: 1}
   - generator: partition-owner
     title:
-      en: Which partition receives a row
+      en: Range and hash partitioning
     weight: 1
     difficulty: {1: 1, 2: 1}
   - generator: property-source-winner
     title:
-      en: Which property value wins
+      en: Property source precedence
     weight: 1
     difficulty: {1: 1, 2: 1}
   - generator: proxy-annotation-applies
     title:
-      en: Does the advice run
+      en: Proxy-based advice
     weight: 1
     difficulty: {1: 1, 2: 1}
   - generator: row-lock-conflicts
     title:
-      en: Who waits on a row lock
+      en: Row lock conflicts
     weight: 1
     difficulty: {1: 1, 2: 1}
   - generator: http-response-freshness
     title:
-      en: When a cached response turns stale
+      en: HTTP response freshness
     weight: 1
     difficulty: {1: 1, 2: 1}
   - generator: http-method-properties
@@ -185,6 +185,36 @@ course:
       en: Error budget in minutes
     weight: 1
     difficulty: {1: 1, 2: 1}
+  - generator: keyset-next-page
+    title:
+      en: Keyset pagination
+    weight: 1
+    difficulty: {2: 1}
+  - generator: xfast-level-probes
+    title:
+      en: X-fast trie search levels
+    weight: 1
+    difficulty: {2: 1}
+  - generator: snowflake-layout
+    title:
+      en: Snowflake id capacity
+    weight: 1
+    difficulty: {1: 1}
+  - generator: raft-vote-log
+    title:
+      en: Raft election restriction
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: qos-class-pod
+    title:
+      en: Pod QoS class
+    weight: 1
+    difficulty: {1: 1}
+  - generator: conditional-request-outcome
+    title:
+      en: If-None-Match outcomes
+    weight: 1
+    difficulty: {1: 1, 2: 1}
   # The identity round (docs/identity.md): a server rack, distinct from the other four glyphs; green accent on paper
   # and on ink.
   glyph: server-rack
@@ -224,6 +254,8 @@ blocks:
         en: 'Records, sealed types and pattern matching in Java 25 as the building blocks of data-oriented design, with the single responsibility principle, DRY, KISS and yagni attributed to their authors.'
       exercises:
       - id: m01-l01-ex-1
+        type: quiz
+      - id: m01-l01-ex-pattern-switch
         type: quiz
     - id: m01-l02
       title:
@@ -268,6 +300,8 @@ blocks:
       - id: m02-l01-ex-priority-queue-poll
         type: quiz
       - id: m02-l01-ex-treemap-navigation
+        type: quiz
+      - id: m02-l01-ex-hashset-membership
         type: quiz
     - id: m02-l02
       title:
@@ -381,6 +415,10 @@ blocks:
       - id: m04-l02-ex-data-copy-equality
         type: quiz
       - id: m04-l02-ex-scope-returns
+        type: quiz
+      - id: m04-l02-ex-sequence-order
+        type: quiz
+      - id: m04-l02-ex-sealed-when
         type: quiz
     - id: m04-l03
       title:
@@ -793,6 +831,16 @@ blocks:
         en: 'Finding subtle bugs in clean-looking Java: resource leaks, lost causes, races, BigDecimal and overflow, time-zone gaps, fixed clocks and transactional proxies, with attributed review guidance.'
       exercises:
       - id: m11-l02-ex-1
+        type: quiz
+      - id: m11-l02-ex-integer-overflow
+        type: quiz
+      - id: m11-l02-ex-bigdecimal-equals
+        type: quiz
+      - id: m11-l02-ex-zone-change-arithmetic
+        type: quiz
+      - id: m11-l02-ex-integer-cache
+        type: quiz
+      - id: m11-l02-ex-optional-chain
         type: quiz
     - id: m11-l03
       title:

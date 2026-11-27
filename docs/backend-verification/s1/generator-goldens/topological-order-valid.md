@@ -1,4 +1,4 @@
-# Which ordering is topological (`topological-order-valid`): 50 goldens
+# Topological orderings (`topological-order-valid`): 50 goldens
 
 Generated items for the blind review (ambiguity, realism, key). Regenerate with `uv run python scripts/export_backend_goldens.py`.
 

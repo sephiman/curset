@@ -1,0 +1,1025 @@
+[
+ {
+  "id": "m11-l02-v-integer-cache-001",
+  "params": {
+   "x1": 200,
+   "y1": 200,
+   "x2": 500,
+   "y2": 500,
+   "why": "`200` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `500` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "b16f5958dedce83aef2884feed35a63f2e65f7de20eb663a380db44823a9bcb6",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "284191af2e874b12fc4b96bfe94c68f3ed9ea464e0360faa1b56d4aa969ed177"
+   },
+   {
+    "mistake": "assuming the cache covers 0 to 255",
+    "stdout_sha256": "8be9593d32b78e148b59a1654f5d83c805626056d27f836530ff687762925af0"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-002",
+  "params": {
+   "x1": 129,
+   "y1": 129,
+   "x2": 1,
+   "y2": 1,
+   "why": "`129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(1)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`."
+  },
+  "source_sha256": "5372a17ab90daa6ecb0bc38481cb3ff730222d5f2b9f6031361821d27e810717",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "89c0b97c908b2f3301593186769badf7c3ebc20b6848a377de398bd030f5ad17"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-003",
+  "params": {
+   "x1": 100,
+   "y1": 100,
+   "x2": 255,
+   "y2": 255,
+   "why": "`Integer.valueOf(100)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `255` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "835eb37d96ec1666ee5317974636ba8e8f589f529fd722024d4ac7f0cec4d034",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8be9593d32b78e148b59a1654f5d83c805626056d27f836530ff687762925af0",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "366dbd6c49d5f261447bf05528be1f200c0196da99c328d441cfe68612c4b8c3"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-004",
+  "params": {
+   "x1": 200,
+   "y1": 200,
+   "x2": -100,
+   "y2": -100,
+   "why": "`200` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(-100)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`."
+  },
+  "source_sha256": "839bd07365fae5c97d6db3adedd61fee69fef6a2b7cfc36e7354631d8abd14d2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "89c0b97c908b2f3301593186769badf7c3ebc20b6848a377de398bd030f5ad17"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-005",
+  "params": {
+   "x1": 500,
+   "y1": 500,
+   "x2": 99,
+   "y2": 99,
+   "why": "`500` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(99)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`."
+  },
+  "source_sha256": "8ec015f315c85f1745b5768c4f8f3ab634856053e3a3f56d8e3c4638f42ebd29",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "89c0b97c908b2f3301593186769badf7c3ebc20b6848a377de398bd030f5ad17"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-006",
+  "params": {
+   "x1": 129,
+   "y1": 129,
+   "x2": 127,
+   "y2": 127,
+   "why": "`129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(127)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`."
+  },
+  "source_sha256": "651c789d7ac60de0a89bff397974eeb9ce725af37a2568516ae0750323a8d754",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "89c0b97c908b2f3301593186769badf7c3ebc20b6848a377de398bd030f5ad17"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-007",
+  "params": {
+   "x1": 300,
+   "y1": 300,
+   "x2": 200,
+   "y2": 200,
+   "why": "`300` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `200` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "da48ad56f4764d4d0f8628a7786722f15184fe255ca92e09bbde73cd1fc09c94",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "284191af2e874b12fc4b96bfe94c68f3ed9ea464e0360faa1b56d4aa969ed177"
+   },
+   {
+    "mistake": "assuming the cache covers 0 to 255",
+    "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-008",
+  "params": {
+   "x1": 64,
+   "y1": 64,
+   "x2": -129,
+   "y2": -129,
+   "why": "`Integer.valueOf(64)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `-129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "b692117bd0bcd69fde3e668c2a5c28822e71ef11380df87e05b91a590ca9ce5f",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8be9593d32b78e148b59a1654f5d83c805626056d27f836530ff687762925af0",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "366dbd6c49d5f261447bf05528be1f200c0196da99c328d441cfe68612c4b8c3"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-009",
+  "params": {
+   "x1": 150,
+   "y1": 150,
+   "x2": 256,
+   "y2": 256,
+   "why": "`150` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `256` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "3caf4cdb8f31d71156a64d0de0a663238c8b10a1aeee1a050b9c3d05f1b48d14",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "284191af2e874b12fc4b96bfe94c68f3ed9ea464e0360faa1b56d4aa969ed177"
+   },
+   {
+    "mistake": "assuming the cache covers 0 to 255",
+    "stdout_sha256": "8be9593d32b78e148b59a1654f5d83c805626056d27f836530ff687762925af0"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-010",
+  "params": {
+   "x1": 500,
+   "y1": 500,
+   "x2": 1,
+   "y2": 1,
+   "why": "`500` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(1)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`."
+  },
+  "source_sha256": "9c7abb040c6055b2f586c2adf2291740ecad86e3821aa08304a5d828a3254e3b",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "89c0b97c908b2f3301593186769badf7c3ebc20b6848a377de398bd030f5ad17"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-011",
+  "params": {
+   "x1": 2000,
+   "y1": 2000,
+   "x2": 0,
+   "y2": 0,
+   "why": "`2000` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(0)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`."
+  },
+  "source_sha256": "95e0648cd89863373dd68d6e414ceacbde9ff937a9a237a534ebd77bce43e126",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "89c0b97c908b2f3301593186769badf7c3ebc20b6848a377de398bd030f5ad17"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-012",
+  "params": {
+   "x1": 128,
+   "y1": 128,
+   "x2": 500,
+   "y2": 500,
+   "why": "`128` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `500` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "ca20aef64cf23ffcccc68f11a4b24bdd5d1e9f1a0d04758423d8b65c83805db8",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "284191af2e874b12fc4b96bfe94c68f3ed9ea464e0360faa1b56d4aa969ed177"
+   },
+   {
+    "mistake": "assuming the cache covers 0 to 255",
+    "stdout_sha256": "8be9593d32b78e148b59a1654f5d83c805626056d27f836530ff687762925af0"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-013",
+  "params": {
+   "x1": 150,
+   "y1": 150,
+   "x2": 1,
+   "y2": 1,
+   "why": "`150` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(1)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`."
+  },
+  "source_sha256": "85b75731bd2cb8178ad53dc6de7b3744c26c423a34e136959baf769feb19df10",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "89c0b97c908b2f3301593186769badf7c3ebc20b6848a377de398bd030f5ad17"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-014",
+  "params": {
+   "x1": 127,
+   "y1": 127,
+   "x2": 300,
+   "y2": 300,
+   "why": "`Integer.valueOf(127)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `300` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "93c15e50912a467ee598814b4f42c706dd86e5db1988e81893d74a00dab80ad4",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8be9593d32b78e148b59a1654f5d83c805626056d27f836530ff687762925af0",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "366dbd6c49d5f261447bf05528be1f200c0196da99c328d441cfe68612c4b8c3"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-015",
+  "params": {
+   "x1": -128,
+   "y1": -128,
+   "x2": 129,
+   "y2": 129,
+   "why": "`Integer.valueOf(-128)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "7e5c2cee2838b1c5e75f6f8be5b30d723c944a2274456056d9fb84eacb83f0c0",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8be9593d32b78e148b59a1654f5d83c805626056d27f836530ff687762925af0",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "366dbd6c49d5f261447bf05528be1f200c0196da99c328d441cfe68612c4b8c3"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-016",
+  "params": {
+   "x1": 500,
+   "y1": 500,
+   "x2": 64,
+   "y2": 64,
+   "why": "`500` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(64)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`."
+  },
+  "source_sha256": "b463b946036318dac45fe8bb628bb7cd61aafe169680908c3cb04d9a4fe7a62b",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "89c0b97c908b2f3301593186769badf7c3ebc20b6848a377de398bd030f5ad17"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-017",
+  "params": {
+   "x1": 2000,
+   "y1": 2000,
+   "x2": 1000,
+   "y2": 1000,
+   "why": "`2000` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `1000` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "cd175cde3dec2c324e67373a7d4d57d96c76aa8654e835e3a3e03dc17e144eb3",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "284191af2e874b12fc4b96bfe94c68f3ed9ea464e0360faa1b56d4aa969ed177"
+   },
+   {
+    "mistake": "assuming the cache covers -1000 to 1000",
+    "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-018",
+  "params": {
+   "x1": 100,
+   "y1": 100,
+   "x2": -129,
+   "y2": -129,
+   "why": "`Integer.valueOf(100)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `-129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "cdc4eba68ba7ece8381eba987b0c258589067df7fa00c2c28986b4dd8a2b2775",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8be9593d32b78e148b59a1654f5d83c805626056d27f836530ff687762925af0",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "366dbd6c49d5f261447bf05528be1f200c0196da99c328d441cfe68612c4b8c3"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-019",
+  "params": {
+   "x1": 2000,
+   "y1": 2000,
+   "x2": 255,
+   "y2": 255,
+   "why": "`2000` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `255` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "e0370ead4b6d8f2f12e6e669865fe9d88817e0da058c6027188fea5fb6feb319",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "284191af2e874b12fc4b96bfe94c68f3ed9ea464e0360faa1b56d4aa969ed177"
+   },
+   {
+    "mistake": "assuming the cache covers 0 to 255",
+    "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-020",
+  "params": {
+   "x1": 128,
+   "y1": 128,
+   "x2": 64,
+   "y2": 64,
+   "why": "`128` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(64)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`."
+  },
+  "source_sha256": "63b4331ffcd8f948d294307486bbcddc895c78779d2b878da82e643e958d4072",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "89c0b97c908b2f3301593186769badf7c3ebc20b6848a377de398bd030f5ad17"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-021",
+  "params": {
+   "x1": -129,
+   "y1": -129,
+   "x2": 0,
+   "y2": 0,
+   "why": "`-129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(0)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`."
+  },
+  "source_sha256": "6718aadcebd834fdfcec1f3afb86f1e3845d940d3864f76da87ecd7c9426477f",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "89c0b97c908b2f3301593186769badf7c3ebc20b6848a377de398bd030f5ad17"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-022",
+  "params": {
+   "x1": 127,
+   "y1": 127,
+   "x2": 256,
+   "y2": 256,
+   "why": "`Integer.valueOf(127)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `256` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "40b68aceb2e6bbaa83357d6e6a44db3b08b62a8cbe9adbb6588b24426c6c1b32",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8be9593d32b78e148b59a1654f5d83c805626056d27f836530ff687762925af0",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "366dbd6c49d5f261447bf05528be1f200c0196da99c328d441cfe68612c4b8c3"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-023",
+  "params": {
+   "x1": 500,
+   "y1": 500,
+   "x2": 0,
+   "y2": 0,
+   "why": "`500` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(0)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`."
+  },
+  "source_sha256": "af246e62a06ca122cae7768c2761b9df0c2edfe346628408da7f32d9e70f925b",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "89c0b97c908b2f3301593186769badf7c3ebc20b6848a377de398bd030f5ad17"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-024",
+  "params": {
+   "x1": 255,
+   "y1": 255,
+   "x2": 2000,
+   "y2": 2000,
+   "why": "`255` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `2000` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "53c5d131d5006afbc20eccd002af4032be3fbbad1c088a25b79cdf71ff39a2be",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "284191af2e874b12fc4b96bfe94c68f3ed9ea464e0360faa1b56d4aa969ed177"
+   },
+   {
+    "mistake": "assuming the cache covers 0 to 255",
+    "stdout_sha256": "8be9593d32b78e148b59a1654f5d83c805626056d27f836530ff687762925af0"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-025",
+  "params": {
+   "x1": 500,
+   "y1": 500,
+   "x2": 200,
+   "y2": 200,
+   "why": "`500` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `200` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "2b35679d04d194039ab2f1dc99dd7c211bf31f71ffc54a87274612c76a11638a",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "284191af2e874b12fc4b96bfe94c68f3ed9ea464e0360faa1b56d4aa969ed177"
+   },
+   {
+    "mistake": "assuming the cache covers 0 to 255",
+    "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-026",
+  "params": {
+   "x1": 255,
+   "y1": 255,
+   "x2": -129,
+   "y2": -129,
+   "why": "`255` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `-129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "abd0a43c7505a9ec2e786b40d8d8dcff2d700511f92ad9527ad03010be363b37",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "284191af2e874b12fc4b96bfe94c68f3ed9ea464e0360faa1b56d4aa969ed177"
+   },
+   {
+    "mistake": "assuming the cache covers 0 to 255",
+    "stdout_sha256": "8be9593d32b78e148b59a1654f5d83c805626056d27f836530ff687762925af0"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-027",
+  "params": {
+   "x1": 100,
+   "y1": 100,
+   "x2": 200,
+   "y2": 200,
+   "why": "`Integer.valueOf(100)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `200` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "0d1180893a5e5c01c4ba92c03b187b555c42c4148f42b6e59dac1def1182bc77",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8be9593d32b78e148b59a1654f5d83c805626056d27f836530ff687762925af0",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "366dbd6c49d5f261447bf05528be1f200c0196da99c328d441cfe68612c4b8c3"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-028",
+  "params": {
+   "x1": -130,
+   "y1": -130,
+   "x2": 150,
+   "y2": 150,
+   "why": "`-130` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `150` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "b069d83c343b52653e755477aad1f00cf9e2696b9b8382c405ba8ba437ac171b",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "284191af2e874b12fc4b96bfe94c68f3ed9ea464e0360faa1b56d4aa969ed177"
+   },
+   {
+    "mistake": "assuming the cache covers 0 to 255",
+    "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-029",
+  "params": {
+   "x1": 256,
+   "y1": 256,
+   "x2": 128,
+   "y2": 128,
+   "why": "`256` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `128` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "ab7c9641044423df981b89f9605b5ef41e323ffcf33fa3cbd6a41ff728e8f533",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "284191af2e874b12fc4b96bfe94c68f3ed9ea464e0360faa1b56d4aa969ed177"
+   },
+   {
+    "mistake": "assuming the cache covers 0 to 255",
+    "stdout_sha256": "1864590c813c9dcaadf240b05cb4105c6a019ff292b8dff7e8c8e4b6beb24681"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-030",
+  "params": {
+   "x1": 0,
+   "y1": 0,
+   "x2": 129,
+   "y2": 129,
+   "why": "`Integer.valueOf(0)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "29de045c1cba1087dd5136d8601712181bbb6042e9ae98960267f950c02f1599",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8be9593d32b78e148b59a1654f5d83c805626056d27f836530ff687762925af0",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "366dbd6c49d5f261447bf05528be1f200c0196da99c328d441cfe68612c4b8c3"
+   },
+   {
+    "mistake": "assuming `valueOf` never shares objects",
+    "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-integer-cache-031",
+  "params": {
+   "x1": 129,
+   "y1": 129,
+   "x2": -130,
+   "y2": -130,
+   "why": "`129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee. `-130` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee."
+  },
+  "source_sha256": "958b7a081a36066df739d6e8febff8956f7c4d6fba5a9dd695067cd9c8b22736",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cb4f7056b8a65d301709d49f9c55d9ced68f709e62cce4a932be6cbf851b6b81",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "treating `==` on `Integer` as a comparison of the `int` values",
+    "stdout_sha256": "a8c8704687490f20e1992b9d6a9578237617ebd0894ee14f5682acea27e3845a"
+   },
+   {
+    "mistake": "taking `equals` to compare references",
+    "stdout_sha256": "284191af2e874b12fc4b96bfe94c68f3ed9ea464e0360faa1b56d4aa969ed177"
+   },
+   {
+    "mistake": "assuming the cache covers 0 to 255",
+    "stdout_sha256": "8be9593d32b78e148b59a1654f5d83c805626056d27f836530ff687762925af0"
+   }
+  ]
+ }
+]

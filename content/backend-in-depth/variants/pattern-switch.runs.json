@@ -1,0 +1,1334 @@
+[
+ {
+  "id": "m01-l01-v-pattern-switch-001",
+  "params": {
+   "limit": 20,
+   "len": 5,
+   "a": "18",
+   "b": "30",
+   "c": "\"abcdef\"",
+   "d": "2.5",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(18)` matches `Integer`, but its guard `i > 20` is false, so the second `Integer` label applies. `describe(30)` matches `Integer` and its guard `i > 20` is true, so the first `Integer` label applies. `describe(\"abcdef\")` matches `String` and its guard `s.length() > 5` is true because the length is `6`, so the first `String` label applies. `describe(2.5)` passes a `Double`, which matches neither `Integer` nor `String`, so only `default` applies."
+  },
+  "source_sha256": "8d40c7b9590f071b4fe6b5b5e7da3cad10f17f0d317e744c133b6e714d9ec984",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "341f53a5b9636aa7ac2c8670bb7b93ba8e1042d6fb5b31f4ec89354fb3e2d7e1",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "e9d0624bb2ed6daa85cce8341945527efa6a84922ac16da8103bf5d1cdcd8d4d"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "095db49122d96b5b3af02536d244cdd75c1138779817f5ce2d1ea5bb3591dd9e"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "c57f8d6affc1aee15c0df71f1fdab53025b6d8cee9656862199620742618917d"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-002",
+  "params": {
+   "limit": 5,
+   "len": 2,
+   "a": "3",
+   "b": "2",
+   "c": "\"ab\"",
+   "d": "\"abcd\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(3)` matches `Integer`, but its guard `i > 5` is false, so the second `Integer` label applies. `describe(2)` matches `Integer`, but its guard `i > 5` is false, so the second `Integer` label applies. `describe(\"ab\")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies. `describe(\"abcd\")` matches `String` and its guard `s.length() > 2` is true because the length is `4`, so the first `String` label applies."
+  },
+  "source_sha256": "ddeaf4e242ae2328fba93cac1ef07924699e6b0a2bde2f67ee9380c58235641d",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "4366c34528b2dcdee2fdbad190ebc970ff966d6db3f0d99b32cd5ed858fd84b8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "7024a49ece9c6fcd0bdaa1044628500a77b334ba3d9b67b7f2b53aac5e5561cd"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "8a9edb2ff8289a7424dab66a2d7904a101cba71c3c4a0c87577e1e929db219e2"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "f6df0b705f9f70f3639e0c410f99c061ee6263ff74e836aa14637d77e654e743"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-003",
+  "params": {
+   "limit": 3,
+   "len": 5,
+   "a": "13",
+   "b": "1",
+   "c": "\"abcd\"",
+   "d": "\"abcdef\"",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(13)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(1)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(\"abcd\")` matches `String`, but its guard `s.length() > 5` is false because the length is `4`, so the second `String` label applies. `describe(\"abcdef\")` matches `String` and its guard `s.length() > 5` is true because the length is `6`, so the first `String` label applies."
+  },
+  "source_sha256": "8cee47e202d4fac619b744e3969eb516a19ab620581439ed91c21adf869a7ac4",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "4323674c4b3f3e40e864125c99e3b3dfc2a11e1d155bfa0d4329a2890ad1e16e",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "d0b9478b4388d418754d89e467c3b060fc6135dc3365ac3dea49182a318b336f"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "442ef88f2728a07daea0d1b081123a28dbd8bc6a148b0f969d5e69f021acb1ca"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "303b83ef2b9c5aa1048163e25e9574bb42de25296c1b91d17c2d6ed0a2b60b4a"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-004",
+  "params": {
+   "limit": 5,
+   "len": 3,
+   "a": "6",
+   "b": "7",
+   "c": "\"abcdef\"",
+   "d": "\"id\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(6)` matches `Integer` and its guard `i > 5` is true, so the first `Integer` label applies. `describe(7)` matches `Integer` and its guard `i > 5` is true, so the first `Integer` label applies. `describe(\"abcdef\")` matches `String` and its guard `s.length() > 3` is true because the length is `6`, so the first `String` label applies. `describe(\"id\")` matches `String`, but its guard `s.length() > 3` is false because the length is `2`, so the second `String` label applies."
+  },
+  "source_sha256": "2d8eb9f5152bf023f692c8c44bf6f047ac69950267b3414bc2ec751266c2c617",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "f72b01fc72d59ba77d47476eb9b61a35458235805adc4bf40af6dabd017bd101",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "9f113a33eea707974a6fca2e41ba2e0f653a47f17f70cbdbe18fe2a5c9a8f887"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "b7d7313be574cefcb54bfdfb5aac740f8fcb68710f4dfd37961cd69d045ecca8"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "bc36dd3d64aebf4dd46aba3fd83e43c108e6cbd561e1265b47c9a7386392abee"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-005",
+  "params": {
+   "limit": 5,
+   "len": 4,
+   "a": "3",
+   "b": "6",
+   "c": "\"abcde\"",
+   "d": "2.5",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(3)` matches `Integer`, but its guard `i > 5` is false, so the second `Integer` label applies. `describe(6)` matches `Integer` and its guard `i > 5` is true, so the first `Integer` label applies. `describe(\"abcde\")` matches `String` and its guard `s.length() > 4` is true because the length is `5`, so the first `String` label applies. `describe(2.5)` passes a `Double`, which matches neither `Integer` nor `String`, so only `default` applies."
+  },
+  "source_sha256": "1e5c842a1b4e91607f10b29442afef6b04fa3388dd48ea6c66b276c69033b3dd",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ce5eae21181d39015eea632584b64229d44eb582b80da5090847db21ce1b8976",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "49ebb3f6401fcd52356fbb9f46803a6338bbc6bdfbfab9908ec2132a91b7844d"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "f27016f0447876a05fbdcc85e3a803894f9fc12ab641cdbec66454d868aa2b3e"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "4b36ed53b4a776cc1374c9539641ae5e49ac992a9844016a87b9a4e49ac15958"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-006",
+  "params": {
+   "limit": 20,
+   "len": 2,
+   "a": "22",
+   "b": "19",
+   "c": "\"ab\"",
+   "d": "\"hello\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(22)` matches `Integer` and its guard `i > 20` is true, so the first `Integer` label applies. `describe(19)` matches `Integer`, but its guard `i > 20` is false, so the second `Integer` label applies. `describe(\"ab\")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies. `describe(\"hello\")` matches `String` and its guard `s.length() > 2` is true because the length is `5`, so the first `String` label applies."
+  },
+  "source_sha256": "394dd5447c07c0f6e30315de5f3c52816f449f37160142147f6b9275a6b8fbeb",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "91f250c9dafe579dcce8fe2d375cf5fe8b32f2e1e455c130907a81dafb4446cb",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "771d4f6575e19d4469e7bcc8ddaa89b19e4054edf30a7c3e9759269c5e776303"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "322939942879a2ef23f703f727576b97eff07d50ba02b8222eec7d164c750ca3"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "2cc7446c80c0cbdac2aac8f8cf13fdc8315e4a97fa5e07dfa4bd2c3b44ee7f54"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-007",
+  "params": {
+   "limit": 20,
+   "len": 2,
+   "a": "25",
+   "b": "19",
+   "c": "\"ab\"",
+   "d": "\"abc\"",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(25)` matches `Integer` and its guard `i > 20` is true, so the first `Integer` label applies. `describe(19)` matches `Integer`, but its guard `i > 20` is false, so the second `Integer` label applies. `describe(\"ab\")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies. `describe(\"abc\")` matches `String` and its guard `s.length() > 2` is true because the length is `3`, so the first `String` label applies."
+  },
+  "source_sha256": "edd2dde8131fb456bbc9ecc6f87190bb3f8d6a288ebfc4d4dbd5a6b4a66b20c9",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ef35f94887e392c8b982b4a2d46958a1fdde814f3eac90c71c3660daee87b749",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "529c9ed31b164239bc1ec558da6742695124ab7813dba646d73461dd68531c96"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "fd599536eff8329a543d22238992ee06db69205437eca835489ce507648b51e2"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "c10da7340ebd4e8f9a9e0a27be533bbc96a3f72375a3c4985bf7d20772a8a491"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-008",
+  "params": {
+   "limit": 3,
+   "len": 5,
+   "a": "1",
+   "b": "0",
+   "c": "\"cart\"",
+   "d": "\"abcdef\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(1)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(0)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(\"cart\")` matches `String`, but its guard `s.length() > 5` is false because the length is `4`, so the second `String` label applies. `describe(\"abcdef\")` matches `String` and its guard `s.length() > 5` is true because the length is `6`, so the first `String` label applies."
+  },
+  "source_sha256": "9f3ffd267a926c6fa2f4bab578993806070640343eeceaa7a639091b7b600525",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8756c30987f6ec4b78c40a35c588017626bf320d56e153e134815b08d4c73dbe",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "4ae5d07d61cd86117e41dc5a34fd539ec0b360dc422770ce269d5a4dbda873fe"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "203024c9ed3d1ff55f2254a4acc35da85478f8ace7c2e1662c25dba109ac177f"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "707e3de6a464ec1d835369979351556f055e8bfc4812c7887dd289a188930f25"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-009",
+  "params": {
+   "limit": 10,
+   "len": 4,
+   "a": "10",
+   "b": "12",
+   "c": "\"abcde\"",
+   "d": "2.5",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(10)` matches `Integer`, but its guard `i > 10` is false, so the second `Integer` label applies. `describe(12)` matches `Integer` and its guard `i > 10` is true, so the first `Integer` label applies. `describe(\"abcde\")` matches `String` and its guard `s.length() > 4` is true because the length is `5`, so the first `String` label applies. `describe(2.5)` passes a `Double`, which matches neither `Integer` nor `String`, so only `default` applies."
+  },
+  "source_sha256": "89694c106dbdb8277b5fba122d80f35e03821abbd919b4113068b7b4ab29c526",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "c99fd0ff7f5c6d84b3e3c5eabf1918bc516c015b6e2f19a0025520d80e97b3ac",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "c1e106361c4e96d0de93241d120167b133aacaca35fcf513973ecba41ff61d37"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "7f716d9e14468433e07a486357878b217f309d444a9124d74792a2d037932926"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "7b7810671ae259a72dbb093e9caef9847accdf112ca3a023f159e9d8e74a6345"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-010",
+  "params": {
+   "limit": 3,
+   "len": 3,
+   "a": "4",
+   "b": "5",
+   "c": "\"abcd\"",
+   "d": "\"ab\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(4)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(5)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(\"abcd\")` matches `String` and its guard `s.length() > 3` is true because the length is `4`, so the first `String` label applies. `describe(\"ab\")` matches `String`, but its guard `s.length() > 3` is false because the length is `2`, so the second `String` label applies."
+  },
+  "source_sha256": "36824a326cf72b97a8ad38ec2c3129666acb9c54f19151e75f3803b61a78e50c",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "d0f71cc8e00143963848e2e4c01909bbc7cee04c09f8c819d7e48fcb05b2da9a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "26b2028110278daf16b8b2b410ccd7634bd4c66f9a3a66fec333c13af585822f"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "4979dd4742c60c6c7b8af25e6ed3d41e770360d09324f1e46a3fb6a27aa8bb40"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "d71014f89518c72a280b3884c2e6680705038066155810bfdb0e0fe92eb77639"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-011",
+  "params": {
+   "limit": 50,
+   "len": 3,
+   "a": "60",
+   "b": "48",
+   "c": "\"cart\"",
+   "d": "\"abc\"",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(60)` matches `Integer` and its guard `i > 50` is true, so the first `Integer` label applies. `describe(48)` matches `Integer`, but its guard `i > 50` is false, so the second `Integer` label applies. `describe(\"cart\")` matches `String` and its guard `s.length() > 3` is true because the length is `4`, so the first `String` label applies. `describe(\"abc\")` matches `String`, but its guard `s.length() > 3` is false because the length is `3`, so the second `String` label applies."
+  },
+  "source_sha256": "d261988b099d219ebae5438d44fc861569a65a4d35bccfa5a83d59cfb28e0c59",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "93c910987bae55a5cf56849f57e7bf459b1fff29f21f1a0db4db443e7de346d4",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "51c7d561453e0ee3a9ad5ab006affb79c4f738e6973814ab157584bf626f6dc1"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "166760db822d790c6d97b0343a3515700a370d2382b7b557f67a9d813a58971d"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "33147c8da4430dbbb712db40ad4acf9d7da42ab60f59cc7d9c538edcbb09ea05"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-012",
+  "params": {
+   "limit": 20,
+   "len": 2,
+   "a": "25",
+   "b": "26",
+   "c": "\"ab\"",
+   "d": "\"abc\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(25)` matches `Integer` and its guard `i > 20` is true, so the first `Integer` label applies. `describe(26)` matches `Integer` and its guard `i > 20` is true, so the first `Integer` label applies. `describe(\"ab\")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies. `describe(\"abc\")` matches `String` and its guard `s.length() > 2` is true because the length is `3`, so the first `String` label applies."
+  },
+  "source_sha256": "b41abc454e2155d10306ad81bac73b535f4c4c7cd77834d0d6057512f1b7afe2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "7f0e944b2fa6ecfff4f43cb47fc1ad76b710d017b6423e577737b9cab6bbf304",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "0fdb51cb2b84f59125a1f4af73390fc906e8d6da245134578bcf8a240919e7b8"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "5f2c207f3eb14d19ab96d7071f0176740cc3507eeea0c4524017324cf5e01fcb"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "dcf5517c1f9d4f73920d426f53ac7c577ee02314f0d04728444ad0184db018f2"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-013",
+  "params": {
+   "limit": 50,
+   "len": 4,
+   "a": "51",
+   "b": "50",
+   "c": "\"abc\"",
+   "d": "\"ledger\"",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(51)` matches `Integer` and its guard `i > 50` is true, so the first `Integer` label applies. `describe(50)` matches `Integer`, but its guard `i > 50` is false, so the second `Integer` label applies. `describe(\"abc\")` matches `String`, but its guard `s.length() > 4` is false because the length is `3`, so the second `String` label applies. `describe(\"ledger\")` matches `String` and its guard `s.length() > 4` is true because the length is `6`, so the first `String` label applies."
+  },
+  "source_sha256": "c429f1780461998fb76b4df837d0e25e912339faa9b9be635d0fa54da447bf1f",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6454e8671c02bac66b3b35b22e07922024f50c5b61e740c476079bf22999fb41",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "436fe6731f4e88c610031125dae46d2c54123534d07152568d6d148e5d0d1bfa"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "318360360eac5ba85acbd344ba068d5f4633fed1f385cc6e9da5e01096e46c87"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "f6c8e678f29794bb3b0de953464f3a6c101cf342b93f8cbb19398ce0be710c95"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-014",
+  "params": {
+   "limit": 5,
+   "len": 3,
+   "a": "7",
+   "b": "8",
+   "c": "\"ledger\"",
+   "d": "\"ab\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(7)` matches `Integer` and its guard `i > 5` is true, so the first `Integer` label applies. `describe(8)` matches `Integer` and its guard `i > 5` is true, so the first `Integer` label applies. `describe(\"ledger\")` matches `String` and its guard `s.length() > 3` is true because the length is `6`, so the first `String` label applies. `describe(\"ab\")` matches `String`, but its guard `s.length() > 3` is false because the length is `2`, so the second `String` label applies."
+  },
+  "source_sha256": "3ccf4c27dde1df1b9abff9b9036a049b129af5e9994f2e75ba98f4188c76d0c4",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "5eda31a18062e40a16e3054d89cda55b5dd6724367487277dc03703015036f05",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "28256dd3267460531e20fa71cc60501b764c74d883ce6625abd0e84706ca8f14"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "38079ec7a07ed85803ecc26d4f6868e3cfb6387e4df570b74fd379cb7ae4987e"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "6003b890caacdda76be148f4369245d2891976fab27350db8ba7df761a3f592b"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-015",
+  "params": {
+   "limit": 3,
+   "len": 2,
+   "a": "13",
+   "b": "3",
+   "c": "\"ab\"",
+   "d": "2.5",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(13)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(3)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(\"ab\")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies. `describe(2.5)` passes a `Double`, which matches neither `Integer` nor `String`, so only `default` applies."
+  },
+  "source_sha256": "459883d8ffc3ca4cdaa77a08e21eceb0e474f508ec576db3019b5eda7e8bc925",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cb4ba3c06870aee8cf94bcadde3e2351334c6535f472d7e8b683248bb10ca6b3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "e8cbbb168d011e6516c05bd73a7eb779dc681293bc0fc599d96306718a31e410"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "df0e1a7642536b838918e63df551294554008d7c78e9cdf039eb194431062595"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "9263b65298bfa2f81949080ae708f2c6cde95f709d8287f6bf1c7354b402c862"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-016",
+  "params": {
+   "limit": 20,
+   "len": 3,
+   "a": "17",
+   "b": "25",
+   "c": "\"hello\"",
+   "d": "\"abc\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(17)` matches `Integer`, but its guard `i > 20` is false, so the second `Integer` label applies. `describe(25)` matches `Integer` and its guard `i > 20` is true, so the first `Integer` label applies. `describe(\"hello\")` matches `String` and its guard `s.length() > 3` is true because the length is `5`, so the first `String` label applies. `describe(\"abc\")` matches `String`, but its guard `s.length() > 3` is false because the length is `3`, so the second `String` label applies."
+  },
+  "source_sha256": "d1db73db6772539a0dd9e703c4fb706ffc9967f38ea81d9f099951ad89e9218b",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6829e735450fe2499bf0e22a36e64c27713a696c8a16403a32f2a3ffed11ce07",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "570768fcca165502e54a0fda5092e6bbb9a6f2f8c9275a1bdaa53021ebe09351"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "ef6e98a6470a492b3acd9427ec5a54cfc701ccbada14205caefba51cbbf16921"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "eb1ae0bab6632b9eaa63723b69f8d0dc0245635e3e2ba57bac2921e2085a2fc9"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-017",
+  "params": {
+   "limit": 5,
+   "len": 3,
+   "a": "5",
+   "b": "6",
+   "c": "\"cart\"",
+   "d": "2.5",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(5)` matches `Integer`, but its guard `i > 5` is false, so the second `Integer` label applies. `describe(6)` matches `Integer` and its guard `i > 5` is true, so the first `Integer` label applies. `describe(\"cart\")` matches `String` and its guard `s.length() > 3` is true because the length is `4`, so the first `String` label applies. `describe(2.5)` passes a `Double`, which matches neither `Integer` nor `String`, so only `default` applies."
+  },
+  "source_sha256": "ec1e692b03f1b227127929c9d3ff9144b9a358f7a3a30b88be6157fa46915cd7",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "a397e35c3646c4992c1791df1324d8565e1187b569111f86f8957697fba89c34",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "aba9a7f2fa0807dfa36e56adefc7fc55702b2d070ac319e6d604930cc75ce7cf"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "efa0c534421c2277c7788b09bc785c715bba886cc2943b9984dae7cd90415ee6"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "377e2b55f966b5ebaac98bcd83986f630abb7d08ceb559d01bc45566b9ef2497"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-018",
+  "params": {
+   "limit": 50,
+   "len": 2,
+   "a": "48",
+   "b": "51",
+   "c": "\"abcd\"",
+   "d": "\"ab\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(48)` matches `Integer`, but its guard `i > 50` is false, so the second `Integer` label applies. `describe(51)` matches `Integer` and its guard `i > 50` is true, so the first `Integer` label applies. `describe(\"abcd\")` matches `String` and its guard `s.length() > 2` is true because the length is `4`, so the first `String` label applies. `describe(\"ab\")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies."
+  },
+  "source_sha256": "60565b02057d91a17cc973a867aece406f80ac61caebf0460f2113db2e21b438",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "bf9381667658ed10aebc326342169d8bd49f3983e8267bbfdd56e3bd78038e81",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "c2990e17ed1cedead51cdcc2bbe6435066dd20dc5e0a7c01587f8a68603fcb82"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "5bfd98b139c5aeb1588e1c3ebd7ef7c2a7616d2774c3cf57c22e882e0773993a"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "687781bc2c4a149efd4936cbc442ddad297f0cc74cb76fcac9811d5c6ac15858"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-019",
+  "params": {
+   "limit": 100,
+   "len": 5,
+   "a": "99",
+   "b": "105",
+   "c": "\"ledger\"",
+   "d": "\"id\"",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(99)` matches `Integer`, but its guard `i > 100` is false, so the second `Integer` label applies. `describe(105)` matches `Integer` and its guard `i > 100` is true, so the first `Integer` label applies. `describe(\"ledger\")` matches `String` and its guard `s.length() > 5` is true because the length is `6`, so the first `String` label applies. `describe(\"id\")` matches `String`, but its guard `s.length() > 5` is false because the length is `2`, so the second `String` label applies."
+  },
+  "source_sha256": "fcc70f501853b3ea5d769ae40296e2f272e0aeadd9007f0fc71ca6ebc77ff822",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "a89321d9df7a9c0adee310dcba57c2f54c4b06dd03a798d10cac4b94ab316e28",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "1852fbee606b36ec9ec5468d963acefc3908b12930c96b9489b84865e1dbe84b"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "12b06538674397235d13645c4cc0005807e89fa39df6c72587ded762234db510"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "011a902268194ec62a83915ce1e36bccc26b0f2bce2f940e6bc7d80a502b76d9"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-020",
+  "params": {
+   "limit": 3,
+   "len": 3,
+   "a": "3",
+   "b": "8",
+   "c": "\"abcdef\"",
+   "d": "\"ab\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(3)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(8)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(\"abcdef\")` matches `String` and its guard `s.length() > 3` is true because the length is `6`, so the first `String` label applies. `describe(\"ab\")` matches `String`, but its guard `s.length() > 3` is false because the length is `2`, so the second `String` label applies."
+  },
+  "source_sha256": "fc9af3c9c1e0506a5b27eb65f44a57f401d4f82c4ae995347e960e84e032e35c",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "4adaa1c5eb952abd1a2bb248aaac914338b8106abb50df1a800c33d6922b0420",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "bf2387300181cd42f2d56efbbf2b21747d89cc1e1f17e485b7720a576aa1f7d1"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "2b8e83805e911e1aaf53671ad33d08493bbf9ff9760354f2d0bfa2c7e97895cb"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "3d3ac57047e1877df2c700875a62fe26034d172b0b9cc60b75172c5233bed897"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-021",
+  "params": {
+   "limit": 3,
+   "len": 2,
+   "a": "8",
+   "b": "2",
+   "c": "\"id\"",
+   "d": "\"abcdef\"",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(8)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(2)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(\"id\")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies. `describe(\"abcdef\")` matches `String` and its guard `s.length() > 2` is true because the length is `6`, so the first `String` label applies."
+  },
+  "source_sha256": "2b4c56bfe9c4dbf5f9804c14a81a110787ca715a4be89f20f46d60becf369260",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "35aaabf840aede5178619554050e4949a2fbaad3f6c403572b623989618c6d1e",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "53b86bc358cfbfab908060512c7040537e4913c335c24a7e2a5ece1e5f3f6a89"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "b5212e4740f9fe95767c6d480a532df05a15c67db963055e965b3fb775a90a2f"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "07d18eaea9227e758023cca18676b6a8f34c013a90c072ac6a9ef4369c974096"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-022",
+  "params": {
+   "limit": 10,
+   "len": 4,
+   "a": "21",
+   "b": "20",
+   "c": "\"abcde\"",
+   "d": "\"abc\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(21)` matches `Integer` and its guard `i > 10` is true, so the first `Integer` label applies. `describe(20)` matches `Integer` and its guard `i > 10` is true, so the first `Integer` label applies. `describe(\"abcde\")` matches `String` and its guard `s.length() > 4` is true because the length is `5`, so the first `String` label applies. `describe(\"abc\")` matches `String`, but its guard `s.length() > 4` is false because the length is `3`, so the second `String` label applies."
+  },
+  "source_sha256": "d3237be73cb9c189650520942ac63c5c71bd083d0d4e82256aaf261059bf6366",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "69bbbd4898b8dc7b87bc80337c3e6f6dc8f44844872dc0a2ad4a6d8ef501db9d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "dfa803356e9da40317e2f531fe1a7200020c9efaf549312b07006bc6654268d1"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "051356a207d80ffc2faa5a5161b2730cdc616a2e1ee334bd4f043dcd8cfe60f5"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "cd742fbc8b87ac97378041a9b94faf4a0c4d775eea817f474bf914f787717706"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-023",
+  "params": {
+   "limit": 10,
+   "len": 3,
+   "a": "7",
+   "b": "11",
+   "c": "\"ab\"",
+   "d": "2.5",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(7)` matches `Integer`, but its guard `i > 10` is false, so the second `Integer` label applies. `describe(11)` matches `Integer` and its guard `i > 10` is true, so the first `Integer` label applies. `describe(\"ab\")` matches `String`, but its guard `s.length() > 3` is false because the length is `2`, so the second `String` label applies. `describe(2.5)` passes a `Double`, which matches neither `Integer` nor `String`, so only `default` applies."
+  },
+  "source_sha256": "a75139815a3ada232d41b65d09a5ae394af6ab696e2bef6af8e07cad06a32392",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6e51f3c0416e190a59fd3343ddbd72db9b2b8c49561a111d052e425f5e8048cd",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "8522ad4080d7b9b864154ef7126ed42f5798f2d5b79e15aee11e75a18b4019fc"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "7e4e87c255f3b7533782b69d21f565e8af8e1b1df355a624ef9185b310376d9a"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "4276720dbaa7940dbdc7407421e55063b0f8eb293aab6fd04a6baca163de1a48"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-024",
+  "params": {
+   "limit": 3,
+   "len": 2,
+   "a": "-1",
+   "b": "0",
+   "c": "\"abcd\"",
+   "d": "\"id\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(-1)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(0)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(\"abcd\")` matches `String` and its guard `s.length() > 2` is true because the length is `4`, so the first `String` label applies. `describe(\"id\")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies."
+  },
+  "source_sha256": "e4cb5f411565b7547e15fb98ceb497ff5ed6e92e55373158224e1b585ae07862",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "e5c66a27a678d15c30e685edad329faf4c998a89c6893f59929e69ac019e1d76",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "3068af05ced971087a7fbb8da38e6e3f7353d5f300abfe6356d7fd0e9a73bf20"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "25befe72b52d3e990bbbd8eeb3e2b4682cd01f8270084a6c65a09c8c448ea940"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "34b0a79a80645543f9b61b56b5e357079630cccfb2f18cf5459a7b76b65c19c8"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-025",
+  "params": {
+   "limit": 3,
+   "len": 2,
+   "a": "1",
+   "b": "13",
+   "c": "\"abc\"",
+   "d": "\"id\"",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(1)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(13)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(\"abc\")` matches `String` and its guard `s.length() > 2` is true because the length is `3`, so the first `String` label applies. `describe(\"id\")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies."
+  },
+  "source_sha256": "ff879e72f0e50e7397ea08a44e55d2a506366fc28399dade94f25da840160289",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "9ae9ad043e3ee985b77dd1557640312f1f56829e00db9e6394291481c0fc91da",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "2ede47ae33bb113ebcfab8ba31ad0f71b3e5eca0288af7668a638dec43703698"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "f3ebf901b4d07619ba4804f86d59d264c3a5ce432b6c64ec323fa2d2f084e371"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "c6557b241ee27cf1db3a30f0aecb372270c613e5407cf1c8750f3fb839370ea6"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-026",
+  "params": {
+   "limit": 10,
+   "len": 4,
+   "a": "10",
+   "b": "15",
+   "c": "\"ab\"",
+   "d": "\"ledger\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(10)` matches `Integer`, but its guard `i > 10` is false, so the second `Integer` label applies. `describe(15)` matches `Integer` and its guard `i > 10` is true, so the first `Integer` label applies. `describe(\"ab\")` matches `String`, but its guard `s.length() > 4` is false because the length is `2`, so the second `String` label applies. `describe(\"ledger\")` matches `String` and its guard `s.length() > 4` is true because the length is `6`, so the first `String` label applies."
+  },
+  "source_sha256": "dba6ff5751eb9e5a174edb8d7d3618556d9d92fc081cd0d6c956e143227cd9dc",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6328869278235fc64e8f87483f52dc49f41aa793356432f82058d9659b2ce6c3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "a970a12fc0aa563af9d9e20f57e0323f3462cfaed917c2ae1118cd180d9a08f2"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "281c69f52c9845c721d7dc429f2b98a668a890a7ee5d1b7b95e777cc7bf10a54"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "7d9a69cc290f5a28991967fffa1c7fe3d1ffa5183ae8e65089300e5544d199a7"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-027",
+  "params": {
+   "limit": 50,
+   "len": 5,
+   "a": "60",
+   "b": "48",
+   "c": "\"ab\"",
+   "d": "\"abcdef\"",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(60)` matches `Integer` and its guard `i > 50` is true, so the first `Integer` label applies. `describe(48)` matches `Integer`, but its guard `i > 50` is false, so the second `Integer` label applies. `describe(\"ab\")` matches `String`, but its guard `s.length() > 5` is false because the length is `2`, so the second `String` label applies. `describe(\"abcdef\")` matches `String` and its guard `s.length() > 5` is true because the length is `6`, so the first `String` label applies."
+  },
+  "source_sha256": "23b68cc8cf8bd4f3e3b5c82b26784ea9d580dd27507fb1738d2498357ec1703b",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "2c9f1011f2f557f2f379970c9c36c017c443e0e934dc2a692e808b61cb9356e6",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "01f1884504c04d277a393156daea9e062dd00d91d180d51740650390a7b3f398"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "90bec2b5a4325a315d85fef271c56f8ad66b4fb30f1283c4b3d3cdfac4d3f9a7"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "6ff9dddd6b9c4bdc07aac1356bc701c63dcb3ed03f077c425cae7f0f9112e04c"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-028",
+  "params": {
+   "limit": 3,
+   "len": 4,
+   "a": "6",
+   "b": "5",
+   "c": "\"pay\"",
+   "d": "\"ledger\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(6)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(5)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(\"pay\")` matches `String`, but its guard `s.length() > 4` is false because the length is `3`, so the second `String` label applies. `describe(\"ledger\")` matches `String` and its guard `s.length() > 4` is true because the length is `6`, so the first `String` label applies."
+  },
+  "source_sha256": "4092ee16cc1ebe300df76db594cea063910ff72a8a92a92e26b3294a9559f98d",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "644ac21e0b7c92076c9f96b6fbea68150e92f84cd9ce5cabc2159fcc934e77bc",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "2db5afebcc9e32ad21d68cdcb63f2a2815c9a6e6cd06702c89fbf7adea346a27"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "d28d29c6afff4078deb615723a3477823e57e02783d569154ba4ed529ec192af"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "2f1222a445d9ef23996c52491e01ce4a5814d5a0be889361bfafcfad9b9da1c2"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-029",
+  "params": {
+   "limit": 50,
+   "len": 2,
+   "a": "60",
+   "b": "49",
+   "c": "\"ab\"",
+   "d": "\"cart\"",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(60)` matches `Integer` and its guard `i > 50` is true, so the first `Integer` label applies. `describe(49)` matches `Integer`, but its guard `i > 50` is false, so the second `Integer` label applies. `describe(\"ab\")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies. `describe(\"cart\")` matches `String` and its guard `s.length() > 2` is true because the length is `4`, so the first `String` label applies."
+  },
+  "source_sha256": "fa7619a33b57bb1b1cfd8fcc687a9b1c8542711d99e6c046203fd017fc229ac2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "9ab1c302481246ce5d85ca768c493732ec6469dcc41317bf5c12ef21105ba58d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "1ae88067283c27ecc786ce0ca783f34d81188323ce2e010a4722c88db6e44975"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "0c48a30917934bf40ef1dc5d1e53510b4c7a36ce2e7e8827ba4ff74a579a8a3c"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "b7440f1dfb215435100feaed9fe6c64900810055a97b2fa00a4a40ca335f0983"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-030",
+  "params": {
+   "limit": 100,
+   "len": 2,
+   "a": "110",
+   "b": "98",
+   "c": "\"hello\"",
+   "d": "\"id\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(110)` matches `Integer` and its guard `i > 100` is true, so the first `Integer` label applies. `describe(98)` matches `Integer`, but its guard `i > 100` is false, so the second `Integer` label applies. `describe(\"hello\")` matches `String` and its guard `s.length() > 2` is true because the length is `5`, so the first `String` label applies. `describe(\"id\")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies."
+  },
+  "source_sha256": "d580a57adfc6bf9faad153f080b7480e60d6cd732a8c4885e3f82b97a02ef43b",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "4ae0e01e20a08cd78928d0d2764983e0b2dff172c9407d6c9641a8236ed6590e",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "82f70cc03d80cb57fc11dba4b2351ee6d66fd4cc24b0c772e8382b0d3f565cd3"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "9805ec654baebc28e10b7bd28e7214e8f032d48332e23fab7e69a3179e125aea"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "5beb0398ad98189a2ff80e1c22bd668b0ec6937ab653206b6228ff349a2f6ae2"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-031",
+  "params": {
+   "limit": 50,
+   "len": 3,
+   "a": "51",
+   "b": "47",
+   "c": "\"cart\"",
+   "d": "2.5",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(51)` matches `Integer` and its guard `i > 50` is true, so the first `Integer` label applies. `describe(47)` matches `Integer`, but its guard `i > 50` is false, so the second `Integer` label applies. `describe(\"cart\")` matches `String` and its guard `s.length() > 3` is true because the length is `4`, so the first `String` label applies. `describe(2.5)` passes a `Double`, which matches neither `Integer` nor `String`, so only `default` applies."
+  },
+  "source_sha256": "5de768380fbc98e81ad2ba2ecdaa80b68d7fae7f29400a9490127543a925aac6",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ebc84a0ddade092873225861a82efe33abaa9637abc1476740f14976f052297a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "6f62a8e153163b2d729412511a87496d94578d47536e4895433900040a312da8"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "dfc535387465acd6119a1e6fc87bfb682b2041407e63a6dde1edbe2624c9d465"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "2bab81c58dc73ed1fb82f31a45c7c9b4d6e61c591a790920c07ab098d1363dae"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-032",
+  "params": {
+   "limit": 5,
+   "len": 4,
+   "a": "3",
+   "b": "7",
+   "c": "\"ledger\"",
+   "d": "\"abc\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(3)` matches `Integer`, but its guard `i > 5` is false, so the second `Integer` label applies. `describe(7)` matches `Integer` and its guard `i > 5` is true, so the first `Integer` label applies. `describe(\"ledger\")` matches `String` and its guard `s.length() > 4` is true because the length is `6`, so the first `String` label applies. `describe(\"abc\")` matches `String`, but its guard `s.length() > 4` is false because the length is `3`, so the second `String` label applies."
+  },
+  "source_sha256": "30526a756441fd34cd1fffb1567e005b76fa86e1019485a48634e2473d49303f",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ba7119c9b297e45b5075e05be5cebe190878a46ccc4316caa02d5d3d6d8a0f5b",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "e9e849ff1007740ad317f903f76cc8f03f89fd2b6c472dbddfe2b99448aca2de"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "91e1fcc94d9cca8b76cb31cf2505cbc60351d0d53412272b1f1c35825ad4cc49"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "8235eb8a291c4b78979971430bdfe0e71a9ec53c7baa6551f1b2692c46580448"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-033",
+  "params": {
+   "limit": 50,
+   "len": 4,
+   "a": "50",
+   "b": "51",
+   "c": "\"abc\"",
+   "d": "2.5",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(50)` matches `Integer`, but its guard `i > 50` is false, so the second `Integer` label applies. `describe(51)` matches `Integer` and its guard `i > 50` is true, so the first `Integer` label applies. `describe(\"abc\")` matches `String`, but its guard `s.length() > 4` is false because the length is `3`, so the second `String` label applies. `describe(2.5)` passes a `Double`, which matches neither `Integer` nor `String`, so only `default` applies."
+  },
+  "source_sha256": "12f4ec26912ffd5a5a78961f5ff736eb1aa2cebf3ab8ee77d32157b08d921c12",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "19b66c15d417941c714025e66e713e9714c8a935e3863723289b30d474889ddb",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "0945f6bb9e5aafd765a1e764bb4646783d6c4076e13565543255329e60c45a5c"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "4c63e9a7d56804d9b1c09f1d0db79c954d8c1860c5fabd23ad3402064de00c41"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "6a828c539596aa5949014bcaf57a5a5ba2fb3e3623863f94006b41529b64ef60"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-034",
+  "params": {
+   "limit": 3,
+   "len": 2,
+   "a": "5",
+   "b": "4",
+   "c": "\"cart\"",
+   "d": "\"ab\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(5)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(4)` matches `Integer` and its guard `i > 3` is true, so the first `Integer` label applies. `describe(\"cart\")` matches `String` and its guard `s.length() > 2` is true because the length is `4`, so the first `String` label applies. `describe(\"ab\")` matches `String`, but its guard `s.length() > 2` is false because the length is `2`, so the second `String` label applies."
+  },
+  "source_sha256": "4a05220118bedbb7e83c9a9b42defae4ac523f9075756ae7b8291c6810815065",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "5f51415ae29ca26de3b9bbb10135ec8eacd9b2e491ee4662400ad42cb10697cf",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "a7980068c69f4c534b20bcd7d0b6fcf19839b96d1b0e39a3e4d881a7bdf2cb6d"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "83772d628de60e983128f8464e97cd7d12f7c84d136881b69bc7dd54fb21a2df"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "e415d1cbbe7a4e296b91dd8ed88f029f1ee2f9a72b655535afee21ea9bdbde58"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-035",
+  "params": {
+   "limit": 20,
+   "len": 5,
+   "a": "25",
+   "b": "17",
+   "c": "\"pay\"",
+   "d": "2.5",
+   "ifocus": "Integer",
+   "sfocus": "\u00a7",
+   "why": "`describe(25)` matches `Integer` and its guard `i > 20` is true, so the first `Integer` label applies. `describe(17)` matches `Integer`, but its guard `i > 20` is false, so the second `Integer` label applies. `describe(\"pay\")` matches `String`, but its guard `s.length() > 5` is false because the length is `3`, so the second `String` label applies. `describe(2.5)` passes a `Double`, which matches neither `Integer` nor `String`, so only `default` applies."
+  },
+  "source_sha256": "aec8566573f519af4219c65d4ddc0c7b4ceec0261975c865a1a0e130f6cc858d",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "a7694acc3e9887576e95e5b9376a910103260601be4a9d7fe47a0cab07fffae6",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `Integer` guard, so the first `Integer` label always wins",
+    "stdout_sha256": "b6eb937c3132fe744c3411eecce0975846aba3da8df2f34f5fe5e5506f4510e9"
+   },
+   {
+    "mistake": "reading the `Integer` guard `i > @@limit@@` as its opposite",
+    "stdout_sha256": "19a9ac974b50de1f6e715ac89759c5635c5b5c01a36614263f816757f0198a48"
+   },
+   {
+    "mistake": "sending an `Integer` that fails its guard to `default`",
+    "stdout_sha256": "f406268f32e0a2c7a628b9fec426007a86b054d43162dcb999d7e920078d30ec"
+   }
+  ]
+ },
+ {
+  "id": "m01-l01-v-pattern-switch-036",
+  "params": {
+   "limit": 3,
+   "len": 4,
+   "a": "-1",
+   "b": "0",
+   "c": "\"id\"",
+   "d": "\"hello\"",
+   "ifocus": "\u00a7",
+   "sfocus": "String",
+   "why": "`describe(-1)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(0)` matches `Integer`, but its guard `i > 3` is false, so the second `Integer` label applies. `describe(\"id\")` matches `String`, but its guard `s.length() > 4` is false because the length is `2`, so the second `String` label applies. `describe(\"hello\")` matches `String` and its guard `s.length() > 4` is true because the length is `5`, so the first `String` label applies."
+  },
+  "source_sha256": "a7eddbdb4d56b6d0da4c9056453ce4207555abac9168049cf76a38064992aaed",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "20e9b615060b018bbab928dd5c2aca3c5f220a03e0bb8f9d2b636faed6a761b3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "ignoring the `String` guard, so the first `String` label always wins",
+    "stdout_sha256": "8ca82356c3e2ac25c1e5595fc3c9127ebfd6b43bf8122bb67b903104aeaca157"
+   },
+   {
+    "mistake": "reading the `String` guard `s.length() > @@len@@` as its opposite",
+    "stdout_sha256": "40d685895981be78a699fc755364cc36ac021c45480537035a98cda9c53336c2"
+   },
+   {
+    "mistake": "sending a `String` that fails its guard to `default`",
+    "stdout_sha256": "1dd1b142443dae20865380e5d916aa4c6b15f729a5f4f8ce10d4a5b853f2b44b"
+   }
+  ]
+ }
+]

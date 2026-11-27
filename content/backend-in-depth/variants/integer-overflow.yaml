@@ -1,0 +1,561 @@
+exercise: m11-l02-ex-integer-overflow
+lesson: m11-l02
+citation: javadoc-math#addExact(int,int)
+file: Main.java
+prompt: The `exact` method calls a `Math` method on two `int` values and catches `ArithmeticException`. What does this program print, line by line?
+difficulty: 2
+tags:
+- overflow
+- math
+parameters: {}
+cases:
+- op: addExact
+  sym: +
+  other: subtractExact
+  plain: (x + y)
+  wide: ((long) x + y)
+  citation: javadoc-math#addExact(int,int)
+  why: '`2147483647 + 3` is `2147483650`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 3)` returns `overflow`. `2000000000 + -460` is `1999999540`,
+    which fits in an `int`, so `exact(2000000000, -460)` returns it as text. `2147483647 + 2` is `2147483649`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647,
+    2)` returns `overflow`.'
+  a1: 2147483647
+  b1: 3
+  a2: 2000000000
+  b2: -460
+  a3: 2147483647
+  b3: 2
+- op: addExact
+  sym: +
+  other: subtractExact
+  plain: (x + y)
+  wide: ((long) x + y)
+  citation: javadoc-math#addExact(int,int)
+  why: '`-2088165818 + -370306017` is `-2458471835`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(-2088165818, -370306017)` returns `overflow`. `471 + 100`
+    is `571`, which fits in an `int`, so `exact(471, 100)` returns it as text. `2147483647 + 905086272` is `3052569919`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and
+    `exact(2147483647, 905086272)` returns `overflow`.'
+  a1: -2088165818
+  b1: -370306017
+  a2: 471
+  b2: 100
+  a3: 2147483647
+  b3: 905086272
+- op: addExact
+  sym: +
+  other: subtractExact
+  plain: (x + y)
+  wide: ((long) x + y)
+  citation: javadoc-math#addExact(int,int)
+  why: '`1000 + -100` is `900`, which fits in an `int`, so `exact(1000, -100)` returns it as text. `-2000000000 + 5000` is `-1999995000`, which fits in an `int`, so `exact(-2000000000, 5000)` returns it
+    as text. `-2147483648 + -332469076` is `-2479952724`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(-2147483648, -332469076)` returns `overflow`.'
+  a1: 1000
+  b1: -100
+  a2: -2000000000
+  b2: 5000
+  a3: -2147483648
+  b3: -332469076
+- op: addExact
+  sym: +
+  other: subtractExact
+  plain: (x + y)
+  wide: ((long) x + y)
+  citation: javadoc-math#addExact(int,int)
+  why: '`2147483647 + 70000` is `2147553647`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 70000)` returns `overflow`. `2147483647 + 0` is `2147483647`,
+    which fits in an `int`, so `exact(2147483647, 0)` returns it as text. `-729 + -100` is `-829`, which fits in an `int`, so `exact(-729, -100)` returns it as text.'
+  a1: 2147483647
+  b1: 70000
+  a2: 2147483647
+  b2: 0
+  a3: -729
+  b3: -100
+- op: addExact
+  sym: +
+  other: subtractExact
+  plain: (x + y)
+  wide: ((long) x + y)
+  citation: javadoc-math#addExact(int,int)
+  why: '`2000000000 + 46341` is `2000046341`, which fits in an `int`, so `exact(2000000000, 46341)` returns it as text. `2147483647 + 561355217` is `2708838864`, which does not fit in an `int`, so `Math.addExact`
+    throws `ArithmeticException` and `exact(2147483647, 561355217)` returns `overflow`. `2147483647 + 3` is `2147483650`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException`
+    and `exact(2147483647, 3)` returns `overflow`.'
+  a1: 2000000000
+  b1: 46341
+  a2: 2147483647
+  b2: 561355217
+  a3: 2147483647
+  b3: 3
+- op: addExact
+  sym: +
+  other: subtractExact
+  plain: (x + y)
+  wide: ((long) x + y)
+  citation: javadoc-math#addExact(int,int)
+  why: '`46340 + 1` is `46341`, which fits in an `int`, so `exact(46340, 1)` returns it as text. `-2147483648 + -362224996` is `-2509708644`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException`
+    and `exact(-2147483648, -362224996)` returns `overflow`. `-2000000000 + 5000` is `-1999995000`, which fits in an `int`, so `exact(-2000000000, 5000)` returns it as text.'
+  a1: 46340
+  b1: 1
+  a2: -2147483648
+  b2: -362224996
+  a3: -2000000000
+  b3: 5000
+- op: addExact
+  sym: +
+  other: subtractExact
+  plain: (x + y)
+  wide: ((long) x + y)
+  citation: javadoc-math#addExact(int,int)
+  why: '`2147483647 + 100000` is `2147583647`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 100000)` returns `overflow`. `-1712816801 + -473835213`
+    is `-2186652014`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(-1712816801, -473835213)` returns `overflow`. `-2000000000 + 924` is `-1999999076`, which
+    fits in an `int`, so `exact(-2000000000, 924)` returns it as text.'
+  a1: 2147483647
+  b1: 100000
+  a2: -1712816801
+  b2: -473835213
+  a3: -2000000000
+  b3: 924
+- op: addExact
+  sym: +
+  other: subtractExact
+  plain: (x + y)
+  wide: ((long) x + y)
+  citation: javadoc-math#addExact(int,int)
+  why: '`46340 + -100` is `46240`, which fits in an `int`, so `exact(46340, -100)` returns it as text. `2147483647 + 3` is `2147483650`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException`
+    and `exact(2147483647, 3)` returns `overflow`. `-2000000000 + 813` is `-1999999187`, which fits in an `int`, so `exact(-2000000000, 813)` returns it as text.'
+  a1: 46340
+  b1: -100
+  a2: 2147483647
+  b2: 3
+  a3: -2000000000
+  b3: 813
+- op: addExact
+  sym: +
+  other: subtractExact
+  plain: (x + y)
+  wide: ((long) x + y)
+  citation: javadoc-math#addExact(int,int)
+  why: '`-2000000000 + -100` is `-2000000100`, which fits in an `int`, so `exact(-2000000000, -100)` returns it as text. `2147483647 + 348138670` is `2495622317`, which does not fit in an `int`, so `Math.addExact`
+    throws `ArithmeticException` and `exact(2147483647, 348138670)` returns `overflow`. `-267 + 0` is `-267`, which fits in an `int`, so `exact(-267, 0)` returns it as text.'
+  a1: -2000000000
+  b1: -100
+  a2: 2147483647
+  b2: 348138670
+  a3: -267
+  b3: 0
+- op: addExact
+  sym: +
+  other: subtractExact
+  plain: (x + y)
+  wide: ((long) x + y)
+  citation: javadoc-math#addExact(int,int)
+  why: '`2147483647 + 5000` is `2147488647`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 5000)` returns `overflow`. `2147483647 + 200683961` is
+    `2348167608`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 200683961)` returns `overflow`. `-2000000000 + 5000` is `-1999995000`, which fits
+    in an `int`, so `exact(-2000000000, 5000)` returns it as text.'
+  a1: 2147483647
+  b1: 5000
+  a2: 2147483647
+  b2: 200683961
+  a3: -2000000000
+  b3: 5000
+- op: addExact
+  sym: +
+  other: subtractExact
+  plain: (x + y)
+  wide: ((long) x + y)
+  citation: javadoc-math#addExact(int,int)
+  why: '`2147483647 + 820648565` is `2968132212`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 820648565)` returns `overflow`. `-2147483648 + 0`
+    is `-2147483648`, which fits in an `int`, so `exact(-2147483648, 0)` returns it as text. `2000000000 + 46341` is `2000046341`, which fits in an `int`, so `exact(2000000000, 46341)` returns it as text.'
+  a1: 2147483647
+  b1: 820648565
+  a2: -2147483648
+  b2: 0
+  a3: 2000000000
+  b3: 46341
+- op: addExact
+  sym: +
+  other: subtractExact
+  plain: (x + y)
+  wide: ((long) x + y)
+  citation: javadoc-math#addExact(int,int)
+  why: '`46340 + 1` is `46341`, which fits in an `int`, so `exact(46340, 1)` returns it as text. `960 + 100` is `1060`, which fits in an `int`, so `exact(960, 100)` returns it as text. `2147483647 + 100000`
+    is `2147583647`, which does not fit in an `int`, so `Math.addExact` throws `ArithmeticException` and `exact(2147483647, 100000)` returns `overflow`.'
+  a1: 46340
+  b1: 1
+  a2: 960
+  b2: 100
+  a3: 2147483647
+  b3: 100000
+- op: subtractExact
+  sym: '-'
+  other: addExact
+  plain: (x - y)
+  wide: ((long) x - y)
+  citation: javadoc-math#subtractExact(int,int)
+  why: '`2000000000 - 1` is `1999999999`, which fits in an `int`, so `exact(2000000000, 1)` returns it as text. `2147483647 - 5000` is `2147478647`, which fits in an `int`, so `exact(2147483647, 5000)`
+    returns it as text. `-2147483648 - 70000` is `-2147553648`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 70000)` returns `overflow`.'
+  a1: 2000000000
+  b1: 1
+  a2: 2147483647
+  b2: 5000
+  a3: -2147483648
+  b3: 70000
+- op: subtractExact
+  sym: '-'
+  other: addExact
+  plain: (x - y)
+  wide: ((long) x - y)
+  citation: javadoc-math#subtractExact(int,int)
+  why: '`2147483647 - 100` is `2147483547`, which fits in an `int`, so `exact(2147483647, 100)` returns it as text. `-2147483648 - 1` is `-2147483649`, which does not fit in an `int`, so `Math.subtractExact`
+    throws `ArithmeticException` and `exact(-2147483648, 1)` returns `overflow`. `46340 - -100` is `46440`, which fits in an `int`, so `exact(46340, -100)` returns it as text.'
+  a1: 2147483647
+  b1: 100
+  a2: -2147483648
+  b2: 1
+  a3: 46340
+  b3: -100
+- op: subtractExact
+  sym: '-'
+  other: addExact
+  plain: (x - y)
+  wide: ((long) x - y)
+  citation: javadoc-math#subtractExact(int,int)
+  why: '`-2147483648 - 213646969` is `-2361130617`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 213646969)` returns `overflow`. `-2028929402
+    - 667731038` is `-2696660440`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2028929402, 667731038)` returns `overflow`. `1000 - 5000` is `-4000`,
+    which fits in an `int`, so `exact(1000, 5000)` returns it as text.'
+  a1: -2147483648
+  b1: 213646969
+  a2: -2028929402
+  b2: 667731038
+  a3: 1000
+  b3: 5000
+- op: subtractExact
+  sym: '-'
+  other: addExact
+  plain: (x - y)
+  wide: ((long) x - y)
+  citation: javadoc-math#subtractExact(int,int)
+  why: '`2147483647 - -1` is `2147483648`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(2147483647, -1)` returns `overflow`. `-2000000000 - 5000` is `-2000005000`,
+    which fits in an `int`, so `exact(-2000000000, 5000)` returns it as text. `-2000000000 - 100` is `-2000000100`, which fits in an `int`, so `exact(-2000000000, 100)` returns it as text.'
+  a1: 2147483647
+  b1: -1
+  a2: -2000000000
+  b2: 5000
+  a3: -2000000000
+  b3: 100
+- op: subtractExact
+  sym: '-'
+  other: addExact
+  plain: (x - y)
+  wide: ((long) x - y)
+  citation: javadoc-math#subtractExact(int,int)
+  why: '`-2147483648 - 5000` is `-2147488648`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 5000)` returns `overflow`. `46340 - -100` is `46440`,
+    which fits in an `int`, so `exact(46340, -100)` returns it as text. `-2147483648 - 0` is `-2147483648`, which fits in an `int`, so `exact(-2147483648, 0)` returns it as text.'
+  a1: -2147483648
+  b1: 5000
+  a2: 46340
+  b2: -100
+  a3: -2147483648
+  b3: 0
+- op: subtractExact
+  sym: '-'
+  other: addExact
+  plain: (x - y)
+  wide: ((long) x - y)
+  citation: javadoc-math#subtractExact(int,int)
+  why: '`-2147483648 - 0` is `-2147483648`, which fits in an `int`, so `exact(-2147483648, 0)` returns it as text. `-2147483648 - 310537812` is `-2458021460`, which does not fit in an `int`, so `Math.subtractExact`
+    throws `ArithmeticException` and `exact(-2147483648, 310537812)` returns `overflow`. `46340 - 46341` is `-1`, which fits in an `int`, so `exact(46340, 46341)` returns it as text.'
+  a1: -2147483648
+  b1: 0
+  a2: -2147483648
+  b2: 310537812
+  a3: 46340
+  b3: 46341
+- op: subtractExact
+  sym: '-'
+  other: addExact
+  plain: (x - y)
+  wide: ((long) x - y)
+  citation: javadoc-math#subtractExact(int,int)
+  why: '`-2147483648 - 5000` is `-2147488648`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 5000)` returns `overflow`. `-2147483648 - 0` is
+    `-2147483648`, which fits in an `int`, so `exact(-2147483648, 0)` returns it as text. `2000000000 - -100` is `2000000100`, which fits in an `int`, so `exact(2000000000, -100)` returns it as text.'
+  a1: -2147483648
+  b1: 5000
+  a2: -2147483648
+  b2: 0
+  a3: 2000000000
+  b3: -100
+- op: subtractExact
+  sym: '-'
+  other: addExact
+  plain: (x - y)
+  wide: ((long) x - y)
+  citation: javadoc-math#subtractExact(int,int)
+  why: '`-2000000000 - 5000` is `-2000005000`, which fits in an `int`, so `exact(-2000000000, 5000)` returns it as text. `-164 - -100` is `-64`, which fits in an `int`, so `exact(-164, -100)` returns it
+    as text. `-2147483648 - 5000` is `-2147488648`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 5000)` returns `overflow`.'
+  a1: -2000000000
+  b1: 5000
+  a2: -164
+  b2: -100
+  a3: -2147483648
+  b3: 5000
+- op: subtractExact
+  sym: '-'
+  other: addExact
+  plain: (x - y)
+  wide: ((long) x - y)
+  citation: javadoc-math#subtractExact(int,int)
+  why: '`1000 - -317` is `1317`, which fits in an `int`, so `exact(1000, -317)` returns it as text. `2147483647 - -379793263` is `2527276910`, which does not fit in an `int`, so `Math.subtractExact` throws
+    `ArithmeticException` and `exact(2147483647, -379793263)` returns `overflow`. `1000 - 0` is `1000`, which fits in an `int`, so `exact(1000, 0)` returns it as text.'
+  a1: 1000
+  b1: -317
+  a2: 2147483647
+  b2: -379793263
+  a3: 1000
+  b3: 0
+- op: subtractExact
+  sym: '-'
+  other: addExact
+  plain: (x - y)
+  wide: ((long) x - y)
+  citation: javadoc-math#subtractExact(int,int)
+  why: '`-2147483648 - 3` is `-2147483651`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 3)` returns `overflow`. `-2000000000 - 884` is `-2000000884`,
+    which fits in an `int`, so `exact(-2000000000, 884)` returns it as text. `2147483647 - -150871584` is `2298355231`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException`
+    and `exact(2147483647, -150871584)` returns `overflow`.'
+  a1: -2147483648
+  b1: 3
+  a2: -2000000000
+  b2: 884
+  a3: 2147483647
+  b3: -150871584
+- op: subtractExact
+  sym: '-'
+  other: addExact
+  plain: (x - y)
+  wide: ((long) x - y)
+  citation: javadoc-math#subtractExact(int,int)
+  why: '`-1503223474 - 882530402` is `-2385753876`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-1503223474, 882530402)` returns `overflow`. `-987 - 0`
+    is `-987`, which fits in an `int`, so `exact(-987, 0)` returns it as text. `-2147483648 - 70000` is `-2147553648`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException`
+    and `exact(-2147483648, 70000)` returns `overflow`.'
+  a1: -1503223474
+  b1: 882530402
+  a2: -987
+  b2: 0
+  a3: -2147483648
+  b3: 70000
+- op: subtractExact
+  sym: '-'
+  other: addExact
+  plain: (x - y)
+  wide: ((long) x - y)
+  citation: javadoc-math#subtractExact(int,int)
+  why: '`-2147483648 - 100000` is `-2147583648`, which does not fit in an `int`, so `Math.subtractExact` throws `ArithmeticException` and `exact(-2147483648, 100000)` returns `overflow`. `46340 - 1` is
+    `46339`, which fits in an `int`, so `exact(46340, 1)` returns it as text. `2000000000 - -100` is `2000000100`, which fits in an `int`, so `exact(2000000000, -100)` returns it as text.'
+  a1: -2147483648
+  b1: 100000
+  a2: 46340
+  b2: 1
+  a3: 2000000000
+  b3: -100
+- op: multiplyExact
+  sym: '*'
+  other: addExact
+  plain: (x * y)
+  wide: ((long) x * y)
+  citation: javadoc-math#multiplyExact(int,int)
+  why: '`-2000000000 * 0` is `0`, which fits in an `int`, so `exact(-2000000000, 0)` returns it as text. `65536 * 100000` is `6553600000`, which does not fit in an `int`, so `Math.multiplyExact` throws
+    `ArithmeticException` and `exact(65536, 100000)` returns `overflow`. `1000000 * -894449194` is `-894449194000000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException`
+    and `exact(1000000, -894449194)` returns `overflow`.'
+  a1: -2000000000
+  b1: 0
+  a2: 65536
+  b2: 100000
+  a3: 1000000
+  b3: -894449194
+- op: multiplyExact
+  sym: '*'
+  other: addExact
+  plain: (x * y)
+  wide: ((long) x * y)
+  citation: javadoc-math#multiplyExact(int,int)
+  why: '`2000000000 * 1` is `2000000000`, which fits in an `int`, so `exact(2000000000, 1)` returns it as text. `1000 * 0` is `0`, which fits in an `int`, so `exact(1000, 0)` returns it as text. `2147483647
+    * 70000` is `150323855290000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(2147483647, 70000)` returns `overflow`.'
+  a1: 2000000000
+  b1: 1
+  a2: 1000
+  b2: 0
+  a3: 2147483647
+  b3: 70000
+- op: multiplyExact
+  sym: '*'
+  other: addExact
+  plain: (x * y)
+  wide: ((long) x * y)
+  citation: javadoc-math#multiplyExact(int,int)
+  why: '`46340 * -100` is `-4634000`, which fits in an `int`, so `exact(46340, -100)` returns it as text. `46340 * 100` is `4634000`, which fits in an `int`, so `exact(46340, 100)` returns it as text. `-2147483648
+    * 5000` is `-10737418240000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(-2147483648, 5000)` returns `overflow`.'
+  a1: 46340
+  b1: -100
+  a2: 46340
+  b2: 100
+  a3: -2147483648
+  b3: 5000
+- op: multiplyExact
+  sym: '*'
+  other: addExact
+  plain: (x * y)
+  wide: ((long) x * y)
+  citation: javadoc-math#multiplyExact(int,int)
+  why: '`46340 * 46341` is `2147441940`, which fits in an `int`, so `exact(46340, 46341)` returns it as text. `65536 * 70000` is `4587520000`, which does not fit in an `int`, so `Math.multiplyExact` throws
+    `ArithmeticException` and `exact(65536, 70000)` returns `overflow`. `1000000 * 227118160` is `227118160000000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and
+    `exact(1000000, 227118160)` returns `overflow`.'
+  a1: 46340
+  b1: 46341
+  a2: 65536
+  b2: 70000
+  a3: 1000000
+  b3: 227118160
+- op: multiplyExact
+  sym: '*'
+  other: addExact
+  plain: (x * y)
+  wide: ((long) x * y)
+  citation: javadoc-math#multiplyExact(int,int)
+  why: '`46340 * 100` is `4634000`, which fits in an `int`, so `exact(46340, 100)` returns it as text. `2000000000 * 1` is `2000000000`, which fits in an `int`, so `exact(2000000000, 1)` returns it as text.
+    `50000 * 70000` is `3500000000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(50000, 70000)` returns `overflow`.'
+  a1: 46340
+  b1: 100
+  a2: 2000000000
+  b2: 1
+  a3: 50000
+  b3: 70000
+- op: multiplyExact
+  sym: '*'
+  other: addExact
+  plain: (x * y)
+  wide: ((long) x * y)
+  citation: javadoc-math#multiplyExact(int,int)
+  why: '`-2000000000 * 1` is `-2000000000`, which fits in an `int`, so `exact(-2000000000, 1)` returns it as text. `-2147483648 * 70000` is `-150323855360000`, which does not fit in an `int`, so `Math.multiplyExact`
+    throws `ArithmeticException` and `exact(-2147483648, 70000)` returns `overflow`. `-2147483648 * -1` is `2147483648`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException`
+    and `exact(-2147483648, -1)` returns `overflow`.'
+  a1: -2000000000
+  b1: 1
+  a2: -2147483648
+  b2: 70000
+  a3: -2147483648
+  b3: -1
+- op: multiplyExact
+  sym: '*'
+  other: addExact
+  plain: (x * y)
+  wide: ((long) x * y)
+  citation: javadoc-math#multiplyExact(int,int)
+  why: '`716 * -100` is `-71600`, which fits in an `int`, so `exact(716, -100)` returns it as text. `1140506082 * -227028587` is `-258927484261366134`, which does not fit in an `int`, so `Math.multiplyExact`
+    throws `ArithmeticException` and `exact(1140506082, -227028587)` returns `overflow`. `1000 * 1` is `1000`, which fits in an `int`, so `exact(1000, 1)` returns it as text.'
+  a1: 716
+  b1: -100
+  a2: 1140506082
+  b2: -227028587
+  a3: 1000
+  b3: 1
+- op: multiplyExact
+  sym: '*'
+  other: addExact
+  plain: (x * y)
+  wide: ((long) x * y)
+  citation: javadoc-math#multiplyExact(int,int)
+  why: '`-1974381044 * 3` is `-5923143132`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(-1974381044, 3)` returns `overflow`. `-2000000000 * 1` is `-2000000000`,
+    which fits in an `int`, so `exact(-2000000000, 1)` returns it as text. `1000 * -3` is `-3000`, which fits in an `int`, so `exact(1000, -3)` returns it as text.'
+  a1: -1974381044
+  b1: 3
+  a2: -2000000000
+  b2: 1
+  a3: 1000
+  b3: -3
+- op: multiplyExact
+  sym: '*'
+  other: addExact
+  plain: (x * y)
+  wide: ((long) x * y)
+  citation: javadoc-math#multiplyExact(int,int)
+  why: '`-2147483648 * 0` is `0`, which fits in an `int`, so `exact(-2147483648, 0)` returns it as text. `-1638625268 * 3` is `-4915875804`, which does not fit in an `int`, so `Math.multiplyExact` throws
+    `ArithmeticException` and `exact(-1638625268, 3)` returns `overflow`. `1000 * 0` is `0`, which fits in an `int`, so `exact(1000, 0)` returns it as text.'
+  a1: -2147483648
+  b1: 0
+  a2: -1638625268
+  b2: 3
+  a3: 1000
+  b3: 0
+- op: multiplyExact
+  sym: '*'
+  other: addExact
+  plain: (x * y)
+  wide: ((long) x * y)
+  citation: javadoc-math#multiplyExact(int,int)
+  why: '`46340 * 0` is `0`, which fits in an `int`, so `exact(46340, 0)` returns it as text. `1000 * 331` is `331000`, which fits in an `int`, so `exact(1000, 331)` returns it as text. `-2147483648 * -799520836`
+    is `1716957921545289728`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(-2147483648, -799520836)` returns `overflow`.'
+  a1: 46340
+  b1: 0
+  a2: 1000
+  b2: 331
+  a3: -2147483648
+  b3: -799520836
+- op: multiplyExact
+  sym: '*'
+  other: addExact
+  plain: (x * y)
+  wide: ((long) x * y)
+  citation: javadoc-math#multiplyExact(int,int)
+  why: '`1000 * 46341` is `46341000`, which fits in an `int`, so `exact(1000, 46341)` returns it as text. `65536 * -700319007` is `-45896106442752`, which does not fit in an `int`, so `Math.multiplyExact`
+    throws `ArithmeticException` and `exact(65536, -700319007)` returns `overflow`. `2000000000 * 1` is `2000000000`, which fits in an `int`, so `exact(2000000000, 1)` returns it as text.'
+  a1: 1000
+  b1: 46341
+  a2: 65536
+  b2: -700319007
+  a3: 2000000000
+  b3: 1
+- op: multiplyExact
+  sym: '*'
+  other: addExact
+  plain: (x * y)
+  wide: ((long) x * y)
+  citation: javadoc-math#multiplyExact(int,int)
+  why: '`-2147483648 * 5000` is `-10737418240000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and `exact(-2147483648, 5000)` returns `overflow`. `423 * 100` is
+    `42300`, which fits in an `int`, so `exact(423, 100)` returns it as text. `1000000 * 100000` is `100000000000`, which does not fit in an `int`, so `Math.multiplyExact` throws `ArithmeticException` and
+    `exact(1000000, 100000)` returns `overflow`.'
+  a1: -2147483648
+  b1: 5000
+  a2: 423
+  b2: 100
+  a3: 1000000
+  b3: 100000
+template: |
+  public class Main {
+      static String exact(int x, int y) {
+          try {
+              return String.valueOf(Math.@@op@@(x, y));
+          } catch (ArithmeticException e) {
+              return "overflow";
+          }
+      }
+
+      public static void main(String[] args) {
+          System.out.println(exact(@@a1@@, @@b1@@));
+          System.out.println(exact(@@a2@@, @@b2@@));
+          System.out.println(exact(@@a3@@, @@b3@@));
+      }
+  }
+explanation: '`Math.@@op@@` returns the result of `x @@sym@@ y` when it fits in an `int` and throws `ArithmeticException` when it does not, and `exact` turns that exception into `overflow`. @@why@@ The
+  program prints @@key@@.'
+mistakes:
+- name: using the plain `@@sym@@` operator instead of `Math.@@op@@`
+  replace:
+  - Math.@@op@@(x, y)
+  - '@@plain@@'
+  why: '`Math.@@op@@` throws `ArithmeticException` when the result overflows an `int`, so an overflowing call never returns a wrapped value.'
+- name: computing the result as a `long` instead of calling `Math.@@op@@`
+  replace:
+  - Math.@@op@@(x, y)
+  - '@@wide@@'
+  why: '`Math.@@op@@(int, int)` takes `int` values and throws when the `int` result overflows, so it never returns a wider result.'
+- name: reading `Math.@@op@@` as `Math.@@other@@`
+  replace:
+  - Math.@@op@@
+  - Math.@@other@@
+  why: '`Math.@@op@@` combines its arguments with `@@sym@@`, and no other operation is applied.'

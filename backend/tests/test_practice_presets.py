@@ -71,14 +71,17 @@ async def test_by_module_draws_every_question_of_its_lessons_and_twenty_by_defau
 ) -> None:
     await _sign_up(backend_client, "modulo")
     registry = _registry()
-    expected = {
-        (q.exercise_id, q.variant_id)
-        for lesson in registry.module_lesson_ids("m01")
-        for q in registry.lesson_questions(lesson)
-    }
+    questions = [q for lesson in registry.module_lesson_ids("m01") for q in registry.lesson_questions(lesson)]
+    expected = {(q.exercise_id, q.variant_id) for q in questions}
+    unfamilied = {(q.exercise_id, q.variant_id) for q in questions if q.family is None}
     every = await backend_client.post(f"{BACKEND}/modules/m01/practice", json={"all": True})
     assert every.json()["moduleId"] == "m01"
-    assert sorted(_keys(every.json()["questions"])) == sorted(expected)
+    drawn = _keys(every.json()["questions"])
+    assert len(drawn) == len(set(drawn)) and unfamilied <= set(drawn) <= expected
+    served_per_family = Counter(
+        q.family for q in questions if (q.exercise_id, q.variant_id) in set(drawn) and q.family
+    )
+    assert served_per_family and set(served_per_family.values()) == {2}
     assert len({lesson for lesson, _ in expected}) > 1
     twenty = _keys((await backend_client.post(f"{BACKEND}/modules/m01/practice")).json()["questions"])
     assert len(twenty) == len(set(twenty)) == 20 and set(twenty) <= expected
@@ -162,7 +165,7 @@ async def test_generators_only_draws_generated_items_of_the_course_generators(
         "exerciseIds"
     ]
     generators = {use.exercise_id for use in _registry().generator_uses()}
-    assert len(generators) == 31
+    assert len(generators) == 37
     assert len(drawn) == 62 and set(drawn) == generators
 
 

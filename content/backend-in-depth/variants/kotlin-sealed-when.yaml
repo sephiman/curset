@@ -1,0 +1,130 @@
+exercise: m04-l02-ex-sealed-when
+lesson: m04-l02
+citation: kotlin-docs-control-flow#guard-conditions-in-when-expressions
+file: Main.kt
+prompt: Since Kotlin 2.2, a `when` branch can carry a guard condition. What does this program print? The function `large` prints `guard` each time it is called.
+difficulty: 3
+tags:
+- kotlin
+- when
+- sealed
+parameters:
+  big:
+  - large
+  - big
+  small:
+  - plain
+  - small
+cases:
+- limit: 50
+  first: Command.Deposit(80)
+  second: Command.Withdraw(70)
+  why1: '`Deposit(80)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `80` is above `50`, so the guarded `Deposit` branch runs.'
+  why2: '`Withdraw(70)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `70` is above `50`, so the guarded `Withdraw` branch runs.'
+- limit: 50
+  first: Command.Deposit(20)
+  second: Command.Withdraw(30)
+  why1: '`Deposit(20)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `20` is not above `50`, so the guarded branch is skipped and the plain `Deposit` branch runs.'
+  why2: '`Withdraw(30)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `30` is not above `50`, so the guarded branch is skipped and the plain `Withdraw` branch runs.'
+- limit: 40
+  first: Command.Withdraw(65)
+  second: Command.Deposit(15)
+  why1: '`Withdraw(65)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `65` is above `40`, so the guarded `Withdraw` branch runs.'
+  why2: '`Deposit(15)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `15` is not above `40`, so the guarded branch is skipped and the plain `Deposit` branch runs.'
+- limit: 40
+  first: Command.Deposit(60)
+  second: Command.Deposit(25)
+  why1: '`Deposit(60)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `60` is above `40`, so the guarded `Deposit` branch runs.'
+  why2: '`Deposit(25)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `25` is not above `40`, so the guarded branch is skipped and the plain `Deposit` branch runs.'
+- limit: 40
+  first: Command.Withdraw(45)
+  second: Command.Withdraw(10)
+  why1: '`Withdraw(45)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `45` is above `40`, so the guarded `Withdraw` branch runs.'
+  why2: '`Withdraw(10)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `10` is not above `40`, so the guarded branch is skipped and the plain `Withdraw` branch runs.'
+- limit: 20
+  first: Command.Deposit(35)
+  second: Command.Withdraw(12)
+  why1: '`Deposit(35)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `35` is above `20`, so the guarded `Deposit` branch runs.'
+  why2: '`Withdraw(12)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `12` is not above `20`, so the guarded branch is skipped and the plain `Withdraw` branch runs.'
+- limit: 20
+  first: Command.Withdraw(8)
+  second: Command.Deposit(30)
+  why1: '`Withdraw(8)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `8` is not above `20`, so the guarded branch is skipped and the plain `Withdraw` branch runs.'
+  why2: '`Deposit(30)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `30` is above `20`, so the guarded `Deposit` branch runs.'
+- limit: 50
+  first: Command.Deposit(75)
+  second: Command.Deposit(12)
+  why1: '`Deposit(75)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `75` is above `50`, so the guarded `Deposit` branch runs.'
+  why2: '`Deposit(12)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `12` is not above `50`, so the guarded branch is skipped and the plain `Deposit` branch runs.'
+- limit: 30
+  first: Command.Withdraw(18)
+  second: Command.Withdraw(55)
+  why1: '`Withdraw(18)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `18` is not above `30`, so the guarded branch is skipped and the plain `Withdraw` branch runs.'
+  why2: '`Withdraw(55)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `55` is above `30`, so the guarded `Withdraw` branch runs.'
+template: |
+  sealed interface Command {
+      data class Deposit(val amount: Int) : Command
+      data class Withdraw(val amount: Int) : Command
+      data object Close : Command
+  }
+
+  fun large(amount: Int): Boolean {
+      println("guard")
+      return amount > @@limit@@
+  }
+
+  fun describe(command: Command): String = when (command) {
+      is Command.Deposit if large(command.amount) -> "@@big@@ deposit"
+      is Command.Withdraw if large(command.amount) -> "@@big@@ withdrawal"
+      is Command.Deposit -> "@@small@@ deposit"
+      is Command.Withdraw -> "@@small@@ withdrawal"
+      Command.Close -> "closed"
+  }
+
+  fun main() {
+      println(describe(@@first@@))
+      println(describe(@@second@@))
+  }
+explanation: The branches are tried in order and a guard is evaluated only after its primary condition matches. @@why1@@ @@why2@@ The program prints @@key@@.
+mistakes:
+- name: putting the plain branches before the guarded ones
+  replace:
+  - |2
+        is Command.Deposit if large(command.amount) -> "@@big@@ deposit"
+        is Command.Withdraw if large(command.amount) -> "@@big@@ withdrawal"
+        is Command.Deposit -> "@@small@@ deposit"
+        is Command.Withdraw -> "@@small@@ withdrawal"
+  - |2
+        is Command.Deposit -> "@@small@@ deposit"
+        is Command.Withdraw -> "@@small@@ withdrawal"
+        is Command.Deposit if large(command.amount) -> "@@big@@ deposit"
+        is Command.Withdraw if large(command.amount) -> "@@big@@ withdrawal"
+  why: '`when` tries the branches in order, so a guarded branch written first is tried before the plain branch of the same type.'
+- name: negating both guards
+  replace:
+  - |2
+        is Command.Deposit if large(command.amount) -> "@@big@@ deposit"
+        is Command.Withdraw if large(command.amount) -> "@@big@@ withdrawal"
+  - |2
+        is Command.Deposit if !large(command.amount) -> "@@big@@ deposit"
+        is Command.Withdraw if !large(command.amount) -> "@@big@@ withdrawal"
+  why: A guarded branch runs when its guard returns `true`, and `large` returns `true` only for an amount above `@@limit@@`.
+- name: treating both guards as always true
+  replace:
+  - |2
+        is Command.Deposit if large(command.amount) -> "@@big@@ deposit"
+        is Command.Withdraw if large(command.amount) -> "@@big@@ withdrawal"
+  - |2
+        is Command.Deposit if large(command.amount) || true -> "@@big@@ deposit"
+        is Command.Withdraw if large(command.amount) || true -> "@@big@@ withdrawal"
+  why: When a guard returns `false` the branch is skipped and `when` goes on to the next branch.
+- name: negating only the `Deposit` guard
+  replace:
+  - is Command.Deposit if large
+  - is Command.Deposit if !large
+  why: The `Deposit` guard is `large(command.amount)`, which holds for an amount above `@@limit@@`.
+- name: negating only the `Withdraw` guard
+  replace:
+  - is Command.Withdraw if large
+  - is Command.Withdraw if !large
+  why: The `Withdraw` guard is `large(command.amount)`, which holds for an amount above `@@limit@@`.

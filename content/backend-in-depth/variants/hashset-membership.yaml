@@ -1,0 +1,811 @@
+exercise: m02-l01-ex-hashset-membership
+lesson: m02-l01
+citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+file: Main.java
+prompt: On the pinned JDK, what does this program print, line by line? `Tag` instances are stored in a `HashSet` and looked up with `contains`.
+difficulty: 3
+tags:
+- hashset
+- equals
+- hashcode
+parameters: {}
+cases:
+- a: 12
+  step: System.out.println(tags.add(new Tag(12)));
+  probe: new Tag(12)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(12)` equals the stored one'
+  lookupwhy: the set holds a `Tag` equal to `Tag(12)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(12)`, finds an equal element and returns `false`. `contains(new Tag(12))`
+    is `true` because the set holds an equal element, and the set holds one element.'
+  steponly: System.out.println(tags.add(new Tag(12)));
+- a: 1000
+  step: System.out.println(tags.add(new Tag(250)));
+  probe: new Tag(250)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 1
+  flip: 'false'
+  stepwhy: '`add` returns `true` when the set contains no equal element, and `Tag(250)` does not equal `Tag(1000)`'
+  lookupwhy: the set holds a `Tag` equal to `Tag(250)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(1000)` and `Tag(250)` are not equal. `contains(new Tag(250))` is `true` because the set holds an
+    equal element, and the set holds two elements.'
+  steponly: System.out.println(tags.add(new Tag(250)));
+- a: 101
+  step: first.code = 40;
+  probe: first
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-set#interface-set-e
+  ident: 'true'
+  sizealt: 2
+  flip: ''
+  stepwhy: ''
+  lookupwhy: the behavior of a set after an element changed in a way that affects `equals` is not specified, and the pinned JDK does not find it
+  why: The `add` returns `true`, and the code of the stored element changes from `101` to `40`, which affects `equals`. The `Set` documentation does not specify the behavior after such a change, so the
+    recorded output of the pinned JDK for `contains` with the same object that was added is `false`, and the set still holds one element.
+  steponly: ''
+- a: 58
+  step: System.out.println(tags.add(first));
+  probe: first
+  hash: ''
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()
+  ident: 'true'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: an object has the same hash code each time and equals itself
+  why: '`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one
+    element.'
+  steponly: System.out.println(tags.add(first));
+- a: 12
+  step: System.out.println(tags.add(first));
+  probe: new Tag(12)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: the set holds a `Tag` equal to `Tag(12)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Adding `first` again returns `false` because the set already holds that object, `contains(new Tag(12))` is `true` because an equal element
+    is present, and the set holds one element.'
+  steponly: System.out.println(tags.add(first));
+- a: 40
+  step: System.out.println(tags.add(new Tag(40)));
+  probe: new Tag(40)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(40)` equals the stored one'
+  lookupwhy: the set holds a `Tag` equal to `Tag(40)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(40)`, finds an equal element and returns `false`. `contains(new Tag(40))`
+    is `true` because the set holds an equal element, and the set holds one element.'
+  steponly: System.out.println(tags.add(new Tag(40)));
+- a: 3
+  step: System.out.println(tags.add(new Tag(7)));
+  probe: new Tag(7)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 1
+  flip: 'false'
+  stepwhy: '`add` returns `true` when the set contains no equal element, and `Tag(7)` does not equal `Tag(3)`'
+  lookupwhy: the set holds a `Tag` equal to `Tag(7)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(3)` and `Tag(7)` are not equal. `contains(new Tag(7))` is `true` because the set holds an equal
+    element, and the set holds two elements.'
+  steponly: System.out.println(tags.add(new Tag(7)));
+- a: 250
+  step: first.code = 101;
+  probe: new Tag(101)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-set#interface-set-e
+  ident: 'false'
+  sizealt: 2
+  flip: ''
+  stepwhy: ''
+  lookupwhy: the behavior of a set after an element changed in a way that affects `equals` is not specified, and the pinned JDK does not find it
+  why: The `add` returns `true`, and the code of the stored element changes from `250` to `101`, which affects `equals`. The `Set` documentation does not specify the behavior after such a change, so the
+    recorded output of the pinned JDK for `contains` with a new `Tag(101)` is `false`, and the set still holds one element.
+  steponly: ''
+- a: 7
+  step: System.out.println(tags.add(first));
+  probe: first
+  hash: ''
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()
+  ident: 'true'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: an object has the same hash code each time and equals itself
+  why: '`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one
+    element.'
+  steponly: System.out.println(tags.add(first));
+- a: 40
+  step: System.out.println(tags.add(first));
+  probe: new Tag(40)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: the set holds a `Tag` equal to `Tag(40)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Adding `first` again returns `false` because the set already holds that object, `contains(new Tag(40))` is `true` because an equal element
+    is present, and the set holds one element.'
+  steponly: System.out.println(tags.add(first));
+- a: 3
+  step: System.out.println(tags.add(new Tag(3)));
+  probe: new Tag(3)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(3)` equals the stored one'
+  lookupwhy: the set holds a `Tag` equal to `Tag(3)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(3)`, finds an equal element and returns `false`. `contains(new Tag(3))`
+    is `true` because the set holds an equal element, and the set holds one element.'
+  steponly: System.out.println(tags.add(new Tag(3)));
+- a: 1000
+  step: System.out.println(tags.add(new Tag(101)));
+  probe: new Tag(101)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 1
+  flip: 'false'
+  stepwhy: '`add` returns `true` when the set contains no equal element, and `Tag(101)` does not equal `Tag(1000)`'
+  lookupwhy: the set holds a `Tag` equal to `Tag(101)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(1000)` and `Tag(101)` are not equal. `contains(new Tag(101))` is `true` because the set holds an
+    equal element, and the set holds two elements.'
+  steponly: System.out.println(tags.add(new Tag(101)));
+- a: 58
+  step: first.code = 3;
+  probe: new Tag(3)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-set#interface-set-e
+  ident: 'false'
+  sizealt: 2
+  flip: ''
+  stepwhy: ''
+  lookupwhy: the behavior of a set after an element changed in a way that affects `equals` is not specified, and the pinned JDK does not find it
+  why: The `add` returns `true`, and the code of the stored element changes from `58` to `3`, which affects `equals`. The `Set` documentation does not specify the behavior after such a change, so the recorded
+    output of the pinned JDK for `contains` with a new `Tag(3)` is `false`, and the set still holds one element.
+  steponly: ''
+- a: 58
+  step: System.out.println(tags.add(first));
+  probe: first
+  hash: ''
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()
+  ident: 'true'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: an object has the same hash code each time and equals itself
+  why: '`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one
+    element.'
+  steponly: System.out.println(tags.add(first));
+- a: 7
+  step: System.out.println(tags.add(first));
+  probe: new Tag(7)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: the set holds a `Tag` equal to `Tag(7)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Adding `first` again returns `false` because the set already holds that object, `contains(new Tag(7))` is `true` because an equal element is
+    present, and the set holds one element.'
+  steponly: System.out.println(tags.add(first));
+- a: 250
+  step: System.out.println(tags.add(new Tag(250)));
+  probe: new Tag(250)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(250)` equals the stored one'
+  lookupwhy: the set holds a `Tag` equal to `Tag(250)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(250)`, finds an equal element and returns `false`. `contains(new Tag(250))`
+    is `true` because the set holds an equal element, and the set holds one element.'
+  steponly: System.out.println(tags.add(new Tag(250)));
+- a: 12
+  step: System.out.println(tags.add(new Tag(1000)));
+  probe: new Tag(1000)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 1
+  flip: 'false'
+  stepwhy: '`add` returns `true` when the set contains no equal element, and `Tag(1000)` does not equal `Tag(12)`'
+  lookupwhy: the set holds a `Tag` equal to `Tag(1000)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(12)` and `Tag(1000)` are not equal. `contains(new Tag(1000))` is `true` because the set holds an
+    equal element, and the set holds two elements.'
+  steponly: System.out.println(tags.add(new Tag(1000)));
+- a: 7
+  step: first.code = 3;
+  probe: first
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-set#interface-set-e
+  ident: 'true'
+  sizealt: 2
+  flip: ''
+  stepwhy: ''
+  lookupwhy: the behavior of a set after an element changed in a way that affects `equals` is not specified, and the pinned JDK does not find it
+  why: The `add` returns `true`, and the code of the stored element changes from `7` to `3`, which affects `equals`. The `Set` documentation does not specify the behavior after such a change, so the recorded
+    output of the pinned JDK for `contains` with the same object that was added is `false`, and the set still holds one element.
+  steponly: ''
+- a: 58
+  step: System.out.println(tags.add(first));
+  probe: first
+  hash: ''
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()
+  ident: 'true'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: an object has the same hash code each time and equals itself
+  why: '`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one
+    element.'
+  steponly: System.out.println(tags.add(first));
+- a: 250
+  step: System.out.println(tags.add(first));
+  probe: new Tag(250)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: the set holds a `Tag` equal to `Tag(250)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Adding `first` again returns `false` because the set already holds that object, `contains(new Tag(250))` is `true` because an equal element
+    is present, and the set holds one element.'
+  steponly: System.out.println(tags.add(first));
+- a: 58
+  step: System.out.println(tags.add(new Tag(58)));
+  probe: new Tag(58)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(58)` equals the stored one'
+  lookupwhy: the set holds a `Tag` equal to `Tag(58)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(58)`, finds an equal element and returns `false`. `contains(new Tag(58))`
+    is `true` because the set holds an equal element, and the set holds one element.'
+  steponly: System.out.println(tags.add(new Tag(58)));
+- a: 3
+  step: first.code = 101;
+  probe: first
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-set#interface-set-e
+  ident: 'true'
+  sizealt: 2
+  flip: ''
+  stepwhy: ''
+  lookupwhy: the behavior of a set after an element changed in a way that affects `equals` is not specified, and the pinned JDK does not find it
+  why: The `add` returns `true`, and the code of the stored element changes from `3` to `101`, which affects `equals`. The `Set` documentation does not specify the behavior after such a change, so the recorded
+    output of the pinned JDK for `contains` with the same object that was added is `false`, and the set still holds one element.
+  steponly: ''
+- a: 7
+  step: System.out.println(tags.add(first));
+  probe: first
+  hash: ''
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()
+  ident: 'true'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: an object has the same hash code each time and equals itself
+  why: '`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one
+    element.'
+  steponly: System.out.println(tags.add(first));
+- a: 7
+  step: System.out.println(tags.add(new Tag(7)));
+  probe: new Tag(7)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(7)` equals the stored one'
+  lookupwhy: the set holds a `Tag` equal to `Tag(7)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(7)`, finds an equal element and returns `false`. `contains(new Tag(7))`
+    is `true` because the set holds an equal element, and the set holds one element.'
+  steponly: System.out.println(tags.add(new Tag(7)));
+- a: 58
+  step: System.out.println(tags.add(new Tag(101)));
+  probe: new Tag(101)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 1
+  flip: 'false'
+  stepwhy: '`add` returns `true` when the set contains no equal element, and `Tag(101)` does not equal `Tag(58)`'
+  lookupwhy: the set holds a `Tag` equal to `Tag(101)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(58)` and `Tag(101)` are not equal. `contains(new Tag(101))` is `true` because the set holds an
+    equal element, and the set holds two elements.'
+  steponly: System.out.println(tags.add(new Tag(101)));
+- a: 1000
+  step: first.code = 7;
+  probe: new Tag(7)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-set#interface-set-e
+  ident: 'false'
+  sizealt: 2
+  flip: ''
+  stepwhy: ''
+  lookupwhy: the behavior of a set after an element changed in a way that affects `equals` is not specified, and the pinned JDK does not find it
+  why: The `add` returns `true`, and the code of the stored element changes from `1000` to `7`, which affects `equals`. The `Set` documentation does not specify the behavior after such a change, so the
+    recorded output of the pinned JDK for `contains` with a new `Tag(7)` is `false`, and the set still holds one element.
+  steponly: ''
+- a: 12
+  step: System.out.println(tags.add(first));
+  probe: first
+  hash: ''
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()
+  ident: 'true'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: an object has the same hash code each time and equals itself
+  why: '`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one
+    element.'
+  steponly: System.out.println(tags.add(first));
+- a: 1000
+  step: System.out.println(tags.add(first));
+  probe: new Tag(1000)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: the set holds a `Tag` equal to `Tag(1000)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Adding `first` again returns `false` because the set already holds that object, `contains(new Tag(1000))` is `true` because an equal element
+    is present, and the set holds one element.'
+  steponly: System.out.println(tags.add(first));
+- a: 250
+  step: System.out.println(tags.add(new Tag(250)));
+  probe: new Tag(250)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(250)` equals the stored one'
+  lookupwhy: the set holds a `Tag` equal to `Tag(250)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(250)`, finds an equal element and returns `false`. `contains(new Tag(250))`
+    is `true` because the set holds an equal element, and the set holds one element.'
+  steponly: System.out.println(tags.add(new Tag(250)));
+- a: 1000
+  step: System.out.println(tags.add(new Tag(12)));
+  probe: new Tag(12)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 1
+  flip: 'false'
+  stepwhy: '`add` returns `true` when the set contains no equal element, and `Tag(12)` does not equal `Tag(1000)`'
+  lookupwhy: the set holds a `Tag` equal to `Tag(12)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(1000)` and `Tag(12)` are not equal. `contains(new Tag(12))` is `true` because the set holds an
+    equal element, and the set holds two elements.'
+  steponly: System.out.println(tags.add(new Tag(12)));
+- a: 58
+  step: first.code = 40;
+  probe: new Tag(40)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-set#interface-set-e
+  ident: 'false'
+  sizealt: 2
+  flip: ''
+  stepwhy: ''
+  lookupwhy: the behavior of a set after an element changed in a way that affects `equals` is not specified, and the pinned JDK does not find it
+  why: The `add` returns `true`, and the code of the stored element changes from `58` to `40`, which affects `equals`. The `Set` documentation does not specify the behavior after such a change, so the recorded
+    output of the pinned JDK for `contains` with a new `Tag(40)` is `false`, and the set still holds one element.
+  steponly: ''
+- a: 3
+  step: System.out.println(tags.add(first));
+  probe: first
+  hash: ''
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()
+  ident: 'true'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: an object has the same hash code each time and equals itself
+  why: '`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one
+    element.'
+  steponly: System.out.println(tags.add(first));
+- a: 7
+  step: System.out.println(tags.add(first));
+  probe: new Tag(7)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: the set holds a `Tag` equal to `Tag(7)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Adding `first` again returns `false` because the set already holds that object, `contains(new Tag(7))` is `true` because an equal element is
+    present, and the set holds one element.'
+  steponly: System.out.println(tags.add(first));
+- a: 58
+  step: System.out.println(tags.add(new Tag(58)));
+  probe: new Tag(58)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(58)` equals the stored one'
+  lookupwhy: the set holds a `Tag` equal to `Tag(58)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(58)`, finds an equal element and returns `false`. `contains(new Tag(58))`
+    is `true` because the set holds an equal element, and the set holds one element.'
+  steponly: System.out.println(tags.add(new Tag(58)));
+- a: 58
+  step: System.out.println(tags.add(new Tag(3)));
+  probe: new Tag(3)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 1
+  flip: 'false'
+  stepwhy: '`add` returns `true` when the set contains no equal element, and `Tag(3)` does not equal `Tag(58)`'
+  lookupwhy: the set holds a `Tag` equal to `Tag(3)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(58)` and `Tag(3)` are not equal. `contains(new Tag(3))` is `true` because the set holds an equal
+    element, and the set holds two elements.'
+  steponly: System.out.println(tags.add(new Tag(3)));
+- a: 40
+  step: first.code = 250;
+  probe: new Tag(40)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-set#interface-set-e
+  ident: 'false'
+  sizealt: 2
+  flip: ''
+  stepwhy: ''
+  lookupwhy: the behavior of a set after an element changed in a way that affects `equals` is not specified, and the pinned JDK does not find it
+  why: The `add` returns `true`, and the code of the stored element changes from `40` to `250`, which affects `equals`. The `Set` documentation does not specify the behavior after such a change, so the
+    recorded output of the pinned JDK for `contains` with a new `Tag(40)` is `false`, and the set still holds one element.
+  steponly: ''
+- a: 250
+  step: System.out.println(tags.add(first));
+  probe: first
+  hash: ''
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()
+  ident: 'true'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: an object has the same hash code each time and equals itself
+  why: '`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one
+    element.'
+  steponly: System.out.println(tags.add(first));
+- a: 12
+  step: System.out.println(tags.add(new Tag(12)));
+  probe: new Tag(12)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(12)` equals the stored one'
+  lookupwhy: the set holds a `Tag` equal to `Tag(12)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(12)`, finds an equal element and returns `false`. `contains(new Tag(12))`
+    is `true` because the set holds an equal element, and the set holds one element.'
+  steponly: System.out.println(tags.add(new Tag(12)));
+- a: 250
+  step: System.out.println(tags.add(new Tag(58)));
+  probe: new Tag(58)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 1
+  flip: 'false'
+  stepwhy: '`add` returns `true` when the set contains no equal element, and `Tag(58)` does not equal `Tag(250)`'
+  lookupwhy: the set holds a `Tag` equal to `Tag(58)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(250)` and `Tag(58)` are not equal. `contains(new Tag(58))` is `true` because the set holds an equal
+    element, and the set holds two elements.'
+  steponly: System.out.println(tags.add(new Tag(58)));
+- a: 250
+  step: first.code = 12;
+  probe: new Tag(250)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-set#interface-set-e
+  ident: 'false'
+  sizealt: 2
+  flip: ''
+  stepwhy: ''
+  lookupwhy: the behavior of a set after an element changed in a way that affects `equals` is not specified, and the pinned JDK does not find it
+  why: The `add` returns `true`, and the code of the stored element changes from `250` to `12`, which affects `equals`. The `Set` documentation does not specify the behavior after such a change, so the
+    recorded output of the pinned JDK for `contains` with a new `Tag(250)` is `false`, and the set still holds one element.
+  steponly: ''
+- a: 101
+  step: System.out.println(tags.add(first));
+  probe: first
+  hash: ''
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()
+  ident: 'true'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: an object has the same hash code each time and equals itself
+  why: '`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one
+    element.'
+  steponly: System.out.println(tags.add(first));
+- a: 7
+  step: System.out.println(tags.add(new Tag(7)));
+  probe: new Tag(7)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` leaves the set unchanged and returns `false` when an equal element is present, and `Tag(7)` equals the stored one'
+  lookupwhy: the set holds a `Tag` equal to `Tag(7)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. The first `add` returns `true`. The second `add` gets an equal `Tag(7)`, finds an equal element and returns `false`. `contains(new Tag(7))`
+    is `true` because the set holds an equal element, and the set holds one element.'
+  steponly: System.out.println(tags.add(new Tag(7)));
+- a: 12
+  step: System.out.println(tags.add(new Tag(58)));
+  probe: new Tag(58)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 1
+  flip: 'false'
+  stepwhy: '`add` returns `true` when the set contains no equal element, and `Tag(58)` does not equal `Tag(12)`'
+  lookupwhy: the set holds a `Tag` equal to `Tag(58)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Both `add` calls return `true` because `Tag(12)` and `Tag(58)` are not equal. `contains(new Tag(58))` is `true` because the set holds an equal
+    element, and the set holds two elements.'
+  steponly: System.out.println(tags.add(new Tag(58)));
+- a: 1000
+  step: first.code = 12;
+  probe: first
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-set#interface-set-e
+  ident: 'true'
+  sizealt: 2
+  flip: ''
+  stepwhy: ''
+  lookupwhy: the behavior of a set after an element changed in a way that affects `equals` is not specified, and the pinned JDK does not find it
+  why: The `add` returns `true`, and the code of the stored element changes from `1000` to `12`, which affects `equals`. The `Set` documentation does not specify the behavior after such a change, so the
+    recorded output of the pinned JDK for `contains` with the same object that was added is `false`, and the set still holds one element.
+  steponly: ''
+- a: 3
+  step: System.out.println(tags.add(first));
+  probe: first
+  hash: ''
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object); javadoc-object#hashCode()
+  ident: 'true'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: an object has the same hash code each time and equals itself
+  why: '`Tag` overrides `equals` but not `hashCode`. The same object has the same hash code every time, so the second `add` of `first` returns `false`, `contains(first)` is `true` and the set holds one
+    element.'
+  steponly: System.out.println(tags.add(first));
+- a: 40
+  step: System.out.println(tags.add(first));
+  probe: new Tag(40)
+  hash: |-
+    @Override
+            public int hashCode() {
+                return Objects.hash(code);
+            }
+  citation: javadoc-hashset#add(java.lang.Object); javadoc-hashset#contains(java.lang.Object)
+  ident: 'false'
+  sizealt: 2
+  flip: 'true'
+  stepwhy: '`add` returns `false` when an equal element is present, and an object is equal to itself'
+  lookupwhy: the set holds a `Tag` equal to `Tag(40)` and `Tag` overrides `hashCode` consistently with `equals`
+  why: '`Tag` overrides `hashCode` consistently with `equals`. Adding `first` again returns `false` because the set already holds that object, `contains(new Tag(40))` is `true` because an equal element
+    is present, and the set holds one element.'
+  steponly: System.out.println(tags.add(first));
+template: |
+  import java.util.HashSet;
+  import java.util.Objects;
+  import java.util.Set;
+
+  public class Main {
+      static class Tag {
+          int code;
+
+          Tag(int code) {
+              this.code = code;
+          }
+
+          @Override
+          public boolean equals(Object other) {
+              return other instanceof Tag that && that.code == code;
+          }
+
+          @@hash@@
+      }
+
+      public static void main(String[] args) {
+          Set<Tag> tags = new HashSet<>();
+          Tag first = new Tag(@@a@@);
+          System.out.println(tags.add(first));
+          @@step@@
+          System.out.println(tags.contains(@@probe@@));
+          System.out.println(tags.size());
+      }
+  }
+explanation: '@@why@@ The program prints @@key@@.'
+mistakes:
+- name: taking `contains` to be `true` once the element was added
+  replace:
+  - System.out.println(tags.contains(@@probe@@));
+  - System.out.println(true);
+  why: In this program, @@lookupwhy@@.
+- name: taking `contains` to find only the identical object
+  replace:
+  - System.out.println(tags.contains(@@probe@@));
+  - System.out.println(@@ident@@);
+  why: '`contains` returns `true` if and only if the set contains an element `e` such that `Objects.equals(o, e)`, which is an equality test and not an identity test.'
+- name: reading the size as the number of `add` calls
+  replace:
+  - System.out.println(tags.size());
+  - System.out.println(@@sizealt@@);
+  why: '`size` returns the number of elements in the set, not the number of `add` calls.'
+- name: taking the step line to print the opposite boolean
+  replace:
+  - '@@steponly@@'
+  - System.out.println(@@flip@@);
+  why: In this program, @@stepwhy@@.
+- name: taking `contains` to be `false` for any element that was added
+  replace:
+  - System.out.println(tags.contains(@@probe@@));
+  - System.out.println(false);
+  why: In this program, @@lookupwhy@@.

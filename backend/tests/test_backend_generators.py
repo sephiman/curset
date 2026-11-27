@@ -34,7 +34,7 @@ ITEMS_PER_GENERATOR = 1_000
 
 
 def test_the_thirteen_families_of_requirements_6_3_are_registered() -> None:
-    assert len(IDS) == 31
+    assert len(IDS) == 37
     assert all(is_known(generator_id) for generator_id in IDS)
 
 

@@ -1,4 +1,4 @@
-# When a hash table doubles (`hashmap-resize-point`): 50 goldens
+# Hash table resizing (`hashmap-resize-point`): 50 goldens
 
 Generated items for the blind review (ambiguity, realism, key). Regenerate with `uv run python scripts/export_backend_goldens.py`.
 

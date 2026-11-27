@@ -1,4 +1,4 @@
-# Threads, queue and rejections of a thread pool (`thread-pool-state`): 50 goldens
+# Thread pool queuing and rejection (`thread-pool-state`): 50 goldens
 
 Generated items for the blind review (ambiguity, realism, key). Regenerate with `uv run python scripts/export_backend_goldens.py`.
 

@@ -1,0 +1,287 @@
+exercise: m11-l02-ex-bigdecimal-equals
+lesson: m11-l02
+citation: javadoc-bigdecimal#equals(java.lang.Object); javadoc-bigdecimal#compareTo(java.math.BigDecimal)
+file: Main.java
+prompt: The `same` method wraps `BigDecimal.equals` and the `order` method wraps `BigDecimal.compareTo`. What does this program print, line by line?
+difficulty: 2
+tags:
+- bigdecimal
+- equals
+parameters: {}
+cases:
+- p1: '0.10'
+  q1: '0.1'
+  p2: '1.5'
+  q2: '1.5'
+  why: '`0.10` and `0.1` have the same value but the scales `2` and `1`, so `same` returns `false` and `order` returns `0`. `1.5` and `1.5` have the same value and the same scale `1`, so `same` returns
+    `true` and `order` returns `0`.'
+- p1: '1.50'
+  q1: '1.5'
+  p2: '9.9'
+  q2: '1.1'
+  why: '`1.50` and `1.5` have the same value but the scales `2` and `1`, so `same` returns `false` and `order` returns `0`. `9.9` and `1.1` differ in value, so `same` returns `false` and `order` returns
+    `1`.'
+- p1: '0.10'
+  q1: '0.1'
+  p2: '1.3'
+  q2: '1.20'
+  why: '`0.10` and `0.1` have the same value but the scales `2` and `1`, so `same` returns `false` and `order` returns `0`. `1.3` and `1.20` differ in value, so `same` returns `false` and `order` returns
+    `1`.'
+- p1: '4.00'
+  q1: '4.00'
+  p2: '3.00'
+  q2: '3'
+  why: '`4.00` and `4.00` have the same value and the same scale `2`, so `same` returns `true` and `order` returns `0`. `3.00` and `3` have the same value but the scales `2` and `0`, so `same` returns `false`
+    and `order` returns `0`.'
+- p1: '9.9'
+  q1: '1.1'
+  p2: '3.00'
+  q2: '3'
+  why: '`9.9` and `1.1` differ in value, so `same` returns `false` and `order` returns `1`. `3.00` and `3` have the same value but the scales `2` and `0`, so `same` returns `false` and `order` returns `0`.'
+- p1: '6.1'
+  q1: '6'
+  p2: '2.0'
+  q2: '2.00'
+  why: '`6.1` and `6` differ in value, so `same` returns `false` and `order` returns `1`. `2.0` and `2.00` have the same value but the scales `1` and `2`, so `same` returns `false` and `order` returns `0`.'
+- p1: '0.5'
+  q1: '0.500'
+  p2: '1.5'
+  q2: '1.5'
+  why: '`0.5` and `0.500` have the same value but the scales `1` and `3`, so `same` returns `false` and `order` returns `0`. `1.5` and `1.5` have the same value and the same scale `1`, so `same` returns
+    `true` and `order` returns `0`.'
+- p1: '3.00'
+  q1: '3'
+  p2: '4.00'
+  q2: '5.00'
+  why: '`3.00` and `3` have the same value but the scales `2` and `0`, so `same` returns `false` and `order` returns `0`. `4.00` and `5.00` differ in value, so `same` returns `false` and `order` returns
+    `-1`.'
+- p1: '10.0'
+  q1: '10'
+  p2: '9.5'
+  q2: '10'
+  why: '`10.0` and `10` have the same value but the scales `1` and `0`, so `same` returns `false` and `order` returns `0`. `9.5` and `10` differ in value, so `same` returns `false` and `order` returns `-1`.'
+- p1: '4.00'
+  q1: '4.00'
+  p2: '7.250'
+  q2: '7.25'
+  why: '`4.00` and `4.00` have the same value and the same scale `2`, so `same` returns `true` and `order` returns `0`. `7.250` and `7.25` have the same value but the scales `3` and `2`, so `same` returns
+    `false` and `order` returns `0`.'
+- p1: '2.5'
+  q1: '3.5'
+  p2: '7.250'
+  q2: '7.25'
+  why: '`2.5` and `3.5` differ in value, so `same` returns `false` and `order` returns `-1`. `7.250` and `7.25` have the same value but the scales `3` and `2`, so `same` returns `false` and `order` returns
+    `0`.'
+- p1: '10'
+  q1: '9.5'
+  p2: '1.5'
+  q2: '1.50'
+  why: '`10` and `9.5` differ in value, so `same` returns `false` and `order` returns `1`. `1.5` and `1.50` have the same value but the scales `1` and `2`, so `same` returns `false` and `order` returns
+    `0`.'
+- p1: '7.250'
+  q1: '7.25'
+  p2: '12'
+  q2: '12'
+  why: '`7.250` and `7.25` have the same value but the scales `3` and `2`, so `same` returns `false` and `order` returns `0`. `12` and `12` have the same value and the same scale `0`, so `same` returns
+    `true` and `order` returns `0`.'
+- p1: '0.5'
+  q1: '0.500'
+  p2: '3.5'
+  q2: '2.5'
+  why: '`0.5` and `0.500` have the same value but the scales `1` and `3`, so `same` returns `false` and `order` returns `0`. `3.5` and `2.5` differ in value, so `same` returns `false` and `order` returns
+    `1`.'
+- p1: '2.00'
+  q1: '2.0'
+  p2: '9.5'
+  q2: '10'
+  why: '`2.00` and `2.0` have the same value but the scales `2` and `1`, so `same` returns `false` and `order` returns `0`. `9.5` and `10` differ in value, so `same` returns `false` and `order` returns
+    `-1`.'
+- p1: '1.5'
+  q1: '1.5'
+  p2: '2.0'
+  q2: '2.00'
+  why: '`1.5` and `1.5` have the same value and the same scale `1`, so `same` returns `true` and `order` returns `0`. `2.0` and `2.00` have the same value but the scales `1` and `2`, so `same` returns `false`
+    and `order` returns `0`.'
+- p1: '12'
+  q1: '13'
+  p2: '0.10'
+  q2: '0.1'
+  why: '`12` and `13` differ in value, so `same` returns `false` and `order` returns `-1`. `0.10` and `0.1` have the same value but the scales `2` and `1`, so `same` returns `false` and `order` returns
+    `0`.'
+- p1: '6'
+  q1: '6.1'
+  p2: '2.0'
+  q2: '2.00'
+  why: '`6` and `6.1` differ in value, so `same` returns `false` and `order` returns `-1`. `2.0` and `2.00` have the same value but the scales `1` and `2`, so `same` returns `false` and `order` returns
+    `0`.'
+- p1: '7.250'
+  q1: '7.25'
+  p2: '0.25'
+  q2: '0.25'
+  why: '`7.250` and `7.25` have the same value but the scales `3` and `2`, so `same` returns `false` and `order` returns `0`. `0.25` and `0.25` have the same value and the same scale `2`, so `same` returns
+    `true` and `order` returns `0`.'
+- p1: '100'
+  q1: 1E+2
+  p2: '0.75'
+  q2: '0.25'
+  why: '`100` and `1E+2` have the same value but the scales `0` and `-2`, so `same` returns `false` and `order` returns `0`. `0.75` and `0.25` differ in value, so `same` returns `false` and `order` returns
+    `1`.'
+- p1: '3.00'
+  q1: '3'
+  p2: '6.1'
+  q2: '6'
+  why: '`3.00` and `3` have the same value but the scales `2` and `0`, so `same` returns `false` and `order` returns `0`. `6.1` and `6` differ in value, so `same` returns `false` and `order` returns `1`.'
+- p1: '1.5'
+  q1: '1.5'
+  p2: '7.250'
+  q2: '7.25'
+  why: '`1.5` and `1.5` have the same value and the same scale `1`, so `same` returns `true` and `order` returns `0`. `7.250` and `7.25` have the same value but the scales `3` and `2`, so `same` returns
+    `false` and `order` returns `0`.'
+- p1: '12'
+  q1: '13'
+  p2: '3.00'
+  q2: '3'
+  why: '`12` and `13` differ in value, so `same` returns `false` and `order` returns `-1`. `3.00` and `3` have the same value but the scales `2` and `0`, so `same` returns `false` and `order` returns `0`.'
+- p1: '2.5'
+  q1: '3.50'
+  p2: '3.00'
+  q2: '3'
+  why: '`2.5` and `3.50` differ in value, so `same` returns `false` and `order` returns `-1`. `3.00` and `3` have the same value but the scales `2` and `0`, so `same` returns `false` and `order` returns
+    `0`.'
+- p1: '10'
+  q1: '10.0'
+  p2: '3.5'
+  q2: '3.5'
+  why: '`10` and `10.0` have the same value but the scales `0` and `1`, so `same` returns `false` and `order` returns `0`. `3.5` and `3.5` have the same value and the same scale `1`, so `same` returns `true`
+    and `order` returns `0`.'
+- p1: 1E+2
+  q1: '100'
+  p2: '9.9'
+  q2: '1.1'
+  why: '`1E+2` and `100` have the same value but the scales `-2` and `0`, so `same` returns `false` and `order` returns `0`. `9.9` and `1.1` differ in value, so `same` returns `false` and `order` returns
+    `1`.'
+- p1: '2.0'
+  q1: '2.00'
+  p2: '3.50'
+  q2: '2.5'
+  why: '`2.0` and `2.00` have the same value but the scales `1` and `2`, so `same` returns `false` and `order` returns `0`. `3.50` and `2.5` differ in value, so `same` returns `false` and `order` returns
+    `1`.'
+- p1: '1.5'
+  q1: '1.5'
+  p2: '100'
+  q2: 1E+2
+  why: '`1.5` and `1.5` have the same value and the same scale `1`, so `same` returns `true` and `order` returns `0`. `100` and `1E+2` have the same value but the scales `0` and `-2`, so `same` returns
+    `false` and `order` returns `0`.'
+- p1: '1.1'
+  q1: '9.9'
+  p2: '7.250'
+  q2: '7.25'
+  why: '`1.1` and `9.9` differ in value, so `same` returns `false` and `order` returns `-1`. `7.250` and `7.25` have the same value but the scales `3` and `2`, so `same` returns `false` and `order` returns
+    `0`.'
+- p1: '3.50'
+  q1: '2.5'
+  p2: '10'
+  q2: '10.0'
+  why: '`3.50` and `2.5` differ in value, so `same` returns `false` and `order` returns `1`. `10` and `10.0` have the same value but the scales `0` and `1`, so `same` returns `false` and `order` returns
+    `0`.'
+- p1: '0.10'
+  q1: '0.1'
+  p2: '12'
+  q2: '12'
+  why: '`0.10` and `0.1` have the same value but the scales `2` and `1`, so `same` returns `false` and `order` returns `0`. `12` and `12` have the same value and the same scale `0`, so `same` returns `true`
+    and `order` returns `0`.'
+- p1: '1.5'
+  q1: '1.50'
+  p2: '1.1'
+  q2: '9.9'
+  why: '`1.5` and `1.50` have the same value but the scales `1` and `2`, so `same` returns `false` and `order` returns `0`. `1.1` and `9.9` differ in value, so `same` returns `false` and `order` returns
+    `-1`.'
+- p1: '0.500'
+  q1: '0.5'
+  p2: '1.20'
+  q2: '1.3'
+  why: '`0.500` and `0.5` have the same value but the scales `3` and `1`, so `same` returns `false` and `order` returns `0`. `1.20` and `1.3` differ in value, so `same` returns `false` and `order` returns
+    `-1`.'
+- p1: '1.5'
+  q1: '1.5'
+  p2: '0.5'
+  q2: '0.500'
+  why: '`1.5` and `1.5` have the same value and the same scale `1`, so `same` returns `true` and `order` returns `0`. `0.5` and `0.500` have the same value but the scales `1` and `3`, so `same` returns
+    `false` and `order` returns `0`.'
+- p1: '0.25'
+  q1: '0.75'
+  p2: '100'
+  q2: 1E+2
+  why: '`0.25` and `0.75` differ in value, so `same` returns `false` and `order` returns `-1`. `100` and `1E+2` have the same value but the scales `0` and `-2`, so `same` returns `false` and `order` returns
+    `0`.'
+- p1: '10'
+  q1: '9.5'
+  p2: '100'
+  q2: 1E+2
+  why: '`10` and `9.5` differ in value, so `same` returns `false` and `order` returns `1`. `100` and `1E+2` have the same value but the scales `0` and `-2`, so `same` returns `false` and `order` returns
+    `0`.'
+- p1: '100'
+  q1: 1E+2
+  p2: '1.5'
+  q2: '1.5'
+  why: '`100` and `1E+2` have the same value but the scales `0` and `-2`, so `same` returns `false` and `order` returns `0`. `1.5` and `1.5` have the same value and the same scale `1`, so `same` returns
+    `true` and `order` returns `0`.'
+- p1: '7.250'
+  q1: '7.25'
+  p2: '5.00'
+  q2: '4.00'
+  why: '`7.250` and `7.25` have the same value but the scales `3` and `2`, so `same` returns `false` and `order` returns `0`. `5.00` and `4.00` differ in value, so `same` returns `false` and `order` returns
+    `1`.'
+- p1: '3'
+  q1: '3.00'
+  p2: '3.50'
+  q2: '2.5'
+  why: '`3` and `3.00` have the same value but the scales `0` and `2`, so `same` returns `false` and `order` returns `0`. `3.50` and `2.5` differ in value, so `same` returns `false` and `order` returns
+    `1`.'
+- p1: '1.5'
+  q1: '1.5'
+  p2: '3.00'
+  q2: '3'
+  why: '`1.5` and `1.5` have the same value and the same scale `1`, so `same` returns `true` and `order` returns `0`. `3.00` and `3` have the same value but the scales `2` and `0`, so `same` returns `false`
+    and `order` returns `0`.'
+template: |
+  import java.math.BigDecimal;
+
+  public class Main {
+      static boolean same(BigDecimal p, BigDecimal q) {
+          return p.equals(q);
+      }
+
+      static int order(BigDecimal p, BigDecimal q) {
+          return p.compareTo(q);
+      }
+
+      public static void main(String[] args) {
+          BigDecimal a = new BigDecimal("@@p1@@");
+          BigDecimal b = new BigDecimal("@@q1@@");
+          BigDecimal c = new BigDecimal("@@p2@@");
+          BigDecimal d = new BigDecimal("@@q2@@");
+          System.out.println(same(a, b));
+          System.out.println(order(a, b));
+          System.out.println(same(c, d));
+          System.out.println(order(c, d));
+      }
+  }
+explanation: '`same` calls `equals`, which is `true` only when two `BigDecimal` values are equal in value and in scale, and `order` calls `compareTo`, which compares numeric value alone and returns `-1`,
+  `0` or `1`. @@why@@ The program prints @@key@@.'
+mistakes:
+- name: comparing only the numeric value in `same`
+  replace:
+  - return p.equals(q);
+  - return p.compareTo(q) == 0;
+  why: '`equals` is `true` only when value and scale are both equal, so two numbers with different scales are not equal.'
+- name: making `order` return `0` only when `equals` is true and `1` otherwise
+  replace:
+  - return p.compareTo(q);
+  - 'return p.equals(q) ? 0 : 1;'
+  why: '`compareTo` ignores the scale and returns `-1`, `0` or `1` for less, equal or greater, so it is not tied to `equals`.'
+- name: negating the result of `equals` in `same`
+  replace:
+  - return p.equals(q);
+  - return !p.equals(q);
+  why: '`equals` returns `true` for a `BigDecimal` with the same value and scale, and `false` otherwise.'

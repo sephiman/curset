@@ -1,0 +1,1550 @@
+[
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-001",
+  "params": {
+   "big": "large",
+   "small": "plain",
+   "limit": 50,
+   "first": "Command.Deposit(80)",
+   "second": "Command.Withdraw(70)",
+   "why1": "`Deposit(80)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `80` is above `50`, so the guarded `Deposit` branch runs.",
+   "why2": "`Withdraw(70)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `70` is above `50`, so the guarded `Withdraw` branch runs."
+  },
+  "source_sha256": "2f2970d9fb9520f6991daedd3440b3dcc4ba516301b4eca8341d1d973a2d2466",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "d9bf1b8d14c42da5962eb22775760fbdd927a6927fd7f39783dd60eae52a7407",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "7b5a182729c7a507f58ba30e15ef90984717e3d39c9e5a73c6f89f74eee0b174"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "0f5183b933f53ed8d46a1d22775f1805dd481377ff46e2a6689a6b195e204f2a"
+   },
+   {
+    "mistake": "negating only the `Deposit` guard",
+    "stdout_sha256": "13e9d555f659eb17c27c26995e32fc15e9a410a8c4a2765866376c49964c2d91"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-002",
+  "params": {
+   "big": "large",
+   "small": "small",
+   "limit": 50,
+   "first": "Command.Deposit(80)",
+   "second": "Command.Withdraw(70)",
+   "why1": "`Deposit(80)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `80` is above `50`, so the guarded `Deposit` branch runs.",
+   "why2": "`Withdraw(70)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `70` is above `50`, so the guarded `Withdraw` branch runs."
+  },
+  "source_sha256": "8a66e8528f7e52110e031b7fad20873567847f930e0d57d99efaf626daca0fe1",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "d9bf1b8d14c42da5962eb22775760fbdd927a6927fd7f39783dd60eae52a7407",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "a323b577b907aea36b3600d0d531cf0dd81af40f85c522b5873040e85a5818de"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "0d2ed11e7b97a805c0123af8e7b12a49f414ed97e95c1f0500a8dae3b8110409"
+   },
+   {
+    "mistake": "negating only the `Deposit` guard",
+    "stdout_sha256": "0e493066abaf685e65b39aa57148e2de807ce3794d77d3e7a12175bb6d71b5e7"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-003",
+  "params": {
+   "big": "big",
+   "small": "plain",
+   "limit": 50,
+   "first": "Command.Deposit(80)",
+   "second": "Command.Withdraw(70)",
+   "why1": "`Deposit(80)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `80` is above `50`, so the guarded `Deposit` branch runs.",
+   "why2": "`Withdraw(70)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `70` is above `50`, so the guarded `Withdraw` branch runs."
+  },
+  "source_sha256": "a40d64c5aeda55d80073367b195db63cb4ef29f1bde6c159105474a043f2d8fa",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "abab275be1911f7367ce56b3d7ed4ef5d2a1d0398c59c96d76951d721b81720d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "7b5a182729c7a507f58ba30e15ef90984717e3d39c9e5a73c6f89f74eee0b174"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "0f5183b933f53ed8d46a1d22775f1805dd481377ff46e2a6689a6b195e204f2a"
+   },
+   {
+    "mistake": "negating only the `Deposit` guard",
+    "stdout_sha256": "5b3e1dee652a6fe366d4df9803b14b90f7009a7c507cb14afdf8d87cb887d351"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-004",
+  "params": {
+   "big": "big",
+   "small": "small",
+   "limit": 50,
+   "first": "Command.Deposit(80)",
+   "second": "Command.Withdraw(70)",
+   "why1": "`Deposit(80)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `80` is above `50`, so the guarded `Deposit` branch runs.",
+   "why2": "`Withdraw(70)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `70` is above `50`, so the guarded `Withdraw` branch runs."
+  },
+  "source_sha256": "834e735e2d7727223edd1a695bb12a35e19e81c16f9727f672f936abaa8e9422",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "abab275be1911f7367ce56b3d7ed4ef5d2a1d0398c59c96d76951d721b81720d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "a323b577b907aea36b3600d0d531cf0dd81af40f85c522b5873040e85a5818de"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "0d2ed11e7b97a805c0123af8e7b12a49f414ed97e95c1f0500a8dae3b8110409"
+   },
+   {
+    "mistake": "negating only the `Deposit` guard",
+    "stdout_sha256": "1c4a5393f0ae4282d4b2aaf1e2ad72ae71f9d62c7c839cd608cc5f50ae1ac6ce"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-005",
+  "params": {
+   "big": "large",
+   "small": "plain",
+   "limit": 50,
+   "first": "Command.Deposit(20)",
+   "second": "Command.Withdraw(30)",
+   "why1": "`Deposit(20)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `20` is not above `50`, so the guarded branch is skipped and the plain `Deposit` branch runs.",
+   "why2": "`Withdraw(30)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `30` is not above `50`, so the guarded branch is skipped and the plain `Withdraw` branch runs."
+  },
+  "source_sha256": "4d0e518531abe5515fbfa2289db603fde365baef6fd993d8ea5eb71141e2595b",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "0f5183b933f53ed8d46a1d22775f1805dd481377ff46e2a6689a6b195e204f2a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "7b5a182729c7a507f58ba30e15ef90984717e3d39c9e5a73c6f89f74eee0b174"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "d9bf1b8d14c42da5962eb22775760fbdd927a6927fd7f39783dd60eae52a7407"
+   },
+   {
+    "mistake": "negating only the `Deposit` guard",
+    "stdout_sha256": "5c33ffaecbf72a14dbcc2115ffca8deeca787c3e76bf14d2a304ee6d91e46d29"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-006",
+  "params": {
+   "big": "large",
+   "small": "small",
+   "limit": 50,
+   "first": "Command.Deposit(20)",
+   "second": "Command.Withdraw(30)",
+   "why1": "`Deposit(20)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `20` is not above `50`, so the guarded branch is skipped and the plain `Deposit` branch runs.",
+   "why2": "`Withdraw(30)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `30` is not above `50`, so the guarded branch is skipped and the plain `Withdraw` branch runs."
+  },
+  "source_sha256": "0700468461ba35509127f3fe4662204e565f87ad05f86383c540ee1391b2df02",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "0d2ed11e7b97a805c0123af8e7b12a49f414ed97e95c1f0500a8dae3b8110409",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "a323b577b907aea36b3600d0d531cf0dd81af40f85c522b5873040e85a5818de"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "d9bf1b8d14c42da5962eb22775760fbdd927a6927fd7f39783dd60eae52a7407"
+   },
+   {
+    "mistake": "negating only the `Deposit` guard",
+    "stdout_sha256": "a2d84d75eb1d7ae5ba9d14923d4657e7e54062c62e2f103104bdf63aacf77f8f"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-007",
+  "params": {
+   "big": "big",
+   "small": "plain",
+   "limit": 50,
+   "first": "Command.Deposit(20)",
+   "second": "Command.Withdraw(30)",
+   "why1": "`Deposit(20)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `20` is not above `50`, so the guarded branch is skipped and the plain `Deposit` branch runs.",
+   "why2": "`Withdraw(30)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `30` is not above `50`, so the guarded branch is skipped and the plain `Withdraw` branch runs."
+  },
+  "source_sha256": "65a1228eb5ef9b97ba0adfd08cf5eaa5816b4f87a1bf4b8ce8285acfc1cbc0fa",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "0f5183b933f53ed8d46a1d22775f1805dd481377ff46e2a6689a6b195e204f2a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "7b5a182729c7a507f58ba30e15ef90984717e3d39c9e5a73c6f89f74eee0b174"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "abab275be1911f7367ce56b3d7ed4ef5d2a1d0398c59c96d76951d721b81720d"
+   },
+   {
+    "mistake": "negating only the `Deposit` guard",
+    "stdout_sha256": "1e97a3905ccdf1f6315ab257ff2c7a9956fb2f8ae76fe6450ba83aae152a3333"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-008",
+  "params": {
+   "big": "big",
+   "small": "small",
+   "limit": 50,
+   "first": "Command.Deposit(20)",
+   "second": "Command.Withdraw(30)",
+   "why1": "`Deposit(20)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `20` is not above `50`, so the guarded branch is skipped and the plain `Deposit` branch runs.",
+   "why2": "`Withdraw(30)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `30` is not above `50`, so the guarded branch is skipped and the plain `Withdraw` branch runs."
+  },
+  "source_sha256": "7b803ee45657db7149e88d3b4a0dbd31d1a17e611d26a398a674aec22a0188d5",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "0d2ed11e7b97a805c0123af8e7b12a49f414ed97e95c1f0500a8dae3b8110409",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "a323b577b907aea36b3600d0d531cf0dd81af40f85c522b5873040e85a5818de"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "abab275be1911f7367ce56b3d7ed4ef5d2a1d0398c59c96d76951d721b81720d"
+   },
+   {
+    "mistake": "negating only the `Deposit` guard",
+    "stdout_sha256": "6ef795df047b2a33fad943d71a752da5de07a8659ee702d99ec9690d8dd7fb52"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-009",
+  "params": {
+   "big": "large",
+   "small": "plain",
+   "limit": 40,
+   "first": "Command.Withdraw(65)",
+   "second": "Command.Deposit(15)",
+   "why1": "`Withdraw(65)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `65` is above `40`, so the guarded `Withdraw` branch runs.",
+   "why2": "`Deposit(15)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `15` is not above `40`, so the guarded branch is skipped and the plain `Deposit` branch runs."
+  },
+  "source_sha256": "e479e4c55e3db6e9b61f7a5c10f025a59b4eba0f95554735bcafe33b84f5b725",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "fad3a85f16a96d8e93995228c3b679ac3d47735c85d112c248bdbc50c3950a46",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "7fd419a100e40567fe4d356b49d10e2e6b0c60adf4bcc236e82a36e030777be0"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "33652f0eb5b9984593a073247a41ced8149ce3c2b974e55bf329329920b04ef6"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "be3bc10e7a7408e76a09ae53fb4b75ba08b73ac8553e9deb183b10b1bfec649d"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-010",
+  "params": {
+   "big": "large",
+   "small": "small",
+   "limit": 40,
+   "first": "Command.Withdraw(65)",
+   "second": "Command.Deposit(15)",
+   "why1": "`Withdraw(65)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `65` is above `40`, so the guarded `Withdraw` branch runs.",
+   "why2": "`Deposit(15)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `15` is not above `40`, so the guarded branch is skipped and the plain `Deposit` branch runs."
+  },
+  "source_sha256": "0b321fe562df3a22a2547ef92ea096b19b680d4e643bfc6aced260d30f4139e6",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "6ae9c069d601429165de56c96ec6f772682f17f1736de32fdcd6f2974b4af899",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "64f031977d0fc1653bc2981606bfbd1fe3e8e1323686e06a633548102c29c903"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "9d98695cce8056c339d6e8acd2a7a187b5f335f75900536c6571731e56e71f7e"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "be3bc10e7a7408e76a09ae53fb4b75ba08b73ac8553e9deb183b10b1bfec649d"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-011",
+  "params": {
+   "big": "big",
+   "small": "plain",
+   "limit": 40,
+   "first": "Command.Withdraw(65)",
+   "second": "Command.Deposit(15)",
+   "why1": "`Withdraw(65)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `65` is above `40`, so the guarded `Withdraw` branch runs.",
+   "why2": "`Deposit(15)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `15` is not above `40`, so the guarded branch is skipped and the plain `Deposit` branch runs."
+  },
+  "source_sha256": "0019adb5356e72f8690614883d98011c47307baeeffc25436dc8ea348811ee46",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "f82482994787e0a3cf4dff8a660f32fbf348dcecd485a58eb2b799cfa7a65b5e",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "7fd419a100e40567fe4d356b49d10e2e6b0c60adf4bcc236e82a36e030777be0"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "3d69a0e053a00551733e12b8978a90684e54b28bb8762c7d11bc5bfd92e07875"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "590d3fa550a36ef791532318fdf4731f487da822795a9f7405a92d397bef68c3"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-012",
+  "params": {
+   "big": "big",
+   "small": "small",
+   "limit": 40,
+   "first": "Command.Withdraw(65)",
+   "second": "Command.Deposit(15)",
+   "why1": "`Withdraw(65)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `65` is above `40`, so the guarded `Withdraw` branch runs.",
+   "why2": "`Deposit(15)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `15` is not above `40`, so the guarded branch is skipped and the plain `Deposit` branch runs."
+  },
+  "source_sha256": "e28bb62da95446894ef1805864fed6b6bc5ea49e57528037f4ea8795fe15519d",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "4076fdf55537e3591937abc53ccd9fc2f340ba993fc45e06a74ab66b52eded02",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "64f031977d0fc1653bc2981606bfbd1fe3e8e1323686e06a633548102c29c903"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "ccf75f4afc397474460be3de986cee451096a746b3ea6ec5605335d56d0e94b8"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "590d3fa550a36ef791532318fdf4731f487da822795a9f7405a92d397bef68c3"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-013",
+  "params": {
+   "big": "large",
+   "small": "plain",
+   "limit": 40,
+   "first": "Command.Deposit(60)",
+   "second": "Command.Deposit(25)",
+   "why1": "`Deposit(60)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `60` is above `40`, so the guarded `Deposit` branch runs.",
+   "why2": "`Deposit(25)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `25` is not above `40`, so the guarded branch is skipped and the plain `Deposit` branch runs."
+  },
+  "source_sha256": "32040343a82ee11467ffb2cd19da2e6b53203d15f2bef68ff3cca4a32c761134",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "14bc1b320724afff31576f0158e13ed85ff89a3ccfe9b8ca95e227e54c311000",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "5a30b14746f5cee680fcc9a4b7d153dbf3beed89c781a91096f309e07d1af564"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "a721e7e19a8e7b05c3174b488d5ee30d9dab0f334ecb9d190616164618df34a1"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "4da98688e86c0c6ad5651cb3292b5237520a107206a4560966d732b326bed959"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-014",
+  "params": {
+   "big": "large",
+   "small": "small",
+   "limit": 40,
+   "first": "Command.Deposit(60)",
+   "second": "Command.Deposit(25)",
+   "why1": "`Deposit(60)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `60` is above `40`, so the guarded `Deposit` branch runs.",
+   "why2": "`Deposit(25)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `25` is not above `40`, so the guarded branch is skipped and the plain `Deposit` branch runs."
+  },
+  "source_sha256": "e3f26f89103887e7a0e3464bc214933b5573cc6292ada309ca06f3afbaafb629",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "f7efc373701edabea873fed9e8804d5958cf535c521cdf0bdc7301b8c56f1d6b",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "8b31e5c4b84ece0baa7d7679b6aaa6f6c191cd3b08a5706f9cf7a5f0733ef80c"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "eb69f931774c9798ab8257ba0d369de4eda8d3d1bafdbe874aae72ec7501dccd"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "4da98688e86c0c6ad5651cb3292b5237520a107206a4560966d732b326bed959"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-015",
+  "params": {
+   "big": "big",
+   "small": "plain",
+   "limit": 40,
+   "first": "Command.Deposit(60)",
+   "second": "Command.Deposit(25)",
+   "why1": "`Deposit(60)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `60` is above `40`, so the guarded `Deposit` branch runs.",
+   "why2": "`Deposit(25)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `25` is not above `40`, so the guarded branch is skipped and the plain `Deposit` branch runs."
+  },
+  "source_sha256": "82ddb2ef558a8dce0a39735c1221418513a58edcf4524423bedcf8d162acfaa3",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "3f70c110cfe83a7407ffee6f0ddd9b9de6883d0276bffdd2035a4c789d8ab5d7",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "5a30b14746f5cee680fcc9a4b7d153dbf3beed89c781a91096f309e07d1af564"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "ad4d87e1d2fb32350a709548368bf216386bc007b7fdf3a4956e6edbab3d8026"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "331bc61dda8c195fa487340bfd70fe2f990c7b9929bb296046fe57498b20bb73"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-016",
+  "params": {
+   "big": "big",
+   "small": "small",
+   "limit": 40,
+   "first": "Command.Deposit(60)",
+   "second": "Command.Deposit(25)",
+   "why1": "`Deposit(60)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `60` is above `40`, so the guarded `Deposit` branch runs.",
+   "why2": "`Deposit(25)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `25` is not above `40`, so the guarded branch is skipped and the plain `Deposit` branch runs."
+  },
+  "source_sha256": "4fadb689af828acac06c90a6adf58321dd0d166b485db03ef391bc23aa06f631",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "58132ad36837a45cc0629f81ec5ff36dc44f9f79ad56279f68c191760ee45308",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "8b31e5c4b84ece0baa7d7679b6aaa6f6c191cd3b08a5706f9cf7a5f0733ef80c"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "adcf9ba1c216c16c7bc8c20c9ed614669e4a4aceacf15f9c8b78c4294258add3"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "331bc61dda8c195fa487340bfd70fe2f990c7b9929bb296046fe57498b20bb73"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-017",
+  "params": {
+   "big": "large",
+   "small": "plain",
+   "limit": 40,
+   "first": "Command.Withdraw(45)",
+   "second": "Command.Withdraw(10)",
+   "why1": "`Withdraw(45)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `45` is above `40`, so the guarded `Withdraw` branch runs.",
+   "why2": "`Withdraw(10)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `10` is not above `40`, so the guarded branch is skipped and the plain `Withdraw` branch runs."
+  },
+  "source_sha256": "90ba103adaad2264a99e6bcf1e66b0db499178e21a09eec81f641951ca68ec28",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "aa349297e386f0b8d3e82a35121ea30d25ee05307e4f3fc8afe85a478a6a4042",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "98b5ca2894f86ca807a179fcf0b618f8fed174a03e699dd4b85213650640490e"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "4cda4e6262f5122ccd7bf839f7ff07e125c2c6c42be4d0bb91e93821300db68a"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "df475d56d275311115f52a641e8fd13a878fa4d4e6e84ad9c47f249687dd9832"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-018",
+  "params": {
+   "big": "large",
+   "small": "small",
+   "limit": 40,
+   "first": "Command.Withdraw(45)",
+   "second": "Command.Withdraw(10)",
+   "why1": "`Withdraw(45)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `45` is above `40`, so the guarded `Withdraw` branch runs.",
+   "why2": "`Withdraw(10)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `10` is not above `40`, so the guarded branch is skipped and the plain `Withdraw` branch runs."
+  },
+  "source_sha256": "9095319690f403dd892a854876b30da6973551bb6ef3a2919dc99a4a720c1214",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "3f29c04b5438ce2511fb261ef89f3a1bec97c1a919a7692c8b7857074aabd75a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "cd0f4298f2c2f618fd709c2685336772db46af2bccb59ef81fffa1d90985de7b"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "0c6ca157523c0813f03d380bbe58960bfb0ec613e8caf0ab31903cb2cac985ba"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "df475d56d275311115f52a641e8fd13a878fa4d4e6e84ad9c47f249687dd9832"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-019",
+  "params": {
+   "big": "big",
+   "small": "plain",
+   "limit": 40,
+   "first": "Command.Withdraw(45)",
+   "second": "Command.Withdraw(10)",
+   "why1": "`Withdraw(45)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `45` is above `40`, so the guarded `Withdraw` branch runs.",
+   "why2": "`Withdraw(10)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `10` is not above `40`, so the guarded branch is skipped and the plain `Withdraw` branch runs."
+  },
+  "source_sha256": "b6a7a9df7e2c54343a3895c61c3d7146d7d68a531f686169f00c5cd45daf43a9",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "c7ee65da5a74a27d06299ffb1b701e0b5710bd3b3580a5897b852c9854afadc5",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "98b5ca2894f86ca807a179fcf0b618f8fed174a03e699dd4b85213650640490e"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "e1e83597acda75731dacd5b69fc11541e6e42273adda79ee17db370abc9eb069"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "0a643b2ebe7c5955cbb8e26a32ca38ee248953f923190fc17459d735d22fa4fa"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-020",
+  "params": {
+   "big": "big",
+   "small": "small",
+   "limit": 40,
+   "first": "Command.Withdraw(45)",
+   "second": "Command.Withdraw(10)",
+   "why1": "`Withdraw(45)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `45` is above `40`, so the guarded `Withdraw` branch runs.",
+   "why2": "`Withdraw(10)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `10` is not above `40`, so the guarded branch is skipped and the plain `Withdraw` branch runs."
+  },
+  "source_sha256": "ec42656ae8964533d26553b81626fbff83ccc6ece341b24fa745cb719447e8da",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "87c03f882e91870a90ff8570253a5f8ba0b6ef59114beb2d04d7ce69102a0e59",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "cd0f4298f2c2f618fd709c2685336772db46af2bccb59ef81fffa1d90985de7b"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "94167e1b06349510a51970cb881eb931c90d7ee07f15e206e34d0a9e9a034dd2"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "0a643b2ebe7c5955cbb8e26a32ca38ee248953f923190fc17459d735d22fa4fa"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-021",
+  "params": {
+   "big": "large",
+   "small": "plain",
+   "limit": 20,
+   "first": "Command.Deposit(35)",
+   "second": "Command.Withdraw(12)",
+   "why1": "`Deposit(35)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `35` is above `20`, so the guarded `Deposit` branch runs.",
+   "why2": "`Withdraw(12)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `12` is not above `20`, so the guarded branch is skipped and the plain `Withdraw` branch runs."
+  },
+  "source_sha256": "b69a580a34d2759dda997dec2a160f4fe14d63059252991f3287e1edefa88b0c",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "5c33ffaecbf72a14dbcc2115ffca8deeca787c3e76bf14d2a304ee6d91e46d29",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "7b5a182729c7a507f58ba30e15ef90984717e3d39c9e5a73c6f89f74eee0b174"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "13e9d555f659eb17c27c26995e32fc15e9a410a8c4a2765866376c49964c2d91"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "d9bf1b8d14c42da5962eb22775760fbdd927a6927fd7f39783dd60eae52a7407"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-022",
+  "params": {
+   "big": "large",
+   "small": "small",
+   "limit": 20,
+   "first": "Command.Deposit(35)",
+   "second": "Command.Withdraw(12)",
+   "why1": "`Deposit(35)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `35` is above `20`, so the guarded `Deposit` branch runs.",
+   "why2": "`Withdraw(12)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `12` is not above `20`, so the guarded branch is skipped and the plain `Withdraw` branch runs."
+  },
+  "source_sha256": "5780c7874d814ca9a20c8c6891ac62ad00682b29617b466d8b5f6a84f1f9b252",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "a2d84d75eb1d7ae5ba9d14923d4657e7e54062c62e2f103104bdf63aacf77f8f",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "a323b577b907aea36b3600d0d531cf0dd81af40f85c522b5873040e85a5818de"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "0e493066abaf685e65b39aa57148e2de807ce3794d77d3e7a12175bb6d71b5e7"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "d9bf1b8d14c42da5962eb22775760fbdd927a6927fd7f39783dd60eae52a7407"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-023",
+  "params": {
+   "big": "big",
+   "small": "plain",
+   "limit": 20,
+   "first": "Command.Deposit(35)",
+   "second": "Command.Withdraw(12)",
+   "why1": "`Deposit(35)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `35` is above `20`, so the guarded `Deposit` branch runs.",
+   "why2": "`Withdraw(12)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `12` is not above `20`, so the guarded branch is skipped and the plain `Withdraw` branch runs."
+  },
+  "source_sha256": "a1d96aca3b02207d934c651fcc6622cf610859d7faca0e5b8f3ba4786bf92203",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "1e97a3905ccdf1f6315ab257ff2c7a9956fb2f8ae76fe6450ba83aae152a3333",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "7b5a182729c7a507f58ba30e15ef90984717e3d39c9e5a73c6f89f74eee0b174"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "5b3e1dee652a6fe366d4df9803b14b90f7009a7c507cb14afdf8d87cb887d351"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "abab275be1911f7367ce56b3d7ed4ef5d2a1d0398c59c96d76951d721b81720d"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-024",
+  "params": {
+   "big": "big",
+   "small": "small",
+   "limit": 20,
+   "first": "Command.Deposit(35)",
+   "second": "Command.Withdraw(12)",
+   "why1": "`Deposit(35)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `35` is above `20`, so the guarded `Deposit` branch runs.",
+   "why2": "`Withdraw(12)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `12` is not above `20`, so the guarded branch is skipped and the plain `Withdraw` branch runs."
+  },
+  "source_sha256": "809b4e9ec17adba59c0feacc69c61994c9d3e7bee2a663b315cb2d9761885169",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "6ef795df047b2a33fad943d71a752da5de07a8659ee702d99ec9690d8dd7fb52",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "a323b577b907aea36b3600d0d531cf0dd81af40f85c522b5873040e85a5818de"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "1c4a5393f0ae4282d4b2aaf1e2ad72ae71f9d62c7c839cd608cc5f50ae1ac6ce"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "abab275be1911f7367ce56b3d7ed4ef5d2a1d0398c59c96d76951d721b81720d"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-025",
+  "params": {
+   "big": "large",
+   "small": "plain",
+   "limit": 20,
+   "first": "Command.Withdraw(8)",
+   "second": "Command.Deposit(30)",
+   "why1": "`Withdraw(8)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `8` is not above `20`, so the guarded branch is skipped and the plain `Withdraw` branch runs.",
+   "why2": "`Deposit(30)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `30` is above `20`, so the guarded `Deposit` branch runs."
+  },
+  "source_sha256": "0ef55323d1c06689188aba5c33512fca95bff9ca14b4cc5d0743c627568b0e48",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "33652f0eb5b9984593a073247a41ced8149ce3c2b974e55bf329329920b04ef6",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "7fd419a100e40567fe4d356b49d10e2e6b0c60adf4bcc236e82a36e030777be0"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "fad3a85f16a96d8e93995228c3b679ac3d47735c85d112c248bdbc50c3950a46"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "be3bc10e7a7408e76a09ae53fb4b75ba08b73ac8553e9deb183b10b1bfec649d"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-026",
+  "params": {
+   "big": "large",
+   "small": "small",
+   "limit": 20,
+   "first": "Command.Withdraw(8)",
+   "second": "Command.Deposit(30)",
+   "why1": "`Withdraw(8)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `8` is not above `20`, so the guarded branch is skipped and the plain `Withdraw` branch runs.",
+   "why2": "`Deposit(30)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `30` is above `20`, so the guarded `Deposit` branch runs."
+  },
+  "source_sha256": "8150c0078c8f19634704297d4f9ffb6b83decb7c735330fa26bb95f188418290",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "9d98695cce8056c339d6e8acd2a7a187b5f335f75900536c6571731e56e71f7e",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "64f031977d0fc1653bc2981606bfbd1fe3e8e1323686e06a633548102c29c903"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "6ae9c069d601429165de56c96ec6f772682f17f1736de32fdcd6f2974b4af899"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "be3bc10e7a7408e76a09ae53fb4b75ba08b73ac8553e9deb183b10b1bfec649d"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-027",
+  "params": {
+   "big": "big",
+   "small": "plain",
+   "limit": 20,
+   "first": "Command.Withdraw(8)",
+   "second": "Command.Deposit(30)",
+   "why1": "`Withdraw(8)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `8` is not above `20`, so the guarded branch is skipped and the plain `Withdraw` branch runs.",
+   "why2": "`Deposit(30)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `30` is above `20`, so the guarded `Deposit` branch runs."
+  },
+  "source_sha256": "2cb8dc1338cc7989bd15a431ade52f406afecaff6ea87ca0eeef164ff963b472",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "3d69a0e053a00551733e12b8978a90684e54b28bb8762c7d11bc5bfd92e07875",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "7fd419a100e40567fe4d356b49d10e2e6b0c60adf4bcc236e82a36e030777be0"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "f82482994787e0a3cf4dff8a660f32fbf348dcecd485a58eb2b799cfa7a65b5e"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "590d3fa550a36ef791532318fdf4731f487da822795a9f7405a92d397bef68c3"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-028",
+  "params": {
+   "big": "big",
+   "small": "small",
+   "limit": 20,
+   "first": "Command.Withdraw(8)",
+   "second": "Command.Deposit(30)",
+   "why1": "`Withdraw(8)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `8` is not above `20`, so the guarded branch is skipped and the plain `Withdraw` branch runs.",
+   "why2": "`Deposit(30)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `30` is above `20`, so the guarded `Deposit` branch runs."
+  },
+  "source_sha256": "75bb4018cf92dd08f4a3f596c7f5e4b4c520832783658fd2d20241e829814e7d",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "ccf75f4afc397474460be3de986cee451096a746b3ea6ec5605335d56d0e94b8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "64f031977d0fc1653bc2981606bfbd1fe3e8e1323686e06a633548102c29c903"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "4076fdf55537e3591937abc53ccd9fc2f340ba993fc45e06a74ab66b52eded02"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "590d3fa550a36ef791532318fdf4731f487da822795a9f7405a92d397bef68c3"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-029",
+  "params": {
+   "big": "large",
+   "small": "plain",
+   "limit": 50,
+   "first": "Command.Deposit(75)",
+   "second": "Command.Deposit(12)",
+   "why1": "`Deposit(75)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `75` is above `50`, so the guarded `Deposit` branch runs.",
+   "why2": "`Deposit(12)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `12` is not above `50`, so the guarded branch is skipped and the plain `Deposit` branch runs."
+  },
+  "source_sha256": "35af92f717b0a044f6bda78df2ca9ac7d0e9d560afbb6f483e3ba0bd014aaeb4",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "14bc1b320724afff31576f0158e13ed85ff89a3ccfe9b8ca95e227e54c311000",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "5a30b14746f5cee680fcc9a4b7d153dbf3beed89c781a91096f309e07d1af564"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "a721e7e19a8e7b05c3174b488d5ee30d9dab0f334ecb9d190616164618df34a1"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "4da98688e86c0c6ad5651cb3292b5237520a107206a4560966d732b326bed959"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-030",
+  "params": {
+   "big": "large",
+   "small": "small",
+   "limit": 50,
+   "first": "Command.Deposit(75)",
+   "second": "Command.Deposit(12)",
+   "why1": "`Deposit(75)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `75` is above `50`, so the guarded `Deposit` branch runs.",
+   "why2": "`Deposit(12)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `12` is not above `50`, so the guarded branch is skipped and the plain `Deposit` branch runs."
+  },
+  "source_sha256": "30a3da9230bf9b9cd6a72767f1341fdedd144ae2ba588d686caf946e8e5642b6",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "f7efc373701edabea873fed9e8804d5958cf535c521cdf0bdc7301b8c56f1d6b",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "8b31e5c4b84ece0baa7d7679b6aaa6f6c191cd3b08a5706f9cf7a5f0733ef80c"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "eb69f931774c9798ab8257ba0d369de4eda8d3d1bafdbe874aae72ec7501dccd"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "4da98688e86c0c6ad5651cb3292b5237520a107206a4560966d732b326bed959"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-031",
+  "params": {
+   "big": "big",
+   "small": "plain",
+   "limit": 50,
+   "first": "Command.Deposit(75)",
+   "second": "Command.Deposit(12)",
+   "why1": "`Deposit(75)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `75` is above `50`, so the guarded `Deposit` branch runs.",
+   "why2": "`Deposit(12)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `12` is not above `50`, so the guarded branch is skipped and the plain `Deposit` branch runs."
+  },
+  "source_sha256": "10e1a69aab8e95682137fdea7a1f8653e24861737ff44af818c1f85583663185",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "3f70c110cfe83a7407ffee6f0ddd9b9de6883d0276bffdd2035a4c789d8ab5d7",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "5a30b14746f5cee680fcc9a4b7d153dbf3beed89c781a91096f309e07d1af564"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "ad4d87e1d2fb32350a709548368bf216386bc007b7fdf3a4956e6edbab3d8026"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "331bc61dda8c195fa487340bfd70fe2f990c7b9929bb296046fe57498b20bb73"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-032",
+  "params": {
+   "big": "big",
+   "small": "small",
+   "limit": 50,
+   "first": "Command.Deposit(75)",
+   "second": "Command.Deposit(12)",
+   "why1": "`Deposit(75)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `true` because `75` is above `50`, so the guarded `Deposit` branch runs.",
+   "why2": "`Deposit(12)` matches `is Command.Deposit`, so `large` is evaluated and prints `guard`. `large` returns `false` because `12` is not above `50`, so the guarded branch is skipped and the plain `Deposit` branch runs."
+  },
+  "source_sha256": "fd81df57ba298c96c371890f663b192759b31c8833db96a3a61fe5088b8d1c7c",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "58132ad36837a45cc0629f81ec5ff36dc44f9f79ad56279f68c191760ee45308",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "8b31e5c4b84ece0baa7d7679b6aaa6f6c191cd3b08a5706f9cf7a5f0733ef80c"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "adcf9ba1c216c16c7bc8c20c9ed614669e4a4aceacf15f9c8b78c4294258add3"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "331bc61dda8c195fa487340bfd70fe2f990c7b9929bb296046fe57498b20bb73"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-033",
+  "params": {
+   "big": "large",
+   "small": "plain",
+   "limit": 30,
+   "first": "Command.Withdraw(18)",
+   "second": "Command.Withdraw(55)",
+   "why1": "`Withdraw(18)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `18` is not above `30`, so the guarded branch is skipped and the plain `Withdraw` branch runs.",
+   "why2": "`Withdraw(55)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `55` is above `30`, so the guarded `Withdraw` branch runs."
+  },
+  "source_sha256": "c322dc927b19b90fb06a0ecee5815ac3a8fbee3f53b8c3834bd20f2c4d048bc9",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "4cda4e6262f5122ccd7bf839f7ff07e125c2c6c42be4d0bb91e93821300db68a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "98b5ca2894f86ca807a179fcf0b618f8fed174a03e699dd4b85213650640490e"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "aa349297e386f0b8d3e82a35121ea30d25ee05307e4f3fc8afe85a478a6a4042"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "df475d56d275311115f52a641e8fd13a878fa4d4e6e84ad9c47f249687dd9832"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-034",
+  "params": {
+   "big": "large",
+   "small": "small",
+   "limit": 30,
+   "first": "Command.Withdraw(18)",
+   "second": "Command.Withdraw(55)",
+   "why1": "`Withdraw(18)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `18` is not above `30`, so the guarded branch is skipped and the plain `Withdraw` branch runs.",
+   "why2": "`Withdraw(55)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `55` is above `30`, so the guarded `Withdraw` branch runs."
+  },
+  "source_sha256": "c9e70001ba92f7d9e09b2b367a379290821e3df43e744941b0b1b2d794e45ff0",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "0c6ca157523c0813f03d380bbe58960bfb0ec613e8caf0ab31903cb2cac985ba",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "cd0f4298f2c2f618fd709c2685336772db46af2bccb59ef81fffa1d90985de7b"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "3f29c04b5438ce2511fb261ef89f3a1bec97c1a919a7692c8b7857074aabd75a"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "df475d56d275311115f52a641e8fd13a878fa4d4e6e84ad9c47f249687dd9832"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-035",
+  "params": {
+   "big": "big",
+   "small": "plain",
+   "limit": 30,
+   "first": "Command.Withdraw(18)",
+   "second": "Command.Withdraw(55)",
+   "why1": "`Withdraw(18)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `18` is not above `30`, so the guarded branch is skipped and the plain `Withdraw` branch runs.",
+   "why2": "`Withdraw(55)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `55` is above `30`, so the guarded `Withdraw` branch runs."
+  },
+  "source_sha256": "3f9dc8332125955a37e45942664d7274c3dceec6fd8f20dcc6fe691840b106a0",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "e1e83597acda75731dacd5b69fc11541e6e42273adda79ee17db370abc9eb069",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "98b5ca2894f86ca807a179fcf0b618f8fed174a03e699dd4b85213650640490e"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "c7ee65da5a74a27d06299ffb1b701e0b5710bd3b3580a5897b852c9854afadc5"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "0a643b2ebe7c5955cbb8e26a32ca38ee248953f923190fc17459d735d22fa4fa"
+   }
+  ]
+ },
+ {
+  "id": "m04-l02-v-kotlin-sealed-when-036",
+  "params": {
+   "big": "big",
+   "small": "small",
+   "limit": 30,
+   "first": "Command.Withdraw(18)",
+   "second": "Command.Withdraw(55)",
+   "why1": "`Withdraw(18)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `false` because `18` is not above `30`, so the guarded branch is skipped and the plain `Withdraw` branch runs.",
+   "why2": "`Withdraw(55)` does not match `is Command.Deposit`, so the first guard is not evaluated. It matches `is Command.Withdraw`, so `large` is evaluated and prints `guard`. `large` returns `true` because `55` is above `30`, so the guarded `Withdraw` branch runs."
+  },
+  "source_sha256": "ba536d34b30a14cd6b506afce95beebd9351bc49e3b6ce12f1dc950e823ed3e9",
+  "commands": [
+   [
+    "kotlinc",
+    "Main.kt",
+    "-include-runtime",
+    "-d",
+    "Main.jar"
+   ],
+   [
+    "java",
+    "-jar",
+    "Main.jar"
+   ]
+  ],
+  "stdout_sha256": "94167e1b06349510a51970cb881eb931c90d7ee07f15e206e34d0a9e9a034dd2",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "putting the plain branches before the guarded ones",
+    "stdout_sha256": "cd0f4298f2c2f618fd709c2685336772db46af2bccb59ef81fffa1d90985de7b"
+   },
+   {
+    "mistake": "negating both guards",
+    "stdout_sha256": "87c03f882e91870a90ff8570253a5f8ba0b6ef59114beb2d04d7ce69102a0e59"
+   },
+   {
+    "mistake": "treating both guards as always true",
+    "stdout_sha256": "0a643b2ebe7c5955cbb8e26a32ca38ee248953f923190fc17459d735d22fa4fa"
+   }
+  ]
+ }
+]

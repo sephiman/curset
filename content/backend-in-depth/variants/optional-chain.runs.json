@@ -1,0 +1,1227 @@
+[
+ {
+  "id": "m11-l02-v-optional-chain-001",
+  "params": {
+   "v": "\"linus\"",
+   "w": "\"ruby\"",
+   "n": 4,
+   "c": "L",
+   "chain": ".map(String::toUpperCase).filter(s -> s.startsWith(\"L\"))",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"linus\")`: `map` gives `LINUS` and `filter` keeps it because it starts with `L`, so it gives `LINUS`. The second chain starts from `Optional.ofNullable(\"ruby\")`: `map` gives `RUBY` and `filter` drops it because it does not start with `L`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "ed389f35614f99f05b3cdd88cf64bef604612a5b9ea8d97ad4b1595e9c246664",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "abe9fc6da351e612e4ee4924f143d7fdd7682d636c98c57f612b4cb36fe73ea8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "40ecb63f7df654893f847a928d857b74a41b09149a9e23da6f66f65ea86b5585"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that start with the letter",
+    "stdout_sha256": "5f4d6435b49db046b096a411cc416a7fa3aa68ff923d6c52fa704f58d2810bae"
+   },
+   {
+    "mistake": "checking the end of the text instead of its start",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-002",
+  "params": {
+   "v": "\"ada\"",
+   "w": "\"ruby\"",
+   "n": 5,
+   "c": "A",
+   "chain": ".filter(s -> s.length() > 5).or(() -> Optional.of(\"backup\"))",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"ada\")`: `filter` drops it because the length `3` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. The second chain starts from `Optional.ofNullable(\"ruby\")`: `filter` drops it because the length `4` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "5ef88ff129af27332636f2622ae3da74b0e245804535938b1738d8f2a80afdd7",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "f41d720c5c2cae182731e4b6d0e1a04811825ed02890c89f0982d53d0257c4a3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "157f5e9aa426794fc82c0b5ddab60e48c6c3f3eddb20bbecd8e1aade68f72b44"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "5776c0488b01b42658b1e99671dc394ff6af44166544a22ba1c0abaff57f7550"
+   },
+   {
+    "mistake": "ignoring the supplier of `or`",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-003",
+  "params": {
+   "v": "\"grace\"",
+   "w": "\"ada\"",
+   "n": 4,
+   "c": "L",
+   "chain": ".filter(s -> s.length() > 4)",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"grace\")`: `filter` keeps it because its length `5` is more than `4`, so it gives `grace`. The second chain starts from `Optional.ofNullable(\"ada\")`: `filter` drops it because its length `3` is not more than `4`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "36cf91c71fc878ed40142456486cda705a5b065ae69c212eb9fb824dad1c8be3",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "195148b424df1727371444b44d1a72694bebe5ce0b72cf08552b48d062fd3ed8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "ca02301ba3ab72a2ceab1b37de4fd6d3ea9c36941d64a92c9ca1c89fcd5af0f6"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "e0aad4b040508e13a8c546e3a84c063df461d36fa2d397e552abaafc705b56ff"
+   },
+   {
+    "mistake": "requiring one more character in the length check",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-004",
+  "params": {
+   "v": "\"grace\"",
+   "w": "\"ruby\"",
+   "n": 4,
+   "c": "G",
+   "chain": ".map(s -> s.length() > 4 ? s : null)",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"grace\")`: the `map` function returns `grace` because its length `5` is more than `4`, so it gives `grace`. The second chain starts from `Optional.ofNullable(\"ruby\")`: the `map` function returns `null` because the length `4` is not more than `4`, so `map` gives an empty `Optional`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "abc7b0b2d83f632ce534e18b122e8626ac9fc6c732df2ba761a39edddbd75614",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "195148b424df1727371444b44d1a72694bebe5ce0b72cf08552b48d062fd3ed8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "ca02301ba3ab72a2ceab1b37de4fd6d3ea9c36941d64a92c9ca1c89fcd5af0f6"
+   },
+   {
+    "mistake": "treating a `null` result of `map` as the unchanged value",
+    "stdout_sha256": "e5bfc3dfc40db7362e4fddbbc52eb186852efcc79c9f290ac878515437c18d86"
+   },
+   {
+    "mistake": "requiring one more character in the length check",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-005",
+  "params": {
+   "v": "\"kay\"",
+   "w": "\"linus\"",
+   "n": 3,
+   "c": "A",
+   "chain": ".filter(s -> s.length() > 3)",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"kay\")`: `filter` drops it because its length `3` is not more than `3`, so it gives `none`. The second chain starts from `Optional.ofNullable(\"linus\")`: `filter` keeps it because its length `5` is more than `3`, so it gives `linus`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "9905da3bf8c5c72dee3cccae9ad9b9c483d8127226543004df3d23292be4ac0f",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "04b025a7badb76484c8b358f7aeb98c6a2b03ab8341badda07da272bb954e2af",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "09f1e714580803260252576fc3c3f154acd40c57eba6e6ecaf6ac1cf12a04c34"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "0be7e59fd8ad950f67eaf5b7ee92bf83d44ab21d63c6acf0fd89b13fc5b81e72"
+   },
+   {
+    "mistake": "reading the length check as `>=`",
+    "stdout_sha256": "d31003ce4e555aab8832b2b4882e990e5f1e31bc6e66661d757f3e4ff1619af1"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-006",
+  "params": {
+   "v": "\"ada\"",
+   "w": "\"grace\"",
+   "n": 3,
+   "c": "G",
+   "chain": ".map(String::toUpperCase).filter(s -> s.startsWith(\"G\"))",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"ada\")`: `map` gives `ADA` and `filter` drops it because it does not start with `G`, so it gives `none`. The second chain starts from `Optional.ofNullable(\"grace\")`: `map` gives `GRACE` and `filter` keeps it because it starts with `G`, so it gives `GRACE`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "38e9de7e95771bd671295049b2f1d2dffcb8b2f68310e14dcc3f24163b29b76d",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "02cdd44072fd57dc5369a9c380f2edccdffe3a262e5155e13e1dfef5d6688b1a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "5483a992bff2b080731cc55daf7b1babcee5dbe93df3565ac047e8ddada47b99"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that start with the letter",
+    "stdout_sha256": "d931edf0d5117642663ce8ef1b5f2d843e1442ba390f30cb1ea57753cd4f0612"
+   },
+   {
+    "mistake": "checking the end of the text instead of its start",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-007",
+  "params": {
+   "v": "\"linus\"",
+   "w": "\"kay\"",
+   "n": 5,
+   "c": "K",
+   "chain": ".map(s -> s + \"!\").map(s -> s.length() > 5 ? s : null)",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"linus\")`: the first `map` gives `linus!` and the second returns the same text, because its length `6` is more than `5`, so it gives `linus!`. The second chain starts from `Optional.ofNullable(\"kay\")`: the first `map` gives `kay!` and the second function returns `null`, so `map` gives an empty `Optional`, because its length `4` is not more than `5`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "be887d9e9d4b70f34bc06e5c6bde74d5c9e5c04b91da80d3da73f11ace4cfccc",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "e22b108ea8a8a78f5e9c9ae98cd46d681b2655b1bd9d3ee79065628c37db971e",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "e98bdd269706ee75a0876d0fde02c8b1c8e1cbcf049d160fd779fa88027971ec"
+   },
+   {
+    "mistake": "treating a `null` result of `map` as the unchanged value",
+    "stdout_sha256": "199a5cbe79987dafc56374f691dd84427eb7b658f5331f5ef2a909994e86d384"
+   },
+   {
+    "mistake": "requiring one more character in the length check",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-008",
+  "params": {
+   "v": "\"ruby\"",
+   "w": "\"linus\"",
+   "n": 5,
+   "c": "A",
+   "chain": ".map(s -> s + \"!\").map(s -> s.length() > 5 ? s : null)",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"ruby\")`: the first `map` gives `ruby!` and the second function returns `null`, so `map` gives an empty `Optional`, because its length `5` is not more than `5`, so it gives `none`. The second chain starts from `Optional.ofNullable(\"linus\")`: the first `map` gives `linus!` and the second returns the same text, because its length `6` is more than `5`, so it gives `linus!`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "30864e4582bce181848071391f38993f3afe96b9c6eaf08aadb0a73334ba58c2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "360c50f23c4ebf65ea7283352d4586c0e901c1fd94f00df4445c146489550107",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "509ee6c19ecbffcd0288909feec0605699544289be2f5070b0ace97bfecc23a7"
+   },
+   {
+    "mistake": "treating a `null` result of `map` as the unchanged value",
+    "stdout_sha256": "9267c9cf0a28b42cad19824c9bfbabe40f4d1f6cb0a17ad107a3f81603ffadc6"
+   },
+   {
+    "mistake": "requiring one more character in the length check",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-009",
+  "params": {
+   "v": "\"grace\"",
+   "w": "\"kay\"",
+   "n": 4,
+   "c": "L",
+   "chain": ".flatMap(s -> s.length() > 4 ? Optional.of(s + \"!\") : Optional.<String>empty())",
+   "citation": "javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"grace\")`: the `flatMap` function returns `Optional.of(\"grace!\")` because the length `5` is more than `4`, and `flatMap` does not wrap it again, so it gives `grace!`. The second chain starts from `Optional.ofNullable(\"kay\")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `4`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "b9e7f67bc70ea464efb20f8e7b21f1e15f74b233f2fc09026ce7bd18f39b9957",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "10ba53c3003fab384b5d79e0c4c38da4d66531ab6b0fa0b47c6b4554844f1b16",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "3189d4bb274624c18cf3ffad7e28088e412c0b657d03a8ed7aee15f00f1243bd"
+   },
+   {
+    "mistake": "returning the value instead of an empty `Optional` from the `flatMap` function",
+    "stdout_sha256": "8b5a24e9f654b3d2d29ca78ffebffd13b78a201d828fcd7b9519526c701daa16"
+   },
+   {
+    "mistake": "requiring one more character in the length check",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-010",
+  "params": {
+   "v": "null",
+   "w": "\"ada\"",
+   "n": 4,
+   "c": "A",
+   "chain": ".filter(s -> s.length() > 4).or(() -> Optional.of(\"backup\"))",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from an empty `Optional`: the steps pass an empty `Optional` along, so it gives `backup`. The second chain starts from `Optional.ofNullable(\"ada\")`: `filter` drops it because the length `3` is not more than `4`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "755eb9b2800a9c8bed85c0e8266ad91a0fd1fd2cb54438b99eeb559e6fc550d8",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "f41d720c5c2cae182731e4b6d0e1a04811825ed02890c89f0982d53d0257c4a3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "157f5e9aa426794fc82c0b5ddab60e48c6c3f3eddb20bbecd8e1aade68f72b44"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "59ce5803830ca7500b64fc278fdec965b3e05b395a53e24397e4c2060800e302"
+   },
+   {
+    "mistake": "ignoring the supplier of `or`",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-011",
+  "params": {
+   "v": "\"ada\"",
+   "w": "\"grace\"",
+   "n": 3,
+   "c": "L",
+   "chain": ".flatMap(s -> s.length() > 3 ? Optional.of(s + \"!\") : Optional.<String>empty())",
+   "citation": "javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"ada\")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `3`, so it gives `none`. The second chain starts from `Optional.ofNullable(\"grace\")`: the `flatMap` function returns `Optional.of(\"grace!\")` because the length `5` is more than `3`, and `flatMap` does not wrap it again, so it gives `grace!`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "6bdb84d7782b0289214a108ece4f1628568c4e1af0efeecf40881a71d36483dc",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "0882b531525ecfd3064a8d6efbcfdb0528e795edb8f5385e787efc5ef468d6b7",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "620e086160a71c94ba7905b73ebb7ad5bbcd410cdc7e60b4d0a00618f70cd6d6"
+   },
+   {
+    "mistake": "reading the length check as `>=`",
+    "stdout_sha256": "91a6fa71d8fb560e08110b01a16c98bbc06b84ed3a3d27537d886cc3cb19317d"
+   },
+   {
+    "mistake": "returning the value instead of an empty `Optional` from the `flatMap` function",
+    "stdout_sha256": "9f8f3d9a4745d29668bcf94b83d0dfdcb001e5df613c61938826e6a3d872567f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-012",
+  "params": {
+   "v": "\"kay\"",
+   "w": "\"ada\"",
+   "n": 4,
+   "c": "A",
+   "chain": ".map(String::toUpperCase).filter(s -> s.startsWith(\"A\"))",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"kay\")`: `map` gives `KAY` and `filter` drops it because it does not start with `A`, so it gives `none`. The second chain starts from `Optional.ofNullable(\"ada\")`: `map` gives `ADA` and `filter` keeps it because it starts with `A`, so it gives `ADA`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "d290e2ef0945cea49380c2fb666956d65a033874d848b72c3c64740dda8819b1",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "39a5e376dfb32455335375e44337d0d7d0a37825618bd40a47bd57c9c8126eba",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "4fa88f842c6ad5ffb3add39353b4370658b48865dc2e353579f7692f7940239e"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that start with the letter",
+    "stdout_sha256": "d0b62cd5f81980fb000d130fdb90ac01b38a3fa5cda258265a509d8bb14c2c3e"
+   },
+   {
+    "mistake": "skipping `map(String::toUpperCase)` before the `filter`",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-013",
+  "params": {
+   "v": "\"ruby\"",
+   "w": "\"ada\"",
+   "n": 3,
+   "c": "L",
+   "chain": ".map(s -> s.length() > 3 ? s : null)",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"ruby\")`: the `map` function returns `ruby` because its length `4` is more than `3`, so it gives `ruby`. The second chain starts from `Optional.ofNullable(\"ada\")`: the `map` function returns `null` because the length `3` is not more than `3`, so `map` gives an empty `Optional`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "03c7b93896feee11e84245af586cb4289177b40d3b9535acfa6dd2f9038b25ea",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "f09552245681903d107b65a21755fc2c58d778d6ab4ac9bbbeea9006fae66ca2",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "a0fae7689efb124ca11069135b19acbf03c762d8cc9915d6a3844877d7e627c4"
+   },
+   {
+    "mistake": "treating a `null` result of `map` as the unchanged value",
+    "stdout_sha256": "da9e408caec2c2bab1f2f6d7e087c54bcf6e4f011b8c8bf7614e90302e2e0941"
+   },
+   {
+    "mistake": "requiring one more character in the length check",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-014",
+  "params": {
+   "v": "\"ada\"",
+   "w": "\"linus\"",
+   "n": 4,
+   "c": "G",
+   "chain": ".map(s -> s.length() > 4 ? s : null)",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"ada\")`: the `map` function returns `null` because the length `3` is not more than `4`, so `map` gives an empty `Optional`, so it gives `none`. The second chain starts from `Optional.ofNullable(\"linus\")`: the `map` function returns `linus` because its length `5` is more than `4`, so it gives `linus`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "c1ab698615ad5868602da2db4f7afd589037bc7a64067caeb3240d70fa5b8dba",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "04b025a7badb76484c8b358f7aeb98c6a2b03ab8341badda07da272bb954e2af",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "09f1e714580803260252576fc3c3f154acd40c57eba6e6ecaf6ac1cf12a04c34"
+   },
+   {
+    "mistake": "treating a `null` result of `map` as the unchanged value",
+    "stdout_sha256": "a94c59b8fed1abbde50de3388a729fe7ac0b21cf2356542f62af249b69450cca"
+   },
+   {
+    "mistake": "requiring one more character in the length check",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-015",
+  "params": {
+   "v": "\"linus\"",
+   "w": "\"kay\"",
+   "n": 5,
+   "c": "K",
+   "chain": ".map(String::toUpperCase).filter(s -> s.startsWith(\"K\"))",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"linus\")`: `map` gives `LINUS` and `filter` drops it because it does not start with `K`, so it gives `none`. The second chain starts from `Optional.ofNullable(\"kay\")`: `map` gives `KAY` and `filter` keeps it because it starts with `K`, so it gives `KAY`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "0d67131d65d17be7d9f36d39bd35c228b0fc4bed198845a98a4ce55bcf36d3a1",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "78c0307f47d1be6ff88a73c1a1bc0dac4d3f7e37189937a0817237b76599c01b",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "0e053076b6571a12f2cd48e7a38474ed7aa5c75ea9c091584db398ad19e7c914"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that start with the letter",
+    "stdout_sha256": "abe9fc6da351e612e4ee4924f143d7fdd7682d636c98c57f612b4cb36fe73ea8"
+   },
+   {
+    "mistake": "checking the end of the text instead of its start",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-016",
+  "params": {
+   "v": "\"ruby\"",
+   "w": "\"linus\"",
+   "n": 3,
+   "c": "L",
+   "chain": ".filter(s -> s.length() > 3)",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"ruby\")`: `filter` keeps it because its length `4` is more than `3`, so it gives `ruby`. The second chain starts from `Optional.ofNullable(\"linus\")`: `filter` keeps it because its length `5` is more than `3`, so it gives `linus`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "00fb8b2861a49dc57a45fff5de7686a853719b0f2aba498e4130f45ed9423843",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1cade45b6062f60d176d71353793c08d9c7a118484094a1fb691373a01acdd8d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "326ccaa09db48728317d1d77dcd2e550240477c0c63d905b68af392852f04b84"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   },
+   {
+    "mistake": "requiring one more character in the length check",
+    "stdout_sha256": "04b025a7badb76484c8b358f7aeb98c6a2b03ab8341badda07da272bb954e2af"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-017",
+  "params": {
+   "v": "\"kay\"",
+   "w": "\"grace\"",
+   "n": 4,
+   "c": "A",
+   "chain": ".map(s -> s.length() > 4 ? s : null)",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"kay\")`: the `map` function returns `null` because the length `3` is not more than `4`, so `map` gives an empty `Optional`, so it gives `none`. The second chain starts from `Optional.ofNullable(\"grace\")`: the `map` function returns `grace` because its length `5` is more than `4`, so it gives `grace`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "bf16a70c47c168309ffee1b03411ae74fb3bbbc6b46491d5adc851e11ef0e753",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "23e5b0eecbf398a0d57738eb4c3be48871f9baf3e29328bc8ca6bcbe741938d2",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "247fc50ad752dc69f01ce1cf5b041fea570dc7ea6fcac5ecc71faf910216e1fa"
+   },
+   {
+    "mistake": "treating a `null` result of `map` as the unchanged value",
+    "stdout_sha256": "7d15c4b4db0b0e2ba01a40ae7060710732838b3898fadf44ec71dbd2b70cbb83"
+   },
+   {
+    "mistake": "requiring one more character in the length check",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-018",
+  "params": {
+   "v": "\"ruby\"",
+   "w": "\"linus\"",
+   "n": 5,
+   "c": "A",
+   "chain": ".filter(s -> s.length() > 5).or(() -> Optional.of(\"backup\"))",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"ruby\")`: `filter` drops it because the length `4` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. The second chain starts from `Optional.ofNullable(\"linus\")`: `filter` drops it because the length `5` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "23c3cc0de66aa0317a672491280ee074cd4d25898d42fb28988089a14df60da6",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "f41d720c5c2cae182731e4b6d0e1a04811825ed02890c89f0982d53d0257c4a3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "157f5e9aa426794fc82c0b5ddab60e48c6c3f3eddb20bbecd8e1aade68f72b44"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "1cade45b6062f60d176d71353793c08d9c7a118484094a1fb691373a01acdd8d"
+   },
+   {
+    "mistake": "reading the length check as `>=`",
+    "stdout_sha256": "a369ab825c5308d3d765d7c80a42268b07c1abcb8955ad522fdcce89ec6ec63f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-019",
+  "params": {
+   "v": "\"ada\"",
+   "w": "\"linus\"",
+   "n": 5,
+   "c": "K",
+   "chain": ".map(s -> s + \"!\").map(s -> s.length() > 5 ? s : null)",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"ada\")`: the first `map` gives `ada!` and the second function returns `null`, so `map` gives an empty `Optional`, because its length `4` is not more than `5`, so it gives `none`. The second chain starts from `Optional.ofNullable(\"linus\")`: the first `map` gives `linus!` and the second returns the same text, because its length `6` is more than `5`, so it gives `linus!`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "89c3f640085da873a7ba7d6eaded770e0836ca899e539437b2ac58887cf9d3f9",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "360c50f23c4ebf65ea7283352d4586c0e901c1fd94f00df4445c146489550107",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "509ee6c19ecbffcd0288909feec0605699544289be2f5070b0ace97bfecc23a7"
+   },
+   {
+    "mistake": "treating a `null` result of `map` as the unchanged value",
+    "stdout_sha256": "58976f75a0200a0fc7e7c3b5a1088e14ab93471448d2738a2cf0ce8e616a8d1e"
+   },
+   {
+    "mistake": "requiring one more character in the length check",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-020",
+  "params": {
+   "v": "\"grace\"",
+   "w": "\"kay\"",
+   "n": 4,
+   "c": "A",
+   "chain": ".map(s -> s.length() > 4 ? s : null)",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"grace\")`: the `map` function returns `grace` because its length `5` is more than `4`, so it gives `grace`. The second chain starts from `Optional.ofNullable(\"kay\")`: the `map` function returns `null` because the length `3` is not more than `4`, so `map` gives an empty `Optional`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "1efd2e07c815aecf08da95f3c0a221a5873fb7a7249c0d73de8832dd5cd2e701",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "195148b424df1727371444b44d1a72694bebe5ce0b72cf08552b48d062fd3ed8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "ca02301ba3ab72a2ceab1b37de4fd6d3ea9c36941d64a92c9ca1c89fcd5af0f6"
+   },
+   {
+    "mistake": "treating a `null` result of `map` as the unchanged value",
+    "stdout_sha256": "2f651282537519524cbe4a080d7017fa3bc8bb936a0bf25bafa5ebcfebe3a3e5"
+   },
+   {
+    "mistake": "requiring one more character in the length check",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-021",
+  "params": {
+   "v": "\"grace\"",
+   "w": "\"kay\"",
+   "n": 3,
+   "c": "A",
+   "chain": ".filter(s -> s.length() > 3).or(() -> Optional.of(\"backup\"))",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"grace\")`: `filter` keeps it because its length `5` is more than `3`, so `or` returns the same value, so it gives `grace`. The second chain starts from `Optional.ofNullable(\"kay\")`: `filter` drops it because the length `3` is not more than `3`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "21c0e3baa5d230c30056c957bb7961f032416e327e5c52a5fdb0bef378a652f8",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "9ed91eea5bcfdfbd6b8e4330574db60326c797df4c956c622619f5dd1bdcc74c",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "329aa53bb7984a54cdb16cba95684f2ba9e3a43206c8600e395ad22d79cdca21"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "365634f609b5d4ac26c43dfab0cc6c72efe64c2683cafb18c4e787de4a3ceba7"
+   },
+   {
+    "mistake": "reading the length check as `>=`",
+    "stdout_sha256": "2f651282537519524cbe4a080d7017fa3bc8bb936a0bf25bafa5ebcfebe3a3e5"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-022",
+  "params": {
+   "v": "\"ada\"",
+   "w": "\"linus\"",
+   "n": 3,
+   "c": "R",
+   "chain": ".filter(s -> s.length() > 3).or(() -> Optional.of(\"backup\"))",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"ada\")`: `filter` drops it because the length `3` is not more than `3`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. The second chain starts from `Optional.ofNullable(\"linus\")`: `filter` keeps it because its length `5` is more than `3`, so `or` returns the same value, so it gives `linus`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "62ae80e84e4026cae1cd5335257c81e3847986c8cac3b9f612a1555914d839e7",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "a369ab825c5308d3d765d7c80a42268b07c1abcb8955ad522fdcce89ec6ec63f",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "175adee748058bd107344c3e28287482fc5ea96d1db31b20339afd36b765ed47"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "65bfbcefb46ebf2279f5d5be533747863643a75b35c21b1d1d1023b353262d92"
+   },
+   {
+    "mistake": "reading the length check as `>=`",
+    "stdout_sha256": "a94c59b8fed1abbde50de3388a729fe7ac0b21cf2356542f62af249b69450cca"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-023",
+  "params": {
+   "v": "\"linus\"",
+   "w": "\"ada\"",
+   "n": 3,
+   "c": "L",
+   "chain": ".map(String::toUpperCase).filter(s -> s.startsWith(\"L\"))",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"linus\")`: `map` gives `LINUS` and `filter` keeps it because it starts with `L`, so it gives `LINUS`. The second chain starts from `Optional.ofNullable(\"ada\")`: `map` gives `ADA` and `filter` drops it because it does not start with `L`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "7e5c6544e2975d926fb9e67f69c00009826bd1cc6d8e8c31adf9254e4fd4b12d",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "abe9fc6da351e612e4ee4924f143d7fdd7682d636c98c57f612b4cb36fe73ea8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "40ecb63f7df654893f847a928d857b74a41b09149a9e23da6f66f65ea86b5585"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that start with the letter",
+    "stdout_sha256": "39a5e376dfb32455335375e44337d0d7d0a37825618bd40a47bd57c9c8126eba"
+   },
+   {
+    "mistake": "checking the end of the text instead of its start",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-024",
+  "params": {
+   "v": "\"linus\"",
+   "w": "\"kay\"",
+   "n": 3,
+   "c": "G",
+   "chain": ".filter(s -> s.length() > 3)",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"linus\")`: `filter` keeps it because its length `5` is more than `3`, so it gives `linus`. The second chain starts from `Optional.ofNullable(\"kay\")`: `filter` drops it because its length `3` is not more than `3`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "851709423f716cca1e8b64f60eff1e0b5f6837ca879021c4717e9e5ef2efa012",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6c6f87968cf5aab000b4760cd21c490577bfaad8151154b93c2af2e23c8df946",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "e21e12d8cb1c3b03e1904abaf9dc0fec67d4c39ab7188503f25e412a9b31f3ad"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "e9d8ca959227bf1460d0963bc27bbd707e7fa459dd52a28b14b4a4bc5d48d984"
+   },
+   {
+    "mistake": "reading the length check as `>=`",
+    "stdout_sha256": "2a5519c1b56035cfa7523f92cfb8879e8101a2842277fbaf077ea01ac3daccfb"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-025",
+  "params": {
+   "v": "\"ruby\"",
+   "w": "\"linus\"",
+   "n": 4,
+   "c": "A",
+   "chain": ".filter(s -> s.length() > 4)",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"ruby\")`: `filter` drops it because its length `4` is not more than `4`, so it gives `none`. The second chain starts from `Optional.ofNullable(\"linus\")`: `filter` keeps it because its length `5` is more than `4`, so it gives `linus`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "9a499d225d544a2fe078acbfc0564e0253d3fe507d4066bed20bf7094c40dfde",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "04b025a7badb76484c8b358f7aeb98c6a2b03ab8341badda07da272bb954e2af",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "09f1e714580803260252576fc3c3f154acd40c57eba6e6ecaf6ac1cf12a04c34"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "f09552245681903d107b65a21755fc2c58d778d6ab4ac9bbbeea9006fae66ca2"
+   },
+   {
+    "mistake": "reading the length check as `>=`",
+    "stdout_sha256": "1cade45b6062f60d176d71353793c08d9c7a118484094a1fb691373a01acdd8d"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-026",
+  "params": {
+   "v": "\"grace\"",
+   "w": "\"ada\"",
+   "n": 5,
+   "c": "G",
+   "chain": ".filter(s -> s.length() > 5).or(() -> Optional.of(\"backup\"))",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"grace\")`: `filter` drops it because the length `5` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. The second chain starts from `Optional.ofNullable(\"ada\")`: `filter` drops it because the length `3` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "12239acf216cb03ac3e79ce51476c354f950a93883a661bdcb828e6b958a4cff",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "f41d720c5c2cae182731e4b6d0e1a04811825ed02890c89f0982d53d0257c4a3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "157f5e9aa426794fc82c0b5ddab60e48c6c3f3eddb20bbecd8e1aade68f72b44"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "641b243d7b373da31e2e5c387b8becc1fe18aa25497704749aff56f337f7c403"
+   },
+   {
+    "mistake": "reading the length check as `>=`",
+    "stdout_sha256": "9ed91eea5bcfdfbd6b8e4330574db60326c797df4c956c622619f5dd1bdcc74c"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-027",
+  "params": {
+   "v": "\"ada\"",
+   "w": "\"ruby\"",
+   "n": 3,
+   "c": "R",
+   "chain": ".flatMap(s -> s.length() > 3 ? Optional.of(s + \"!\") : Optional.<String>empty())",
+   "citation": "javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"ada\")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `3`, so it gives `none`. The second chain starts from `Optional.ofNullable(\"ruby\")`: the `flatMap` function returns `Optional.of(\"ruby!\")` because the length `4` is more than `3`, and `flatMap` does not wrap it again, so it gives `ruby!`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "685906942d1a2b32e433587e41c5636830211d9e382c48f5daf7f60ee68486ca",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "06880c9a95061fae349e1d6e688ddef5bfc0a29f872e46f8c2719682688ac872",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "7e7627b6777671247e9596712d6d51d345a701351c998345502ad8b0c2c063a6"
+   },
+   {
+    "mistake": "reading the length check as `>=`",
+    "stdout_sha256": "3842e33f061cce4bcd6ef491df6469e98d07ccaeae045a08a850c3b1918179b4"
+   },
+   {
+    "mistake": "returning the value instead of an empty `Optional` from the `flatMap` function",
+    "stdout_sha256": "7715368e7c9dec2adf9f35000044d31d65c916f5096b8aec9bb7c1ea27d69334"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-028",
+  "params": {
+   "v": "\"ruby\"",
+   "w": "\"kay\"",
+   "n": 4,
+   "c": "G",
+   "chain": ".map(s -> s + \"!\").map(s -> s.length() > 4 ? s : null)",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"ruby\")`: the first `map` gives `ruby!` and the second returns the same text, because its length `5` is more than `4`, so it gives `ruby!`. The second chain starts from `Optional.ofNullable(\"kay\")`: the first `map` gives `kay!` and the second function returns `null`, so `map` gives an empty `Optional`, because its length `4` is not more than `4`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "a7b1c81e5b587d8d3b379a48911118a26327473df3626da382610f5460316bb7",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "2afb83ff22c43c7a1c1aaca77f397671331c5a3a5e921b0be7d42f1c7020c96a",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "8e5b7cd2ae6de6afb399c18d0e41744d5e7e22c0ffe08c5689924ef3deca2bd7"
+   },
+   {
+    "mistake": "treating a `null` result of `map` as the unchanged value",
+    "stdout_sha256": "23de26c79f81958254e67f0795f07addc706ede699b7230286f631a41ffc6637"
+   },
+   {
+    "mistake": "requiring one more character in the length check",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-029",
+  "params": {
+   "v": "\"ruby\"",
+   "w": "\"grace\"",
+   "n": 4,
+   "c": "A",
+   "chain": ".flatMap(s -> s.length() > 4 ? Optional.of(s + \"!\") : Optional.<String>empty())",
+   "citation": "javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"ruby\")`: the `flatMap` function returns an empty `Optional` because the length `4` is not more than `4`, so it gives `none`. The second chain starts from `Optional.ofNullable(\"grace\")`: the `flatMap` function returns `Optional.of(\"grace!\")` because the length `5` is more than `4`, and `flatMap` does not wrap it again, so it gives `grace!`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "c7609578d699c52888032bb081b543b7f06c78f476967fa495dda28783b54f4a",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "0882b531525ecfd3064a8d6efbcfdb0528e795edb8f5385e787efc5ef468d6b7",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "620e086160a71c94ba7905b73ebb7ad5bbcd410cdc7e60b4d0a00618f70cd6d6"
+   },
+   {
+    "mistake": "reading the length check as `>=`",
+    "stdout_sha256": "65e7bf9354a8c6a45b018d397daea6b7c613820c281778c6dc7088271f731ced"
+   },
+   {
+    "mistake": "returning the value instead of an empty `Optional` from the `flatMap` function",
+    "stdout_sha256": "e7e09cbe6860925e98169649ec1d41c944b015e2e2aedec545d4c1402a1975ac"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-030",
+  "params": {
+   "v": "\"grace\"",
+   "w": "\"ada\"",
+   "n": 4,
+   "c": "G",
+   "chain": ".flatMap(s -> s.length() > 4 ? Optional.of(s + \"!\") : Optional.<String>empty())",
+   "citation": "javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"grace\")`: the `flatMap` function returns `Optional.of(\"grace!\")` because the length `5` is more than `4`, and `flatMap` does not wrap it again, so it gives `grace!`. The second chain starts from `Optional.ofNullable(\"ada\")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `4`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "133b1f85d0a4d619186980c77e873da8cab45dd96bb4342fffc4323b969329d9",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "10ba53c3003fab384b5d79e0c4c38da4d66531ab6b0fa0b47c6b4554844f1b16",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "3189d4bb274624c18cf3ffad7e28088e412c0b657d03a8ed7aee15f00f1243bd"
+   },
+   {
+    "mistake": "returning the value instead of an empty `Optional` from the `flatMap` function",
+    "stdout_sha256": "3908b69e5614593b87e27724204029db1ad5a0b28a81ccbbfd7f7530f20b1617"
+   },
+   {
+    "mistake": "requiring one more character in the length check",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-031",
+  "params": {
+   "v": "\"kay\"",
+   "w": "\"ruby\"",
+   "n": 3,
+   "c": "G",
+   "chain": ".filter(s -> s.length() > 3)",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"kay\")`: `filter` drops it because its length `3` is not more than `3`, so it gives `none`. The second chain starts from `Optional.ofNullable(\"ruby\")`: `filter` keeps it because its length `4` is more than `3`, so it gives `ruby`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "d67d4d190b62f671a5694c21067d98a8af88a4654d62b6ae4403e9d50d19fe5c",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "311c5f8ab43d101a6ba947f9fe7f76f86f9bfe9587b7ee3f8384cfb68a6fb78f",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "63ca89c834e0c9959e1aa9e0e0f7c45a52c0fd93dd46764c83836e5f40c7c27b"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "0be7e59fd8ad950f67eaf5b7ee92bf83d44ab21d63c6acf0fd89b13fc5b81e72"
+   },
+   {
+    "mistake": "reading the length check as `>=`",
+    "stdout_sha256": "f94900ad8e57f1e7e1331693704008da285f36782e2d99b69d0d153a909d53e8"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-032",
+  "params": {
+   "v": "\"grace\"",
+   "w": "null",
+   "n": 4,
+   "c": "R",
+   "chain": ".filter(s -> s.length() > 4).or(() -> Optional.of(\"backup\"))",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"grace\")`: `filter` keeps it because its length `5` is more than `4`, so `or` returns the same value, so it gives `grace`. The second chain starts from an empty `Optional`: the steps pass an empty `Optional` along, so it gives `backup`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "2cdefba2253509e45d03bd648c33fb17238de4371cebbd1829da86fac1bc9b04",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "9ed91eea5bcfdfbd6b8e4330574db60326c797df4c956c622619f5dd1bdcc74c",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "329aa53bb7984a54cdb16cba95684f2ba9e3a43206c8600e395ad22d79cdca21"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "f41d720c5c2cae182731e4b6d0e1a04811825ed02890c89f0982d53d0257c4a3"
+   },
+   {
+    "mistake": "ignoring the supplier of `or`",
+    "stdout_sha256": "195148b424df1727371444b44d1a72694bebe5ce0b72cf08552b48d062fd3ed8"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-033",
+  "params": {
+   "v": "\"linus\"",
+   "w": "\"kay\"",
+   "n": 5,
+   "c": "K",
+   "chain": ".filter(s -> s.length() > 5).or(() -> Optional.of(\"backup\"))",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"linus\")`: `filter` drops it because the length `5` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. The second chain starts from `Optional.ofNullable(\"kay\")`: `filter` drops it because the length `3` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "35fc30ec256e3af0b82943422732bd89aaf1ef20935a595d170df8433d557f9b",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "f41d720c5c2cae182731e4b6d0e1a04811825ed02890c89f0982d53d0257c4a3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "157f5e9aa426794fc82c0b5ddab60e48c6c3f3eddb20bbecd8e1aade68f72b44"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "2a5519c1b56035cfa7523f92cfb8879e8101a2842277fbaf077ea01ac3daccfb"
+   },
+   {
+    "mistake": "reading the length check as `>=`",
+    "stdout_sha256": "42a00a74f443f199ab916d21bc1ca52d06fec396b9e2f6477a083bc4f759d277"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-034",
+  "params": {
+   "v": "\"kay\"",
+   "w": "\"linus\"",
+   "n": 3,
+   "c": "A",
+   "chain": ".filter(s -> s.length() > 3).or(() -> Optional.of(\"backup\"))",
+   "citation": "javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"kay\")`: `filter` drops it because the length `3` is not more than `3`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. The second chain starts from `Optional.ofNullable(\"linus\")`: `filter` keeps it because its length `5` is more than `3`, so `or` returns the same value, so it gives `linus`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "cf2d43a6fe86ada35e9a7775bbb0ee8a43dd0725fd79c3caf819c02dc255992f",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "a369ab825c5308d3d765d7c80a42268b07c1abcb8955ad522fdcce89ec6ec63f",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "175adee748058bd107344c3e28287482fc5ea96d1db31b20339afd36b765ed47"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that match",
+    "stdout_sha256": "ae9f3517dfa9216e58713ae18bab110fe4f0b44089649c3a3677eb2a08b21992"
+   },
+   {
+    "mistake": "reading the length check as `>=`",
+    "stdout_sha256": "d31003ce4e555aab8832b2b4882e990e5f1e31bc6e66661d757f3e4ff1619af1"
+   }
+  ]
+ },
+ {
+  "id": "m11-l02-v-optional-chain-035",
+  "params": {
+   "v": "\"grace\"",
+   "w": "\"kay\"",
+   "n": 3,
+   "c": "K",
+   "chain": ".map(String::toUpperCase).filter(s -> s.startsWith(\"K\"))",
+   "citation": "javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4",
+   "why": "The first chain starts from `Optional.ofNullable(\"grace\")`: `map` gives `GRACE` and `filter` drops it because it does not start with `K`, so it gives `none`. The second chain starts from `Optional.ofNullable(\"kay\")`: `map` gives `KAY` and `filter` keeps it because it starts with `K`, so it gives `KAY`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present."
+  },
+  "source_sha256": "09eb1bc6cb7d6fce5f716d679c20e1c74c30847052eb5786ff9df468db121073",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "78c0307f47d1be6ff88a73c1a1bc0dac4d3f7e37189937a0817237b76599c01b",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "evaluating `fallback()` only when the chain is empty",
+    "stdout_sha256": "0e053076b6571a12f2cd48e7a38474ed7aa5c75ea9c091584db398ad19e7c914"
+   },
+   {
+    "mistake": "reading `filter` as dropping the values that start with the letter",
+    "stdout_sha256": "e441c041dea9ce9eff40f8c36a4648cd60acbb9d099b79483b8ec576fda625d9"
+   },
+   {
+    "mistake": "checking the end of the text instead of its start",
+    "stdout_sha256": "c7a9cf5471f408697a6e03a9991c4f938517b8916b45e8d5dd6032f757de879f"
+   }
+  ]
+ }
+]

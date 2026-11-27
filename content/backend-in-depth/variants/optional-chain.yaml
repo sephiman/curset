@@ -1,0 +1,809 @@
+exercise: m11-l02-ex-optional-chain
+lesson: m11-l02
+citation: javadoc-optional#orElse(java.lang.Object)
+file: Main.java
+prompt: What does this program print, line by line? The first two lines are the results of the two `Optional` chains and the third is the value of `calls`.
+difficulty: 2
+tags:
+- optional
+- evaluation-order
+parameters: {}
+cases:
+- v: '"linus"'
+  w: '"ruby"'
+  n: 4
+  c: L
+  chain: .map(String::toUpperCase).filter(s -> s.startsWith("L"))
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: `map` gives `LINUS` and `filter` keeps it because it starts with `L`, so it gives `LINUS`. The second chain starts from `Optional.ofNullable("ruby")`:
+    `map` gives `RUBY` and `filter` drops it because it does not start with `L`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is
+    `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"ruby"'
+  n: 5
+  c: R
+  chain: '.map(s -> s.length() > 5 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: the `map` function returns `null` because the length `3` is not more than `5`, so `map` gives an empty `Optional`, so it gives `none`. The
+    second chain starts from `Optional.ofNullable("ruby")`: the `map` function returns `null` because the length `4` is not more than `5`, so `map` gives an empty `Optional`, so it gives `none`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"ruby"'
+  n: 5
+  c: A
+  chain: .filter(s -> s.length() > 5).or(() -> Optional.of("backup"))
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: `filter` drops it because the length `3` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`.
+    The second chain starts from `Optional.ofNullable("ruby")`: `filter` drops it because the length `4` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`.
+    Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"grace"'
+  n: 3
+  c: R
+  chain: '.map(s -> s + "!").map(s -> s.length() > 3 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: the first `map` gives `ada!` and the second returns the same text, because its length `4` is more than `3`, so it gives `ada!`. The second
+    chain starts from `Optional.ofNullable("grace")`: the first `map` gives `grace!` and the second returns the same text, because its length `6` is more than `3`, so it gives `grace!`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"grace"'
+  w: '"kay"'
+  n: 3
+  c: L
+  chain: '.map(s -> s + "!").map(s -> s.length() > 3 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("grace")`: the first `map` gives `grace!` and the second returns the same text, because its length `6` is more than `3`, so it gives `grace!`. The
+    second chain starts from `Optional.ofNullable("kay")`: the first `map` gives `kay!` and the second returns the same text, because its length `4` is more than `3`, so it gives `kay!`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"kay"'
+  n: 5
+  c: A
+  chain: .filter(s -> s.length() > 5)
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: `filter` drops it because its length `3` is not more than `5`, so it gives `none`. The second chain starts from `Optional.ofNullable("kay")`:
+    `filter` drops it because its length `3` is not more than `5`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or
+    not a value is present.'
+- v: '"grace"'
+  w: '"ada"'
+  n: 4
+  c: L
+  chain: .filter(s -> s.length() > 4)
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("grace")`: `filter` keeps it because its length `5` is more than `4`, so it gives `grace`. The second chain starts from `Optional.ofNullable("ada")`:
+    `filter` drops it because its length `3` is not more than `4`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or
+    not a value is present.'
+- v: '"kay"'
+  w: '"grace"'
+  n: 3
+  c: K
+  chain: '.map(s -> s + "!").map(s -> s.length() > 3 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("kay")`: the first `map` gives `kay!` and the second returns the same text, because its length `4` is more than `3`, so it gives `kay!`. The second
+    chain starts from `Optional.ofNullable("grace")`: the first `map` gives `grace!` and the second returns the same text, because its length `6` is more than `3`, so it gives `grace!`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"grace"'
+  w: '"ruby"'
+  n: 4
+  c: G
+  chain: '.map(s -> s.length() > 4 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("grace")`: the `map` function returns `grace` because its length `5` is more than `4`, so it gives `grace`. The second chain starts from `Optional.ofNullable("ruby")`:
+    the `map` function returns `null` because the length `4` is not more than `4`, so `map` gives an empty `Optional`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument
+    before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"grace"'
+  n: 3
+  c: R
+  chain: '.map(s -> s.length() > 3 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: the `map` function returns `null` because the length `3` is not more than `3`, so `map` gives an empty `Optional`, so it gives `none`. The
+    second chain starts from `Optional.ofNullable("grace")`: the `map` function returns `grace` because its length `5` is more than `3`, so it gives `grace`. Each `orElse(fallback())` evaluates `fallback()`
+    as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"kay"'
+  w: '"ada"'
+  n: 3
+  c: R
+  chain: .map(String::toUpperCase).filter(s -> s.startsWith("R"))
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("kay")`: `map` gives `KAY` and `filter` drops it because it does not start with `R`, so it gives `none`. The second chain starts from `Optional.ofNullable("ada")`:
+    `map` gives `ADA` and `filter` drops it because it does not start with `R`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2`
+    whether or not a value is present.'
+- v: '"ada"'
+  w: '"linus"'
+  n: 3
+  c: G
+  chain: '.map(s -> s + "!").map(s -> s.length() > 3 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: the first `map` gives `ada!` and the second returns the same text, because its length `4` is more than `3`, so it gives `ada!`. The second
+    chain starts from `Optional.ofNullable("linus")`: the first `map` gives `linus!` and the second returns the same text, because its length `6` is more than `3`, so it gives `linus!`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"kay"'
+  w: '"linus"'
+  n: 3
+  c: A
+  chain: .filter(s -> s.length() > 3)
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("kay")`: `filter` drops it because its length `3` is not more than `3`, so it gives `none`. The second chain starts from `Optional.ofNullable("linus")`:
+    `filter` keeps it because its length `5` is more than `3`, so it gives `linus`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not
+    a value is present.'
+- v: '"linus"'
+  w: '"grace"'
+  n: 5
+  c: L
+  chain: .filter(s -> s.length() > 5)
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: `filter` drops it because its length `5` is not more than `5`, so it gives `none`. The second chain starts from `Optional.ofNullable("grace")`:
+    `filter` drops it because its length `5` is not more than `5`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or
+    not a value is present.'
+- v: '"ada"'
+  w: '"grace"'
+  n: 3
+  c: G
+  chain: .map(String::toUpperCase).filter(s -> s.startsWith("G"))
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: `map` gives `ADA` and `filter` drops it because it does not start with `G`, so it gives `none`. The second chain starts from `Optional.ofNullable("grace")`:
+    `map` gives `GRACE` and `filter` keeps it because it starts with `G`, so it gives `GRACE`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether
+    or not a value is present.'
+- v: '"linus"'
+  w: '"kay"'
+  n: 3
+  c: A
+  chain: '.map(s -> s + "!").map(s -> s.length() > 3 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: the first `map` gives `linus!` and the second returns the same text, because its length `6` is more than `3`, so it gives `linus!`. The
+    second chain starts from `Optional.ofNullable("kay")`: the first `map` gives `kay!` and the second returns the same text, because its length `4` is more than `3`, so it gives `kay!`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"linus"'
+  w: '"kay"'
+  n: 5
+  c: K
+  chain: '.map(s -> s + "!").map(s -> s.length() > 5 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: the first `map` gives `linus!` and the second returns the same text, because its length `6` is more than `5`, so it gives `linus!`. The
+    second chain starts from `Optional.ofNullable("kay")`: the first `map` gives `kay!` and the second function returns `null`, so `map` gives an empty `Optional`, because its length `4` is not more than
+    `5`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"linus"'
+  w: '"ada"'
+  n: 3
+  c: R
+  chain: '.map(s -> s + "!").map(s -> s.length() > 3 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: the first `map` gives `linus!` and the second returns the same text, because its length `6` is more than `3`, so it gives `linus!`. The
+    second chain starts from `Optional.ofNullable("ada")`: the first `map` gives `ada!` and the second returns the same text, because its length `4` is more than `3`, so it gives `ada!`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"kay"'
+  w: '"linus"'
+  n: 5
+  c: G
+  chain: '.map(s -> s.length() > 5 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("kay")`: the `map` function returns `null` because the length `3` is not more than `5`, so `map` gives an empty `Optional`, so it gives `none`. The
+    second chain starts from `Optional.ofNullable("linus")`: the `map` function returns `null` because the length `5` is not more than `5`, so `map` gives an empty `Optional`, so it gives `none`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ruby"'
+  w: '"linus"'
+  n: 5
+  c: A
+  chain: '.map(s -> s + "!").map(s -> s.length() > 5 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: the first `map` gives `ruby!` and the second function returns `null`, so `map` gives an empty `Optional`, because its length `5` is not
+    more than `5`, so it gives `none`. The second chain starts from `Optional.ofNullable("linus")`: the first `map` gives `linus!` and the second returns the same text, because its length `6` is more than
+    `5`, so it gives `linus!`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"ruby"'
+  n: 3
+  c: A
+  chain: '.map(s -> s + "!").map(s -> s.length() > 3 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: the first `map` gives `ada!` and the second returns the same text, because its length `4` is more than `3`, so it gives `ada!`. The second
+    chain starts from `Optional.ofNullable("ruby")`: the first `map` gives `ruby!` and the second returns the same text, because its length `5` is more than `3`, so it gives `ruby!`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"grace"'
+  w: '"kay"'
+  n: 4
+  c: L
+  chain: '.flatMap(s -> s.length() > 4 ? Optional.of(s + "!") : Optional.<String>empty())'
+  citation: javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("grace")`: the `flatMap` function returns `Optional.of("grace!")` because the length `5` is more than `4`, and `flatMap` does not wrap it again,
+    so it gives `grace!`. The second chain starts from `Optional.ofNullable("kay")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `4`, so it gives `none`. Each
+    `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: 'null'
+  w: '"ada"'
+  n: 4
+  c: A
+  chain: .filter(s -> s.length() > 4).or(() -> Optional.of("backup"))
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from an empty `Optional`: the steps pass an empty `Optional` along, so it gives `backup`. The second chain starts from `Optional.ofNullable("ada")`: `filter` drops it because
+    the length `3` is not more than `4`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs,
+    so `calls` is `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"grace"'
+  n: 3
+  c: L
+  chain: '.flatMap(s -> s.length() > 3 ? Optional.of(s + "!") : Optional.<String>empty())'
+  citation: javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `3`, so it gives `none`. The second chain starts
+    from `Optional.ofNullable("grace")`: the `flatMap` function returns `Optional.of("grace!")` because the length `5` is more than `3`, and `flatMap` does not wrap it again, so it gives `grace!`. Each
+    `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: 'null'
+  w: '"ruby"'
+  n: 3
+  c: A
+  chain: '.flatMap(s -> s.length() > 3 ? Optional.of(s + "!") : Optional.<String>empty())'
+  citation: javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from an empty `Optional`: the steps pass an empty `Optional` along, so it gives `none`. The second chain starts from `Optional.ofNullable("ruby")`: the `flatMap` function
+    returns `Optional.of("ruby!")` because the length `4` is more than `3`, and `flatMap` does not wrap it again, so it gives `ruby!`. Each `orElse(fallback())` evaluates `fallback()` as its argument before
+    `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"grace"'
+  n: 5
+  c: R
+  chain: .filter(s -> s.length() > 5)
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: `filter` drops it because its length `3` is not more than `5`, so it gives `none`. The second chain starts from `Optional.ofNullable("grace")`:
+    `filter` drops it because its length `5` is not more than `5`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or
+    not a value is present.'
+- v: '"ruby"'
+  w: '"kay"'
+  n: 5
+  c: G
+  chain: .map(String::toUpperCase).filter(s -> s.startsWith("G"))
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: `map` gives `RUBY` and `filter` drops it because it does not start with `G`, so it gives `none`. The second chain starts from `Optional.ofNullable("kay")`:
+    `map` gives `KAY` and `filter` drops it because it does not start with `G`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2`
+    whether or not a value is present.'
+- v: '"kay"'
+  w: '"ada"'
+  n: 4
+  c: A
+  chain: .map(String::toUpperCase).filter(s -> s.startsWith("A"))
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("kay")`: `map` gives `KAY` and `filter` drops it because it does not start with `A`, so it gives `none`. The second chain starts from `Optional.ofNullable("ada")`:
+    `map` gives `ADA` and `filter` keeps it because it starts with `A`, so it gives `ADA`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether
+    or not a value is present.'
+- v: '"linus"'
+  w: '"ruby"'
+  n: 3
+  c: K
+  chain: '.flatMap(s -> s.length() > 3 ? Optional.of(s + "!") : Optional.<String>empty())'
+  citation: javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: the `flatMap` function returns `Optional.of("linus!")` because the length `5` is more than `3`, and `flatMap` does not wrap it again,
+    so it gives `linus!`. The second chain starts from `Optional.ofNullable("ruby")`: the `flatMap` function returns `Optional.of("ruby!")` because the length `4` is more than `3`, and `flatMap` does not
+    wrap it again, so it gives `ruby!`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ruby"'
+  w: '"ada"'
+  n: 3
+  c: L
+  chain: '.map(s -> s.length() > 3 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: the `map` function returns `ruby` because its length `4` is more than `3`, so it gives `ruby`. The second chain starts from `Optional.ofNullable("ada")`:
+    the `map` function returns `null` because the length `3` is not more than `3`, so `map` gives an empty `Optional`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument
+    before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"kay"'
+  w: '"ada"'
+  n: 5
+  c: L
+  chain: '.flatMap(s -> s.length() > 5 ? Optional.of(s + "!") : Optional.<String>empty())'
+  citation: javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("kay")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `5`, so it gives `none`. The second chain starts
+    from `Optional.ofNullable("ada")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `5`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()`
+    as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ruby"'
+  w: '"linus"'
+  n: 3
+  c: K
+  chain: .map(String::toUpperCase).filter(s -> s.startsWith("K"))
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: `map` gives `RUBY` and `filter` drops it because it does not start with `K`, so it gives `none`. The second chain starts from `Optional.ofNullable("linus")`:
+    `map` gives `LINUS` and `filter` drops it because it does not start with `K`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is
+    `2` whether or not a value is present.'
+- v: '"kay"'
+  w: '"grace"'
+  n: 5
+  c: K
+  chain: '.flatMap(s -> s.length() > 5 ? Optional.of(s + "!") : Optional.<String>empty())'
+  citation: javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("kay")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `5`, so it gives `none`. The second chain starts
+    from `Optional.ofNullable("grace")`: the `flatMap` function returns an empty `Optional` because the length `5` is not more than `5`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()`
+    as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"linus"'
+  n: 4
+  c: G
+  chain: '.map(s -> s.length() > 4 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: the `map` function returns `null` because the length `3` is not more than `4`, so `map` gives an empty `Optional`, so it gives `none`. The
+    second chain starts from `Optional.ofNullable("linus")`: the `map` function returns `linus` because its length `5` is more than `4`, so it gives `linus`. Each `orElse(fallback())` evaluates `fallback()`
+    as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"linus"'
+  w: '"kay"'
+  n: 5
+  c: K
+  chain: .map(String::toUpperCase).filter(s -> s.startsWith("K"))
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: `map` gives `LINUS` and `filter` drops it because it does not start with `K`, so it gives `none`. The second chain starts from `Optional.ofNullable("kay")`:
+    `map` gives `KAY` and `filter` keeps it because it starts with `K`, so it gives `KAY`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether
+    or not a value is present.'
+- v: '"linus"'
+  w: '"grace"'
+  n: 4
+  c: G
+  chain: .filter(s -> s.length() > 4).or(() -> Optional.of("backup"))
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: `filter` keeps it because its length `5` is more than `4`, so `or` returns the same value, so it gives `linus`. The second chain starts
+    from `Optional.ofNullable("grace")`: `filter` keeps it because its length `5` is more than `4`, so `or` returns the same value, so it gives `grace`. Each `orElse(fallback())` evaluates `fallback()`
+    as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ruby"'
+  w: '"linus"'
+  n: 3
+  c: L
+  chain: .filter(s -> s.length() > 3)
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: `filter` keeps it because its length `4` is more than `3`, so it gives `ruby`. The second chain starts from `Optional.ofNullable("linus")`:
+    `filter` keeps it because its length `5` is more than `3`, so it gives `linus`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not
+    a value is present.'
+- v: '"ada"'
+  w: '"kay"'
+  n: 3
+  c: G
+  chain: '.map(s -> s + "!").map(s -> s.length() > 3 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: the first `map` gives `ada!` and the second returns the same text, because its length `4` is more than `3`, so it gives `ada!`. The second
+    chain starts from `Optional.ofNullable("kay")`: the first `map` gives `kay!` and the second returns the same text, because its length `4` is more than `3`, so it gives `kay!`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"kay"'
+  w: '"grace"'
+  n: 4
+  c: A
+  chain: '.map(s -> s.length() > 4 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("kay")`: the `map` function returns `null` because the length `3` is not more than `4`, so `map` gives an empty `Optional`, so it gives `none`. The
+    second chain starts from `Optional.ofNullable("grace")`: the `map` function returns `grace` because its length `5` is more than `4`, so it gives `grace`. Each `orElse(fallback())` evaluates `fallback()`
+    as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"linus"'
+  w: '"grace"'
+  n: 3
+  c: L
+  chain: .filter(s -> s.length() > 3).or(() -> Optional.of("backup"))
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: `filter` keeps it because its length `5` is more than `3`, so `or` returns the same value, so it gives `linus`. The second chain starts
+    from `Optional.ofNullable("grace")`: `filter` keeps it because its length `5` is more than `3`, so `or` returns the same value, so it gives `grace`. Each `orElse(fallback())` evaluates `fallback()`
+    as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"grace"'
+  w: '"linus"'
+  n: 4
+  c: A
+  chain: .filter(s -> s.length() > 4).or(() -> Optional.of("backup"))
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("grace")`: `filter` keeps it because its length `5` is more than `4`, so `or` returns the same value, so it gives `grace`. The second chain starts
+    from `Optional.ofNullable("linus")`: `filter` keeps it because its length `5` is more than `4`, so `or` returns the same value, so it gives `linus`. Each `orElse(fallback())` evaluates `fallback()`
+    as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"linus"'
+  n: 5
+  c: R
+  chain: .filter(s -> s.length() > 5)
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: `filter` drops it because its length `3` is not more than `5`, so it gives `none`. The second chain starts from `Optional.ofNullable("linus")`:
+    `filter` drops it because its length `5` is not more than `5`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or
+    not a value is present.'
+- v: '"ruby"'
+  w: '"linus"'
+  n: 5
+  c: A
+  chain: .filter(s -> s.length() > 5).or(() -> Optional.of("backup"))
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: `filter` drops it because the length `4` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`.
+    The second chain starts from `Optional.ofNullable("linus")`: `filter` drops it because the length `5` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`.
+    Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"linus"'
+  n: 5
+  c: K
+  chain: '.map(s -> s + "!").map(s -> s.length() > 5 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: the first `map` gives `ada!` and the second function returns `null`, so `map` gives an empty `Optional`, because its length `4` is not more
+    than `5`, so it gives `none`. The second chain starts from `Optional.ofNullable("linus")`: the first `map` gives `linus!` and the second returns the same text, because its length `6` is more than `5`,
+    so it gives `linus!`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"grace"'
+  w: '"kay"'
+  n: 4
+  c: A
+  chain: '.map(s -> s.length() > 4 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("grace")`: the `map` function returns `grace` because its length `5` is more than `4`, so it gives `grace`. The second chain starts from `Optional.ofNullable("kay")`:
+    the `map` function returns `null` because the length `3` is not more than `4`, so `map` gives an empty `Optional`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument
+    before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"grace"'
+  w: '"kay"'
+  n: 3
+  c: A
+  chain: .filter(s -> s.length() > 3).or(() -> Optional.of("backup"))
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("grace")`: `filter` keeps it because its length `5` is more than `3`, so `or` returns the same value, so it gives `grace`. The second chain starts
+    from `Optional.ofNullable("kay")`: `filter` drops it because the length `3` is not more than `3`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"linus"'
+  n: 3
+  c: R
+  chain: .filter(s -> s.length() > 3).or(() -> Optional.of("backup"))
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: `filter` drops it because the length `3` is not more than `3`, so `or` returns the `Optional` made by its supplier, so it gives `backup`.
+    The second chain starts from `Optional.ofNullable("linus")`: `filter` keeps it because its length `5` is more than `3`, so `or` returns the same value, so it gives `linus`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"linus"'
+  w: '"ada"'
+  n: 3
+  c: L
+  chain: .map(String::toUpperCase).filter(s -> s.startsWith("L"))
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: `map` gives `LINUS` and `filter` keeps it because it starts with `L`, so it gives `LINUS`. The second chain starts from `Optional.ofNullable("ada")`:
+    `map` gives `ADA` and `filter` drops it because it does not start with `L`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2`
+    whether or not a value is present.'
+- v: '"linus"'
+  w: '"kay"'
+  n: 3
+  c: G
+  chain: .filter(s -> s.length() > 3)
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: `filter` keeps it because its length `5` is more than `3`, so it gives `linus`. The second chain starts from `Optional.ofNullable("kay")`:
+    `filter` drops it because its length `3` is not more than `3`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or
+    not a value is present.'
+- v: '"ruby"'
+  w: '"linus"'
+  n: 4
+  c: A
+  chain: .filter(s -> s.length() > 4)
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: `filter` drops it because its length `4` is not more than `4`, so it gives `none`. The second chain starts from `Optional.ofNullable("linus")`:
+    `filter` keeps it because its length `5` is more than `4`, so it gives `linus`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not
+    a value is present.'
+- v: '"grace"'
+  w: '"ada"'
+  n: 5
+  c: G
+  chain: .filter(s -> s.length() > 5).or(() -> Optional.of("backup"))
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("grace")`: `filter` drops it because the length `5` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`.
+    The second chain starts from `Optional.ofNullable("ada")`: `filter` drops it because the length `3` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. Each
+    `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"ruby"'
+  n: 3
+  c: R
+  chain: '.flatMap(s -> s.length() > 3 ? Optional.of(s + "!") : Optional.<String>empty())'
+  citation: javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `3`, so it gives `none`. The second chain starts
+    from `Optional.ofNullable("ruby")`: the `flatMap` function returns `Optional.of("ruby!")` because the length `4` is more than `3`, and `flatMap` does not wrap it again, so it gives `ruby!`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"linus"'
+  w: '"kay"'
+  n: 4
+  c: R
+  chain: .map(String::toUpperCase).filter(s -> s.startsWith("R"))
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: `map` gives `LINUS` and `filter` drops it because it does not start with `R`, so it gives `none`. The second chain starts from `Optional.ofNullable("kay")`:
+    `map` gives `KAY` and `filter` drops it because it does not start with `R`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2`
+    whether or not a value is present.'
+- v: '"ada"'
+  w: 'null'
+  n: 3
+  c: R
+  chain: '.flatMap(s -> s.length() > 3 ? Optional.of(s + "!") : Optional.<String>empty())'
+  citation: javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `3`, so it gives `none`. The second chain starts
+    from an empty `Optional`: the steps pass an empty `Optional` along, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether
+    or not a value is present.'
+- v: '"linus"'
+  w: '"kay"'
+  n: 4
+  c: G
+  chain: '.map(s -> s + "!").map(s -> s.length() > 4 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: the first `map` gives `linus!` and the second returns the same text, because its length `6` is more than `4`, so it gives `linus!`. The
+    second chain starts from `Optional.ofNullable("kay")`: the first `map` gives `kay!` and the second function returns `null`, so `map` gives an empty `Optional`, because its length `4` is not more than
+    `4`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"grace"'
+  w: '"ruby"'
+  n: 5
+  c: G
+  chain: .filter(s -> s.length() > 5)
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("grace")`: `filter` drops it because its length `5` is not more than `5`, so it gives `none`. The second chain starts from `Optional.ofNullable("ruby")`:
+    `filter` drops it because its length `4` is not more than `5`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or
+    not a value is present.'
+- v: '"linus"'
+  w: '"grace"'
+  n: 3
+  c: K
+  chain: .filter(s -> s.length() > 3)
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: `filter` keeps it because its length `5` is more than `3`, so it gives `linus`. The second chain starts from `Optional.ofNullable("grace")`:
+    `filter` keeps it because its length `5` is more than `3`, so it gives `grace`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not
+    a value is present.'
+- v: '"ruby"'
+  w: '"linus"'
+  n: 3
+  c: G
+  chain: .map(String::toUpperCase).filter(s -> s.startsWith("G"))
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: `map` gives `RUBY` and `filter` drops it because it does not start with `G`, so it gives `none`. The second chain starts from `Optional.ofNullable("linus")`:
+    `map` gives `LINUS` and `filter` drops it because it does not start with `G`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is
+    `2` whether or not a value is present.'
+- v: '"ruby"'
+  w: '"kay"'
+  n: 4
+  c: G
+  chain: '.map(s -> s + "!").map(s -> s.length() > 4 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: the first `map` gives `ruby!` and the second returns the same text, because its length `5` is more than `4`, so it gives `ruby!`. The second
+    chain starts from `Optional.ofNullable("kay")`: the first `map` gives `kay!` and the second function returns `null`, so `map` gives an empty `Optional`, because its length `4` is not more than `4`,
+    so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ruby"'
+  w: '"grace"'
+  n: 3
+  c: K
+  chain: '.map(s -> s.length() > 3 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: the `map` function returns `ruby` because its length `4` is more than `3`, so it gives `ruby`. The second chain starts from `Optional.ofNullable("grace")`:
+    the `map` function returns `grace` because its length `5` is more than `3`, so it gives `grace`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is
+    `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"ruby"'
+  n: 4
+  c: L
+  chain: .filter(s -> s.length() > 4)
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: `filter` drops it because its length `3` is not more than `4`, so it gives `none`. The second chain starts from `Optional.ofNullable("ruby")`:
+    `filter` drops it because its length `4` is not more than `4`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or
+    not a value is present.'
+- v: '"linus"'
+  w: '"ruby"'
+  n: 4
+  c: A
+  chain: .map(String::toUpperCase).filter(s -> s.startsWith("A"))
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: `map` gives `LINUS` and `filter` drops it because it does not start with `A`, so it gives `none`. The second chain starts from `Optional.ofNullable("ruby")`:
+    `map` gives `RUBY` and `filter` drops it because it does not start with `A`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is
+    `2` whether or not a value is present.'
+- v: '"ruby"'
+  w: '"grace"'
+  n: 4
+  c: A
+  chain: '.flatMap(s -> s.length() > 4 ? Optional.of(s + "!") : Optional.<String>empty())'
+  citation: javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: the `flatMap` function returns an empty `Optional` because the length `4` is not more than `4`, so it gives `none`. The second chain starts
+    from `Optional.ofNullable("grace")`: the `flatMap` function returns `Optional.of("grace!")` because the length `5` is more than `4`, and `flatMap` does not wrap it again, so it gives `grace!`. Each
+    `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"grace"'
+  w: '"ada"'
+  n: 4
+  c: G
+  chain: '.flatMap(s -> s.length() > 4 ? Optional.of(s + "!") : Optional.<String>empty())'
+  citation: javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("grace")`: the `flatMap` function returns `Optional.of("grace!")` because the length `5` is more than `4`, and `flatMap` does not wrap it again,
+    so it gives `grace!`. The second chain starts from `Optional.ofNullable("ada")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `4`, so it gives `none`. Each
+    `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ruby"'
+  w: '"linus"'
+  n: 3
+  c: L
+  chain: '.map(s -> s.length() > 3 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: the `map` function returns `ruby` because its length `4` is more than `3`, so it gives `ruby`. The second chain starts from `Optional.ofNullable("linus")`:
+    the `map` function returns `linus` because its length `5` is more than `3`, so it gives `linus`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is
+    `2` whether or not a value is present.'
+- v: '"ruby"'
+  w: '"kay"'
+  n: 5
+  c: G
+  chain: '.map(s -> s.length() > 5 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: the `map` function returns `null` because the length `4` is not more than `5`, so `map` gives an empty `Optional`, so it gives `none`.
+    The second chain starts from `Optional.ofNullable("kay")`: the `map` function returns `null` because the length `3` is not more than `5`, so `map` gives an empty `Optional`, so it gives `none`. Each
+    `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"grace"'
+  w: '"linus"'
+  n: 5
+  c: R
+  chain: '.flatMap(s -> s.length() > 5 ? Optional.of(s + "!") : Optional.<String>empty())'
+  citation: javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("grace")`: the `flatMap` function returns an empty `Optional` because the length `5` is not more than `5`, so it gives `none`. The second chain starts
+    from `Optional.ofNullable("linus")`: the `flatMap` function returns an empty `Optional` because the length `5` is not more than `5`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()`
+    as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"linus"'
+  w: '"ruby"'
+  n: 3
+  c: G
+  chain: '.map(s -> s.length() > 3 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: the `map` function returns `linus` because its length `5` is more than `3`, so it gives `linus`. The second chain starts from `Optional.ofNullable("ruby")`:
+    the `map` function returns `ruby` because its length `4` is more than `3`, so it gives `ruby`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2`
+    whether or not a value is present.'
+- v: '"linus"'
+  w: '"grace"'
+  n: 4
+  c: L
+  chain: '.map(s -> s + "!").map(s -> s.length() > 4 ? s : null)'
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: the first `map` gives `linus!` and the second returns the same text, because its length `6` is more than `4`, so it gives `linus!`. The
+    second chain starts from `Optional.ofNullable("grace")`: the first `map` gives `grace!` and the second returns the same text, because its length `6` is more than `4`, so it gives `grace!`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ada"'
+  w: '"ruby"'
+  n: 5
+  c: L
+  chain: .map(String::toUpperCase).filter(s -> s.startsWith("L"))
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ada")`: `map` gives `ADA` and `filter` drops it because it does not start with `L`, so it gives `none`. The second chain starts from `Optional.ofNullable("ruby")`:
+    `map` gives `RUBY` and `filter` drops it because it does not start with `L`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is
+    `2` whether or not a value is present.'
+- v: '"kay"'
+  w: '"ada"'
+  n: 4
+  c: G
+  chain: .filter(s -> s.length() > 4)
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("kay")`: `filter` drops it because its length `3` is not more than `4`, so it gives `none`. The second chain starts from `Optional.ofNullable("ada")`:
+    `filter` drops it because its length `3` is not more than `4`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or
+    not a value is present.'
+- v: '"kay"'
+  w: '"ruby"'
+  n: 3
+  c: G
+  chain: .filter(s -> s.length() > 3)
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("kay")`: `filter` drops it because its length `3` is not more than `3`, so it gives `none`. The second chain starts from `Optional.ofNullable("ruby")`:
+    `filter` keeps it because its length `4` is more than `3`, so it gives `ruby`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not
+    a value is present.'
+- v: '"grace"'
+  w: 'null'
+  n: 4
+  c: R
+  chain: .filter(s -> s.length() > 4).or(() -> Optional.of("backup"))
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("grace")`: `filter` keeps it because its length `5` is more than `4`, so `or` returns the same value, so it gives `grace`. The second chain starts
+    from an empty `Optional`: the steps pass an empty `Optional` along, so it gives `backup`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether
+    or not a value is present.'
+- v: '"linus"'
+  w: '"kay"'
+  n: 5
+  c: K
+  chain: .filter(s -> s.length() > 5).or(() -> Optional.of("backup"))
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("linus")`: `filter` drops it because the length `5` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`.
+    The second chain starts from `Optional.ofNullable("kay")`: `filter` drops it because the length `3` is not more than `5`, so `or` returns the `Optional` made by its supplier, so it gives `backup`. Each
+    `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"ruby"'
+  w: '"kay"'
+  n: 4
+  c: R
+  chain: '.flatMap(s -> s.length() > 4 ? Optional.of(s + "!") : Optional.<String>empty())'
+  citation: javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: the `flatMap` function returns an empty `Optional` because the length `4` is not more than `4`, so it gives `none`. The second chain starts
+    from `Optional.ofNullable("kay")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `4`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()`
+    as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"kay"'
+  w: '"linus"'
+  n: 3
+  c: A
+  chain: .filter(s -> s.length() > 3).or(() -> Optional.of("backup"))
+  citation: javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#or(java.util.function.Supplier); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("kay")`: `filter` drops it because the length `3` is not more than `3`, so `or` returns the `Optional` made by its supplier, so it gives `backup`.
+    The second chain starts from `Optional.ofNullable("linus")`: `filter` keeps it because its length `5` is more than `3`, so `or` returns the same value, so it gives `linus`. Each `orElse(fallback())`
+    evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"grace"'
+  w: '"kay"'
+  n: 3
+  c: K
+  chain: .map(String::toUpperCase).filter(s -> s.startsWith("K"))
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("grace")`: `map` gives `GRACE` and `filter` drops it because it does not start with `K`, so it gives `none`. The second chain starts from `Optional.ofNullable("kay")`:
+    `map` gives `KAY` and `filter` keeps it because it starts with `K`, so it gives `KAY`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether
+    or not a value is present.'
+- v: '"ruby"'
+  w: '"ada"'
+  n: 5
+  c: L
+  chain: '.flatMap(s -> s.length() > 5 ? Optional.of(s + "!") : Optional.<String>empty())'
+  citation: javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("ruby")`: the `flatMap` function returns an empty `Optional` because the length `4` is not more than `5`, so it gives `none`. The second chain starts
+    from `Optional.ofNullable("ada")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `5`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()`
+    as its argument before `orElse` runs, so `calls` is `2` whether or not a value is present.'
+- v: '"kay"'
+  w: 'null'
+  n: 5
+  c: L
+  chain: '.flatMap(s -> s.length() > 5 ? Optional.of(s + "!") : Optional.<String>empty())'
+  citation: javadoc-optional#flatMap(java.util.function.Function); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("kay")`: the `flatMap` function returns an empty `Optional` because the length `3` is not more than `5`, so it gives `none`. The second chain starts
+    from an empty `Optional`: the steps pass an empty `Optional` along, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is `2` whether
+    or not a value is present.'
+- v: '"kay"'
+  w: '"linus"'
+  n: 3
+  c: A
+  chain: .map(String::toUpperCase).filter(s -> s.startsWith("A"))
+  citation: javadoc-optional#map(java.util.function.Function); javadoc-optional#filter(java.util.function.Predicate); javadoc-optional#orElse(java.lang.Object); jls-15-expressions#jls-15.12.4
+  why: 'The first chain starts from `Optional.ofNullable("kay")`: `map` gives `KAY` and `filter` drops it because it does not start with `A`, so it gives `none`. The second chain starts from `Optional.ofNullable("linus")`:
+    `map` gives `LINUS` and `filter` drops it because it does not start with `A`, so it gives `none`. Each `orElse(fallback())` evaluates `fallback()` as its argument before `orElse` runs, so `calls` is
+    `2` whether or not a value is present.'
+template: |
+  import java.util.Optional;
+
+  public class Main {
+      static int calls = 0;
+
+      static String fallback() {
+          calls++;
+          return "none";
+      }
+
+      static String pick(String value) {
+          return Optional.ofNullable(value)@@chain@@.orElse(fallback());
+      }
+
+      public static void main(String[] args) {
+          System.out.println(pick(@@v@@));
+          System.out.println(pick(@@w@@));
+          System.out.println(calls);
+      }
+  }
+explanation: '@@why@@ The program prints @@key@@.'
+mistakes:
+- name: evaluating `fallback()` only when the chain is empty
+  replace:
+  - .orElse(fallback())
+  - .orElseGet(() -> fallback())
+  why: The argument expressions of a method invocation are evaluated before control reaches the method code, so `fallback()` runs even when `orElse` returns the value.
+- name: reading `filter` as dropping the values that match
+  replace:
+  - s.length() > @@n@@)
+  - s.length() <= @@n@@)
+  why: '`filter` returns an `Optional` describing the value if it matches the predicate, and an empty `Optional` otherwise.'
+- name: treating a `null` result of `map` as the unchanged value
+  replace:
+  - ': null)'
+  - ': s)'
+  why: If the mapping function of `map` returns a null result, `map` returns an empty `Optional`.
+- name: reading the length check as `>=`
+  replace:
+  - s.length() > @@n@@
+  - s.length() >= @@n@@
+  why: The check `s.length() > @@n@@` is false for a text of exactly `@@n@@` characters.
+- name: returning the value instead of an empty `Optional` from the `flatMap` function
+  replace:
+  - ': Optional.<String>empty())'
+  - ': Optional.of(s))'
+  why: '`flatMap` returns the result of its function when a value is present, so an empty `Optional` from the function gives an empty result.'
+- name: ignoring the supplier of `or`
+  replace:
+  - .or(() -> Optional.of("backup"))
+  - ''
+  why: '`or` returns an `Optional` produced by the supplying function when no value is present.'
+- name: treating `or` as a replacement that applies even when a value is present
+  replace:
+  - .or(() -> Optional.of("backup"))
+  - .map(s -> "backup")
+  why: '`or` returns an `Optional` describing the value if one is present.'
+- name: reading `filter` as dropping the values that start with the letter
+  replace:
+  - s.startsWith("@@c@@"))
+  - '!s.startsWith("@@c@@"))'
+  why: '`filter` returns an `Optional` describing the value if it matches the predicate, and an empty `Optional` otherwise.'
+- name: checking the end of the text instead of its start
+  replace:
+  - s.startsWith(
+  - s.endsWith(
+  why: '`startsWith` tests the first characters of the text, not the last.'
+- name: skipping `map(String::toUpperCase)` before the `filter`
+  replace:
+  - .map(String::toUpperCase)
+  - ''
+  why: '`map` applies the function to the value, so the `filter` sees the upper-case text.'
+- name: requiring one more character in the length check
+  replace:
+  - s.length() > @@n@@
+  - s.length() > @@n@@ + 1
+  why: The check `s.length() > @@n@@` is true as soon as the text has more than `@@n@@` characters.

@@ -1,4 +1,4 @@
-# Does the advice run (`proxy-annotation-applies`): 50 goldens
+# Proxy-based advice (`proxy-annotation-applies`): 50 goldens
 
 Generated items for the blind review (ambiguity, realism, key). Regenerate with `uv run python scripts/export_backend_goldens.py`.
 

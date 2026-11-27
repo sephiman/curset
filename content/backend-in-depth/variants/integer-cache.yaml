@@ -1,0 +1,394 @@
+exercise: m11-l02-ex-integer-cache
+lesson: m11-l02
+citation: javadoc-integer#valueOf(int); jls-15-expressions#jls-15.21.3; javadoc-integer#equals(java.lang.Object)
+file: Main.java
+prompt: On the pinned JDK, what does this program print, line by line? `identical` wraps `==` and `equal` wraps `equals`, both on two `Integer` objects returned by `Integer.valueOf`.
+difficulty: 2
+tags:
+- integer-cache
+- boxing
+- equality
+parameters: {}
+cases:
+- x1: 200
+  y1: 200
+  x2: 500
+  y2: 500
+  why: '`200` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `500` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 129
+  y1: 129
+  x2: 1
+  y2: 1
+  why: '`129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(1)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object
+    and `identical` and `equal` are both `true`.'
+- x1: 5
+  y1: 6
+  x2: 128
+  y2: 128
+  why: '`5` and `6` are different values, so the two objects are different and `identical` and `equal` are both `false`. `128` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned
+    JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 100
+  y1: 100
+  x2: 255
+  y2: 255
+  why: '`Integer.valueOf(100)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `255` is outside the range -128
+    to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that
+    range this is the recorded output, not a guarantee.'
+- x1: 5
+  y1: 6
+  x2: 129
+  y2: 129
+  why: '`5` and `6` are different values, so the two objects are different and `identical` and `equal` are both `false`. `129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned
+    JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 200
+  y1: 200
+  x2: -100
+  y2: -100
+  why: '`200` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(-100)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same
+    object and `identical` and `equal` are both `true`.'
+- x1: 500
+  y1: 500
+  x2: 99
+  y2: 99
+  why: '`500` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(99)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object
+    and `identical` and `equal` are both `true`.'
+- x1: 129
+  y1: 129
+  x2: 127
+  y2: 127
+  why: '`129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(127)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object
+    and `identical` and `equal` are both `true`.'
+- x1: 300
+  y1: 300
+  x2: 200
+  y2: 200
+  why: '`300` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `200` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 64
+  y1: 64
+  x2: -129
+  y2: -129
+  why: '`Integer.valueOf(64)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `-129` is outside the range -128
+    to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that
+    range this is the recorded output, not a guarantee.'
+- x1: 150
+  y1: 150
+  x2: 256
+  y2: 256
+  why: '`150` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `256` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 150
+  y1: 150
+  x2: 255
+  y2: 255
+  why: '`150` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `255` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 500
+  y1: 500
+  x2: 1
+  y2: 1
+  why: '`500` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(1)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object
+    and `identical` and `equal` are both `true`.'
+- x1: 2000
+  y1: 2000
+  x2: 0
+  y2: 0
+  why: '`2000` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(0)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object
+    and `identical` and `equal` are both `true`.'
+- x1: 128
+  y1: 128
+  x2: 500
+  y2: 500
+  why: '`128` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `500` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: -128
+  y1: -129
+  x2: -1000
+  y2: -1000
+  why: '`-128` and `-129` are different values, so the two objects are different and `identical` and `equal` are both `false`. `-1000` is outside the range -128 to 127 that `valueOf` always caches, and
+    on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a
+    guarantee.'
+- x1: 150
+  y1: 150
+  x2: 1
+  y2: 1
+  why: '`150` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(1)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object
+    and `identical` and `equal` are both `true`.'
+- x1: 127
+  y1: 127
+  x2: 300
+  y2: 300
+  why: '`Integer.valueOf(127)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `300` is outside the range -128
+    to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that
+    range this is the recorded output, not a guarantee.'
+- x1: -130
+  y1: -130
+  x2: 1000
+  y2: 1000
+  why: '`-130` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `1000` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 2000
+  y1: 2000
+  x2: 1000
+  y2: 1001
+  why: '`2000` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `1000` and `1001` are different values, so the two objects are different and `identical` and `equal` are both `false`.'
+- x1: -128
+  y1: -128
+  x2: 129
+  y2: 129
+  why: '`Integer.valueOf(-128)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `129` is outside the range -128
+    to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that
+    range this is the recorded output, not a guarantee.'
+- x1: 500
+  y1: 500
+  x2: 64
+  y2: 64
+  why: '`500` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(64)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object
+    and `identical` and `equal` are both `true`.'
+- x1: 2000
+  y1: 2000
+  x2: 1000
+  y2: 1000
+  why: '`2000` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `1000` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 129
+  y1: 129
+  x2: 200
+  y2: 200
+  why: '`129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `200` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 100
+  y1: 100
+  x2: -129
+  y2: -129
+  why: '`Integer.valueOf(100)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `-129` is outside the range -128
+    to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that
+    range this is the recorded output, not a guarantee.'
+- x1: 2000
+  y1: 2000
+  x2: 255
+  y2: 255
+  why: '`2000` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `255` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 128
+  y1: 128
+  x2: 64
+  y2: 64
+  why: '`128` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(64)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object
+    and `identical` and `equal` are both `true`.'
+- x1: 1000
+  y1: 1001
+  x2: 129
+  y2: 129
+  why: '`1000` and `1001` are different values, so the two objects are different and `identical` and `equal` are both `false`. `129` is outside the range -128 to 127 that `valueOf` always caches, and on
+    the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: -129
+  y1: -129
+  x2: 0
+  y2: 0
+  why: '`-129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(0)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object
+    and `identical` and `equal` are both `true`.'
+- x1: -128
+  y1: -129
+  x2: 150
+  y2: 150
+  why: '`-128` and `-129` are different values, so the two objects are different and `identical` and `equal` are both `false`. `150` is outside the range -128 to 127 that `valueOf` always caches, and on
+    the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 127
+  y1: 127
+  x2: 256
+  y2: 256
+  why: '`Integer.valueOf(127)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `256` is outside the range -128
+    to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that
+    range this is the recorded output, not a guarantee.'
+- x1: 500
+  y1: 500
+  x2: 0
+  y2: 0
+  why: '`500` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `Integer.valueOf(0)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object
+    and `identical` and `equal` are both `true`.'
+- x1: -128
+  y1: -129
+  x2: -129
+  y2: -129
+  why: '`-128` and `-129` are different values, so the two objects are different and `identical` and `equal` are both `false`. `-129` is outside the range -128 to 127 that `valueOf` always caches, and on
+    the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 256
+  y1: 256
+  x2: 5
+  y2: 6
+  why: '`256` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `5` and `6` are different values, so the two objects are different and `identical` and `equal` are both `false`.'
+- x1: 255
+  y1: 255
+  x2: 2000
+  y2: 2000
+  why: '`255` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `2000` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 500
+  y1: 500
+  x2: 200
+  y2: 200
+  why: '`500` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `200` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 255
+  y1: 255
+  x2: -129
+  y2: -129
+  why: '`255` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `-129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 100
+  y1: 100
+  x2: 200
+  y2: 200
+  why: '`Integer.valueOf(100)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `200` is outside the range -128
+    to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that
+    range this is the recorded output, not a guarantee.'
+- x1: -130
+  y1: -130
+  x2: 150
+  y2: 150
+  why: '`-130` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `150` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 256
+  y1: 256
+  x2: 128
+  y2: 128
+  why: '`256` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `128` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 129
+  y1: 129
+  x2: 150
+  y2: 150
+  why: '`129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `150` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 200
+  y1: 200
+  x2: 200
+  y2: 201
+  why: '`200` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `200` and `201` are different values, so the two objects are different and `identical` and `equal` are both `false`.'
+- x1: 200
+  y1: 200
+  x2: 129
+  y2: 129
+  why: '`200` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 0
+  y1: 0
+  x2: 129
+  y2: 129
+  why: '`Integer.valueOf(0)` is in the range -128 to 127 that `valueOf` always caches, so both calls return the same object and `identical` and `equal` are both `true`. `129` is outside the range -128 to
+    127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range
+    this is the recorded output, not a guarantee.'
+- x1: 255
+  y1: 255
+  x2: 150
+  y2: 150
+  why: '`255` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `150` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+- x1: 129
+  y1: 129
+  x2: -130
+  y2: -130
+  why: '`129` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned different objects, so `identical` is `false` while `equal` is `true` because both
+    hold the same `int`; outside that range this is the recorded output, not a guarantee. `-130` is outside the range -128 to 127 that `valueOf` always caches, and on the pinned JDK the two calls returned
+    different objects, so `identical` is `false` while `equal` is `true` because both hold the same `int`; outside that range this is the recorded output, not a guarantee.'
+template: |
+  public class Main {
+      static boolean identical(Integer p, Integer q) {
+          return p == q;
+      }
+
+      static boolean equal(Integer p, Integer q) {
+          return p.equals(q);
+      }
+
+      public static void main(String[] args) {
+          Integer a = Integer.valueOf(@@x1@@);
+          Integer b = Integer.valueOf(@@y1@@);
+          Integer c = Integer.valueOf(@@x2@@);
+          Integer d = Integer.valueOf(@@y2@@);
+          System.out.println(identical(a, b));
+          System.out.println(equal(a, b));
+          System.out.println(identical(c, d));
+          System.out.println(equal(c, d));
+      }
+  }
+explanation: '`identical` uses `==`, which compares references, and `equal` uses `equals`, which compares the `int` values. @@why@@ The program prints @@key@@.'
+mistakes:
+- name: treating `==` on `Integer` as a comparison of the `int` values
+  replace:
+  - return p == q;
+  - return p.intValue() == q.intValue();
+  why: '`==` on two `Integer` references is `true` only when both refer to the same object, and `valueOf` is guaranteed to return shared objects only for -128 to 127.'
+- name: taking `equals` to compare references
+  replace:
+  - return p.equals(q);
+  - return p == q;
+  why: '`Integer.equals` is `true` if and only if the argument is an `Integer` holding the same `int` value.'
+- name: assuming `valueOf` never shares objects
+  replace:
+  - return p == q;
+  - return false;
+  why: '`valueOf` always caches values from -128 to 127 inclusive, so equal values in that range are the same object.'
+- name: assuming the cache covers 0 to 255
+  replace:
+  - return p == q;
+  - return p.equals(q) && p >= 0 && p <= 255;
+  why: The range that `valueOf` always caches is -128 to 127 inclusive.
+- name: assuming the cache covers only 0 to 127
+  replace:
+  - return p == q;
+  - return p.equals(q) && p >= 0 && p <= 127;
+  why: The range that `valueOf` always caches starts at -128, so negative values down to -128 are shared too.
+- name: assuming the cache covers -128 to 128
+  replace:
+  - return p == q;
+  - return p.equals(q) && p >= -128 && p <= 128;
+  why: The range that `valueOf` always caches ends at 127 inclusive, so 128 is not guaranteed to be shared.
+- name: assuming the cache covers -127 to 127
+  replace:
+  - return p == q;
+  - return p.equals(q) && p >= -127 && p <= 127;
+  why: The range that `valueOf` always caches starts at -128 inclusive, so -128 is shared too.
+- name: assuming the cache covers -129 to 127
+  replace:
+  - return p == q;
+  - return p.equals(q) && p >= -129 && p <= 127;
+  why: The range that `valueOf` always caches starts at -128, so -129 is not guaranteed to be shared.
+- name: assuming the cache covers -1000 to 1000
+  replace:
+  - return p == q;
+  - return p.equals(q) && p >= -1000 && p <= 1000;
+  why: The range that `valueOf` always caches ends at 127, and values beyond it are not guaranteed to be shared.

@@ -1,4 +1,4 @@
-# When a cached response turns stale (`http-response-freshness`): 50 goldens
+# HTTP response freshness (`http-response-freshness`): 50 goldens
 
 Generated items for the blind review (ambiguity, realism, key). Regenerate with `uv run python scripts/export_backend_goldens.py`.
 

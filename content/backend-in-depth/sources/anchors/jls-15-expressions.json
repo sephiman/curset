@@ -1,0 +1,623 @@
+{
+ "source": "jls-15-expressions",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "e7eb0bc2a74e50fccaa0c85948d9db73deccbe8f1c693c31d234f5485610294d"
+  },
+  {
+   "anchor": "jls-15",
+   "title": "Chapter 15. Expressions",
+   "level": 1,
+   "sha256": "775af551a77de4eaf3cde39bbbdda0b0015f5d118e91ef1ad09c82e3b5ac5e5b"
+  },
+  {
+   "anchor": "jls-15.1",
+   "title": "15.1. Evaluation, Denotation, and Result",
+   "level": 2,
+   "sha256": "b60a80c7a942c9b2b2309b093351ee7e54f5e1dab75bf8ad5ce476e9860057cd"
+  },
+  {
+   "anchor": "jls-15.2",
+   "title": "15.2. Forms of Expressions",
+   "level": 2,
+   "sha256": "8f240075447da87392993132bde69c6a09ee7b392ca7e49a250b213b508d1ff9"
+  },
+  {
+   "anchor": "jls-15.3",
+   "title": "15.3. Type of an Expression",
+   "level": 2,
+   "sha256": "a52c3b07a0c2bd47f5bab6651f8a0c1865150726a137bb1265592504d08d497f"
+  },
+  {
+   "anchor": "jls-15.4",
+   "title": "15.4. Floating-point Expressions",
+   "level": 2,
+   "sha256": "56aaad8c1544eb5a1468c80ca8183a5860a26f7d913326a4eddb04860936bed7"
+  },
+  {
+   "anchor": "jls-15.5",
+   "title": "15.5. Expressions and Run-Time Checks",
+   "level": 2,
+   "sha256": "6bbef2597713143bd61768f9c5448ad170b8732bedf1ccdea4d6e8b59ce0b8d6"
+  },
+  {
+   "anchor": "jls-15.6",
+   "title": "15.6. Normal and Abrupt Completion of Evaluation",
+   "level": 2,
+   "sha256": "39e6fad9ed8d48ad7b236575baa160dfc50fdaf6077551b70319ccf7c9bdc13c"
+  },
+  {
+   "anchor": "jls-15.7",
+   "title": "15.7. Evaluation Order",
+   "level": 2,
+   "sha256": "13b85a0ce71afc900ef449c8fc73dadce97063e9ffe3c5e97246a626fe42152c"
+  },
+  {
+   "anchor": "jls-15.7.1",
+   "title": "15.7.1. Evaluate Left-Hand Operand First",
+   "level": 3,
+   "sha256": "a387cd18953694007f1e904b586aadde6a34dd250c1f335fc9d46cfae3618f70"
+  },
+  {
+   "anchor": "jls-15.7.2",
+   "title": "15.7.2. Evaluate Operands before Operation",
+   "level": 3,
+   "sha256": "593f9d9a03b9aded0a006235c5740a2b0871f59219d58edf7416d50f4c14dbb9"
+  },
+  {
+   "anchor": "jls-15.7.3",
+   "title": "15.7.3. Evaluation Respects Parentheses and Precedence",
+   "level": 3,
+   "sha256": "1cdf9f7db20ada4d5827347d604183ee0de647d14170c0de59d8f6151ff9f9d0"
+  },
+  {
+   "anchor": "jls-15.7.4",
+   "title": "15.7.4. Argument Lists are Evaluated Left-to-Right",
+   "level": 3,
+   "sha256": "aebab5f35da4dba80bc9bc0653443b0163ef6153516ef6c99e02f0d25ffde0ba"
+  },
+  {
+   "anchor": "jls-15.7.5",
+   "title": "15.7.5. Evaluation Order for Other Expressions",
+   "level": 3,
+   "sha256": "bf19ac7d3502604c55f98d270d05913a5aa36f72803b73f9aeda6037310a2b9e"
+  },
+  {
+   "anchor": "jls-15.8",
+   "title": "15.8. Primary Expressions",
+   "level": 2,
+   "sha256": "bac6c6e325d377c4f6f9601b1b6b2b19acfe6abc86e631b6ca4364945f6f2d56"
+  },
+  {
+   "anchor": "jls-15.8.1",
+   "title": "15.8.1. Lexical Literals",
+   "level": 3,
+   "sha256": "ff89e96535cd6146b24945c816ef28261a8dbf72cecf772edd53f4686212af1f"
+  },
+  {
+   "anchor": "jls-15.8.2",
+   "title": "15.8.2. Class Literals",
+   "level": 3,
+   "sha256": "fd0cb11dfffdcb3bf2ee61335274d806d4bd7ce93ac12054ffe3d70e8b4dacbc"
+  },
+  {
+   "anchor": "jls-15.8.3",
+   "title": "15.8.3. this",
+   "level": 3,
+   "sha256": "990ce8d4a48f047e21f93559b7463dd73762186bd16ac8ca0551a4b1a8767475"
+  },
+  {
+   "anchor": "jls-15.8.4",
+   "title": "15.8.4. Qualified this",
+   "level": 3,
+   "sha256": "09aea5babeb1ca12819592f4af4251a7ab7df59a8ec32972f2c7af12a0fe0ccc"
+  },
+  {
+   "anchor": "jls-15.8.5",
+   "title": "15.8.5. Parenthesized Expressions",
+   "level": 3,
+   "sha256": "2c4e7a0104428128d9c0b9b3640b6cc1bc69c2d53a614d29b309830dc1982036"
+  },
+  {
+   "anchor": "jls-15.9",
+   "title": "15.9. Class Instance Creation Expressions",
+   "level": 2,
+   "sha256": "c5556b0e9962ce8546d49dbe6431ed596b78f113d5c2732611359de342c05c02"
+  },
+  {
+   "anchor": "jls-15.9.1",
+   "title": "15.9.1. Determining the Class being Instantiated",
+   "level": 3,
+   "sha256": "d52e3f3c25289971cf9ef8e9e4e106e5447cc86896534bb06123899ddefbb6ba"
+  },
+  {
+   "anchor": "jls-15.9.2",
+   "title": "15.9.2. Determining Enclosing Instances",
+   "level": 3,
+   "sha256": "c9fce4dde4283c08f1bd3ce6b3fe5c03aeca91c52c9904475339f61ec007f780"
+  },
+  {
+   "anchor": "jls-15.9.3",
+   "title": "15.9.3. Choosing the Constructor and its Arguments",
+   "level": 3,
+   "sha256": "75d4ead3bc118dd799c941dd383c143e72bcaa33a4f11d907f87a7b9dce93dd4"
+  },
+  {
+   "anchor": "jls-15.9.4",
+   "title": "15.9.4. Run-Time Evaluation of Class Instance Creation Expressions",
+   "level": 3,
+   "sha256": "d118cd0977e26e82110ad5960273f2718cc3928dc8353d0ffd0e7c71a1a1e424"
+  },
+  {
+   "anchor": "jls-15.9.5",
+   "title": "15.9.5. Anonymous Class Declarations",
+   "level": 3,
+   "sha256": "2c44ced866d01247c7db9f666b38c0879fc1ce6f2e7281a65b582555c3fd3716"
+  },
+  {
+   "anchor": "jls-15.9.5.1",
+   "title": "15.9.5.1. Anonymous Constructors",
+   "level": 4,
+   "sha256": "c80faaa7dcd36c01b8ec4d2a1f8aba0e4a27a3a537511818a932660592fca155"
+  },
+  {
+   "anchor": "jls-15.10",
+   "title": "15.10. Array Creation and Access Expressions",
+   "level": 2,
+   "sha256": "8b797c0fa35c0f450c4b527d0510488d20be33a2a22c4caaece54ca01dd0697f"
+  },
+  {
+   "anchor": "jls-15.10.1",
+   "title": "15.10.1. Array Creation Expressions",
+   "level": 3,
+   "sha256": "39760e94b6abe9310411292ae3cc00a80858dfec873912006b35cad82bc16a7e"
+  },
+  {
+   "anchor": "jls-15.10.2",
+   "title": "15.10.2. Run-Time Evaluation of Array Creation Expressions",
+   "level": 3,
+   "sha256": "6dc9b624c4575189d6ad262eb6875bf1d08dde50869613798493376449ca6b0a"
+  },
+  {
+   "anchor": "jls-15.10.3",
+   "title": "15.10.3. Array Access Expressions",
+   "level": 3,
+   "sha256": "f3083b1190855f2647ff901d51618f2f281a3de7a7d558a8f27b11cf85414ec3"
+  },
+  {
+   "anchor": "jls-15.10.4",
+   "title": "15.10.4. Run-Time Evaluation of Array Access Expressions",
+   "level": 3,
+   "sha256": "ae3cf34b75e7c73c82aa5e8ead14ff35b03c6c1f3d386ae3c7987d07e3b70756"
+  },
+  {
+   "anchor": "jls-15.11",
+   "title": "15.11. Field Access Expressions",
+   "level": 2,
+   "sha256": "1bc153f997ec3042d6c6d155ab5bef55c6527a2de5984f65c4ec3a7246f0aec7"
+  },
+  {
+   "anchor": "jls-15.11.1",
+   "title": "15.11.1. Field Access Using a Primary",
+   "level": 3,
+   "sha256": "0ebdb9a6fee17ede8171c3ed4b23c9752369f5e7d682644c3e680ee0095fa9e2"
+  },
+  {
+   "anchor": "jls-15.11.2",
+   "title": "15.11.2. Accessing Superclass Members using super",
+   "level": 3,
+   "sha256": "e613c235d4f150b79cbcd8d19666b772fea1f1d3356c941c32ecb7dea0b71c11"
+  },
+  {
+   "anchor": "jls-15.12",
+   "title": "15.12. Method Invocation Expressions",
+   "level": 2,
+   "sha256": "9ba76c6e717ff19b02898c2b312c6c1e1843577644367a50207b0439c2c3650b"
+  },
+  {
+   "anchor": "jls-15.12.1",
+   "title": "15.12.1. Compile-Time Step 1: Determine Type to Search",
+   "level": 3,
+   "sha256": "af8dc6b70f93c75671b08bb28dcb9508be1410fd151d2cdb97f6db2d8a037192"
+  },
+  {
+   "anchor": "jls-15.12.2",
+   "title": "15.12.2. Compile-Time Step 2: Determine Method Signature",
+   "level": 3,
+   "sha256": "cb7a7255b159cfcad5ea99722aba668fb8b72b749ff882e32c479dfb27b0aeea"
+  },
+  {
+   "anchor": "jls-15.12.2.1",
+   "title": "15.12.2.1. Identify Potentially Applicable Methods",
+   "level": 4,
+   "sha256": "1697af946216fbc136abbf83526002dd8533e1ce2e3ee9a9e89881efe7bc3e65"
+  },
+  {
+   "anchor": "jls-15.12.2.2",
+   "title": "15.12.2.2. Phase 1: Identify Matching Arity Methods Applicable by Strict Invocation",
+   "level": 4,
+   "sha256": "37c9987ab923b11738c3d9e376e9e1932debb8f913422eea918775c659181112"
+  },
+  {
+   "anchor": "jls-15.12.2.3",
+   "title": "15.12.2.3. Phase 2: Identify Matching Arity Methods Applicable by Loose Invocation",
+   "level": 4,
+   "sha256": "a61cb0b2ea531d08b62bdd038021cbc7849a1af463071579e5c59922a37551a9"
+  },
+  {
+   "anchor": "jls-15.12.2.4",
+   "title": "15.12.2.4. Phase 3: Identify Methods Applicable by Variable Arity Invocation",
+   "level": 4,
+   "sha256": "b2ca3c2175dea2812059a12aba9b8667a3bd9e655c83029d486894537cb41110"
+  },
+  {
+   "anchor": "jls-15.12.2.5",
+   "title": "15.12.2.5. Choosing the Most Specific Method",
+   "level": 4,
+   "sha256": "b2753d68314bc6ec93eb613a242e4bcb52cb3ec680556cf796a5325875005410"
+  },
+  {
+   "anchor": "jls-15.12.2.6",
+   "title": "15.12.2.6. Method Invocation Type",
+   "level": 4,
+   "sha256": "e739e89da16fd0c53aae6bf6cc99ac85b3d3c349a72af139ad0bad1ad5412aed"
+  },
+  {
+   "anchor": "jls-15.12.3",
+   "title": "15.12.3. Compile-Time Step 3: Is the Chosen Method Appropriate?",
+   "level": 3,
+   "sha256": "020f06b0c60e24a118b0ad995cbde9b9f362c28139b69d2a4f73a047993f8d5e"
+  },
+  {
+   "anchor": "jls-15.12.4",
+   "title": "15.12.4. Run-Time Evaluation of Method Invocation",
+   "level": 3,
+   "sha256": "f7edfc796af749c6244f7415666503eff69decd9bb745aeff5361996e52f812d"
+  },
+  {
+   "anchor": "jls-15.12.4.1",
+   "title": "15.12.4.1. Compute Target Reference (If Necessary)",
+   "level": 4,
+   "sha256": "592314184f8c512c0420bf2cd283103817f458f8500db240c0e7d10b87800ea4"
+  },
+  {
+   "anchor": "jls-15.12.4.2",
+   "title": "15.12.4.2. Evaluate Arguments",
+   "level": 4,
+   "sha256": "7f2fa0d0f4de21c37052ea7be13fc36f3c6eb6a5ee4a7049706ff5a2707bf207"
+  },
+  {
+   "anchor": "jls-15.12.4.3",
+   "title": "15.12.4.3. Check Accessibility of Type and Method",
+   "level": 4,
+   "sha256": "3904db6cab54778b354b1cfc44899f4422efc1aa91e8182e2d8b84e4f1fc8fe8"
+  },
+  {
+   "anchor": "jls-15.12.4.4",
+   "title": "15.12.4.4. Locate Method to Invoke",
+   "level": 4,
+   "sha256": "7181e1aa1498f76d8ce0b9725ff57da98e7857c86cad2b115c4f9ab1864293df"
+  },
+  {
+   "anchor": "jls-15.12.4.5",
+   "title": "15.12.4.5. Create Frame, Synchronize, Transfer Control",
+   "level": 4,
+   "sha256": "83bdd53249523a20f441174962a833c3e9c2373968c320c1e512d3283551513d"
+  },
+  {
+   "anchor": "jls-15.13",
+   "title": "15.13. Method Reference Expressions",
+   "level": 2,
+   "sha256": "aede4fdee72e0d270ee5a557e7d08950e04ecf018c4104a755f414bf014929a6"
+  },
+  {
+   "anchor": "jls-15.13.1",
+   "title": "15.13.1. Compile-Time Declaration of a Method Reference",
+   "level": 3,
+   "sha256": "4d40f50bcc3b3f83ed515b13bf3ad8c54138ec7b7a8b82dafb61d642fe55205a"
+  },
+  {
+   "anchor": "jls-15.13.2",
+   "title": "15.13.2. Type of a Method Reference",
+   "level": 3,
+   "sha256": "d93cc56ca776abacc15a6382f360a80b43a538aba09251efd8100497894c05cb"
+  },
+  {
+   "anchor": "jls-15.13.3",
+   "title": "15.13.3. Run-Time Evaluation of Method References",
+   "level": 3,
+   "sha256": "5cb5f201d09b0cb5087e44922770e3165cf7ddcfb6644d1e38d7d170daa56d51"
+  },
+  {
+   "anchor": "jls-15.14",
+   "title": "15.14. Postfix Expressions",
+   "level": 2,
+   "sha256": "d6646e8af14dcf854e52016e78be7696b8a33656068197b3687d7d937a0e81c0"
+  },
+  {
+   "anchor": "jls-15.14.1",
+   "title": "15.14.1. Expression Names",
+   "level": 3,
+   "sha256": "990b1bdf6bc7efcf99573a8db360369fd6ae3a0069f44433e373118d09dc1393"
+  },
+  {
+   "anchor": "jls-15.14.2",
+   "title": "15.14.2. Postfix Increment Operator ++",
+   "level": 3,
+   "sha256": "87f9527675d6b4ba9524b507aaa4d07f59c808194908e43abb0c1ba8a5308486"
+  },
+  {
+   "anchor": "jls-15.14.3",
+   "title": "15.14.3. Postfix Decrement Operator --",
+   "level": 3,
+   "sha256": "8d50e96c317e0de319f3b7424e49e1ba16946a3d07c22f5f83e20bc819097381"
+  },
+  {
+   "anchor": "jls-15.15",
+   "title": "15.15. Unary Operators",
+   "level": 2,
+   "sha256": "26f712223f5c21eb524979bda5370a784c26b2a2d4946c6e0d35210c6eb58ce3"
+  },
+  {
+   "anchor": "jls-15.15.1",
+   "title": "15.15.1. Prefix Increment Operator ++",
+   "level": 3,
+   "sha256": "b76295db21c0ef5d87169df8b1f67e9d45c385e96dfe837dc1a92a5bdaa469c9"
+  },
+  {
+   "anchor": "jls-15.15.2",
+   "title": "15.15.2. Prefix Decrement Operator --",
+   "level": 3,
+   "sha256": "c1b2de5ddf67bfed83e0ef1242d7c1ec425641a1dfbf8c3fa1f412149c7d2fc6"
+  },
+  {
+   "anchor": "jls-15.15.3",
+   "title": "15.15.3. Unary Plus Operator +",
+   "level": 3,
+   "sha256": "4572c305bd738551dcca22565e512c0240aee2dae4f7255b2e4a023af784a7dd"
+  },
+  {
+   "anchor": "jls-15.15.4",
+   "title": "15.15.4. Unary Minus Operator -",
+   "level": 3,
+   "sha256": "834e0faf1f7020d367a7fa4e29da63287efb6eb84b19d6c9b750e60be6ea2614"
+  },
+  {
+   "anchor": "jls-15.15.5",
+   "title": "15.15.5. Bitwise Complement Operator ~",
+   "level": 3,
+   "sha256": "490f0160ff7270f2177d097f146e1601047035044cdb9c3cd211cdfa6ee254bb"
+  },
+  {
+   "anchor": "jls-15.15.6",
+   "title": "15.15.6. Logical Complement Operator !",
+   "level": 3,
+   "sha256": "1a7cee7489d36af55387b00693e324053de73201955c834d46e542d487b69c29"
+  },
+  {
+   "anchor": "jls-15.16",
+   "title": "15.16. Cast Expressions",
+   "level": 2,
+   "sha256": "947e122b8f9ab96141517d1db7fbf21337d7145c1ba2bdcdec09a0ffd3a5ae08"
+  },
+  {
+   "anchor": "jls-15.17",
+   "title": "15.17. Multiplicative Operators",
+   "level": 2,
+   "sha256": "e2359d34612fc9c451ed727e7b729db03a27d72981f8d657e4824aa79235b0e5"
+  },
+  {
+   "anchor": "jls-15.17.1",
+   "title": "15.17.1. Multiplication Operator *",
+   "level": 3,
+   "sha256": "02830d63e0dddb912c7beb5b2ce8cb40b662a51496f817bdb46815c11b09a2eb"
+  },
+  {
+   "anchor": "jls-15.17.2",
+   "title": "15.17.2. Division Operator /",
+   "level": 3,
+   "sha256": "0db60686e2a44434bfd0871a8e2fb0a80a9a492eee53debd121b18be14473635"
+  },
+  {
+   "anchor": "jls-15.17.3",
+   "title": "15.17.3. Remainder Operator %",
+   "level": 3,
+   "sha256": "9dcb396fca03bed80e25c199aeefaa68049ed5dfa89d7c33f567b144805df341"
+  },
+  {
+   "anchor": "jls-15.18",
+   "title": "15.18. Additive Operators",
+   "level": 2,
+   "sha256": "5f95eded499f19a89c3d3cc22663f7d7b38d3fd86dbdb569ab954ee52a00f58b"
+  },
+  {
+   "anchor": "jls-15.18.1",
+   "title": "15.18.1. String Concatenation Operator +",
+   "level": 3,
+   "sha256": "858ffaac9a876de10ce603e289aa1c01dbec0263199b6eee057c898649869264"
+  },
+  {
+   "anchor": "jls-15.18.2",
+   "title": "15.18.2. Additive Operators ( + and - ) for Numeric Types",
+   "level": 3,
+   "sha256": "13e3dea6322c64a59f077c22aaf81de33fd6591eab6d30edbb2b6f8fd3be85f7"
+  },
+  {
+   "anchor": "jls-15.19",
+   "title": "15.19. Shift Operators",
+   "level": 2,
+   "sha256": "0e895b66fcb54692ae9f6139c7e4a219410d8add9953145bcb702ee2d9a166f5"
+  },
+  {
+   "anchor": "jls-15.20",
+   "title": "15.20. Relational Operators",
+   "level": 2,
+   "sha256": "e6e81a66a7cf0803d5d61a59797cc9923a90fa032856202c3b3b4f21d44cf111"
+  },
+  {
+   "anchor": "jls-15.20.1",
+   "title": "15.20.1. Numerical Comparison Operators < , <= , > , and >=",
+   "level": 3,
+   "sha256": "99bea376c9a8e76b1b98c8b215d5de1f7068796ddbb7be9de1cd77757f802d39"
+  },
+  {
+   "anchor": "jls-15.20.2",
+   "title": "15.20.2. The instanceof Operator",
+   "level": 3,
+   "sha256": "70e1a3cc8b9c053862dda7eae3749ee7486f70b7ad301411b4490e1cbffac0a5"
+  },
+  {
+   "anchor": "jls-15.21",
+   "title": "15.21. Equality Operators",
+   "level": 2,
+   "sha256": "392873bd5f90fdc5cd37a79d8e7976bfc96c4670110a5e5743e7ed81e447903f"
+  },
+  {
+   "anchor": "jls-15.21.1",
+   "title": "15.21.1. Numerical Equality Operators == and !=",
+   "level": 3,
+   "sha256": "c8f487ade6c680596f384329ebadd197e1d8cc1d0725f9389ea6f6fe2a691552"
+  },
+  {
+   "anchor": "jls-15.21.2",
+   "title": "15.21.2. Boolean Equality Operators == and !=",
+   "level": 3,
+   "sha256": "ba3589117454d1ad2ca97361e69c01e0275a22280eb4a579be7321ff7d3e9e0c"
+  },
+  {
+   "anchor": "jls-15.21.3",
+   "title": "15.21.3. Reference Equality Operators == and !=",
+   "level": 3,
+   "sha256": "2bf7bbeb9aedbef7a36210061ab8bd64221138ddd143ecfc74569cfc51ef0ba8"
+  },
+  {
+   "anchor": "jls-15.22",
+   "title": "15.22. Bitwise and Logical Operators",
+   "level": 2,
+   "sha256": "9f4af042eb545f06d689de55652f6d11aee08a038f12d86889a2d4cbfa2bf28d"
+  },
+  {
+   "anchor": "jls-15.22.1",
+   "title": "15.22.1. Integer Bitwise Operators & , ^ , and |",
+   "level": 3,
+   "sha256": "84acda63ce4fe73b379a81ebcd00e9a8e90ea25935973a3966ded4512b3f22b8"
+  },
+  {
+   "anchor": "jls-15.22.2",
+   "title": "15.22.2. Boolean Logical Operators & , ^ , and |",
+   "level": 3,
+   "sha256": "66d7de78404695d3c6b5c56797f9407552576cbfe81eb13ceab8420f71d436c3"
+  },
+  {
+   "anchor": "jls-15.23",
+   "title": "15.23. Conditional-And Operator &&",
+   "level": 2,
+   "sha256": "94967f4ea340061689fc2e6e90bbfded710a9b33c44f78cd831ba222462914b0"
+  },
+  {
+   "anchor": "jls-15.24",
+   "title": "15.24. Conditional-Or Operator ||",
+   "level": 2,
+   "sha256": "8e4b7ab6de233919327814c817c20859ee442a0f588bfe4d4ed65a7916e37e2e"
+  },
+  {
+   "anchor": "jls-15.25",
+   "title": "15.25. Conditional Operator ? :",
+   "level": 2,
+   "sha256": "17f5e452341a9667a5b6c6d6a51872628683befd089c3b8c0acd1fb938884a69"
+  },
+  {
+   "anchor": "jls-15.25.1",
+   "title": "15.25.1. Boolean Conditional Expressions",
+   "level": 3,
+   "sha256": "a635423392b816ab4e316483a45a3daa214692a8a40718db72181a539ea5b19f"
+  },
+  {
+   "anchor": "jls-15.25.2",
+   "title": "15.25.2. Numeric Conditional Expressions",
+   "level": 3,
+   "sha256": "4a75b9774e4bae85800964fc53f19bfd0b7805fad22d25afc95c24742c0ea484"
+  },
+  {
+   "anchor": "jls-15.25.3",
+   "title": "15.25.3. Reference Conditional Expressions",
+   "level": 3,
+   "sha256": "d6da582c7397e6ccd3d453c0852b7224080c9994980e2c7c038ef89eb6a36173"
+  },
+  {
+   "anchor": "jls-15.26",
+   "title": "15.26. Assignment Operators",
+   "level": 2,
+   "sha256": "bf70adcf8c24697b474b28315dbd83f370b8d2a1009b26493caa22dacc623a07"
+  },
+  {
+   "anchor": "jls-15.26.1",
+   "title": "15.26.1. Simple Assignment Operator =",
+   "level": 3,
+   "sha256": "7416dc4ac86583cec7b2a555af767d4c278807f10f300f3b30c44a363154d6c3"
+  },
+  {
+   "anchor": "jls-15.26.2",
+   "title": "15.26.2. Compound Assignment Operators",
+   "level": 3,
+   "sha256": "e2831a3df6bf8b5046d1256ff2d6fe406af4c90b42710ff9c3a9b4a98c0ddc0d"
+  },
+  {
+   "anchor": "jls-15.27",
+   "title": "15.27. Lambda Expressions",
+   "level": 2,
+   "sha256": "bc8b45464ea8199190abe5a53721025e965e0340b42599dad5862c0deb23b46a"
+  },
+  {
+   "anchor": "jls-15.27.1",
+   "title": "15.27.1. Lambda Parameters",
+   "level": 3,
+   "sha256": "3ab56d63755851bd6cd93464974ee09cc235b9ccd4aea16a3344593cf2b1b402"
+  },
+  {
+   "anchor": "jls-15.27.2",
+   "title": "15.27.2. Lambda Body",
+   "level": 3,
+   "sha256": "b7710303fa18c05a2c2008afc34912d32c64d780dc637af38b7405f59bc73b78"
+  },
+  {
+   "anchor": "jls-15.27.3",
+   "title": "15.27.3. Type of a Lambda Expression",
+   "level": 3,
+   "sha256": "c4fb00e193492446a64686851510ce50e027380982b8ddd595c6f3e117c9d9be"
+  },
+  {
+   "anchor": "jls-15.27.4",
+   "title": "15.27.4. Run-Time Evaluation of Lambda Expressions",
+   "level": 3,
+   "sha256": "a4df544c499260f0ad30cc7a375c5be08cd91e1abc9c462afd8652a05d3f7c68"
+  },
+  {
+   "anchor": "jls-15.28",
+   "title": "15.28. switch Expressions",
+   "level": 2,
+   "sha256": "6b4f9669ca1df37cfcdffc0282b952ba03afbef4951bc1991ccdf8ee13823004"
+  },
+  {
+   "anchor": "jls-15.28.1",
+   "title": "15.28.1. The Switch Block of a switch Expression",
+   "level": 3,
+   "sha256": "c2d121734af3ba006026843975db53eeb65817a7476386e0c7b47604108e1418"
+  },
+  {
+   "anchor": "jls-15.28.2",
+   "title": "15.28.2. Run-Time Evaluation of switch Expressions",
+   "level": 3,
+   "sha256": "7781a92f4f6246e5d20f99a9a4bd1ed7fa5a0b145786717b0d626c44bc02f8ec"
+  },
+  {
+   "anchor": "jls-15.29",
+   "title": "15.29. Constant Expressions",
+   "level": 2,
+   "sha256": "44636f46d9860dee08a60f92b77c65ec8be398f721d3789f0d0c38089b064e89"
+  }
+ ]
+}

@@ -1,4 +1,4 @@
-# Who waits on a row lock (`row-lock-conflicts`): 50 goldens
+# Row lock conflicts (`row-lock-conflicts`): 50 goldens
 
 Generated items for the blind review (ambiguity, realism, key). Regenerate with `uv run python scripts/export_backend_goldens.py`.
 
