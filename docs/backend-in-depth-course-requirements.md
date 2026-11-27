@@ -1,6 +1,6 @@
 # Backend Engineering in Depth — course requirements
 
-Version 1.1 · 2026-11-12 · slug `backend-in-depth` · language: English only
+Version 1.1 · 2026-11-12, amended to v1.4 (amendment 17) on 2026-11-27 · slug `backend-in-depth` · language: English only
 
 This document is a **delta**. The base is `docs/age-administrativo-course-requirements.md`; the provenance and generator rules come from `docs/age-auxiliar-course-requirements.md`; the staged build comes from `docs/aeat-agentes-course-requirements.md`. Where this document is silent, the base applies. Where it conflicts, this document wins. `CLAUDE.md` and `docs/prose-voice.md` apply unchanged.
 
@@ -569,7 +569,7 @@ Built only from public material (Tier C). Everything is class J and attributed.
 - No streaks, points or other engagement mechanics anywhere in the course.
 - The agent never commits.
 
-## Amendments (v1.2, extended to 13 in v1.3)
+## Amendments
 
 2026-11-13, session S1. Each amendment overrides the section it names.
 
@@ -616,3 +616,13 @@ Built only from public material (Tier C). Everything is class J and attributed.
 16. 2026-11-25, round D2. Executable examples with libraries. Class X may use the pinned Spring and Kotlin libraries through a
     local build project with dependencies resolved beforehand, run with no network and no external service. `run_snippets`
     is extended accordingly, with tests.
+17. 2026-11-27, round D4. Attributed questions on judgement content. Overrides two rules of section 4 for the static
+    bank: that only F and X feed it, and that J is never the key of a multiple-choice question. It also overrides the
+    matching class rule of the question style guide.
+    a. A question may be keyed to what a named, stored source states.
+    b. The stem names the author and the work, in the form: According to AUTHOR in WORK, followed by the question.
+    c. The key restates a stored sentence of that source.
+    d. Each wrong option is contradicted by a stored sentence of the same source. An option that the source merely does
+       not mention is not allowed.
+    e. The explanation reports what the source states, with an extract where the licence allows one. The question never
+       presents the judgement as a fact of the field.

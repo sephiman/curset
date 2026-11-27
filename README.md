@@ -1033,7 +1033,9 @@ the Kotlin compiler provisioned by `toolchain provision`, and records `<File>.ru
 the outputs of scripted mistakes, and every variant carries its `family` and `code_reading: true`. Round D3 added 17 such
 families (622 variants, lessons m02, m04, m11) and 18 runtime generators (31 in all); practice serves at most two questions
 of one family per set. Round D4 added 9 more families (320 variants, lessons m01, m02, m04, m11) and 6 runtime
-generators (37 in all).
+generators (37 in all). Its Part D (amendment 17) added attributed questions: a stem "According to AUTHOR in WORK, …"
+keyed to a stored sentence of a source that backs a lesson's `:::judgement` block, each wrong option contradicted by another
+sentence of the same source; 104 in 34 files `exercises/<lesson>-ex-attributed.yaml` (modules 01–03 and 06–12).
 `tech_sources.py register-file` registers a file already in the repo (tier `course`; Markdown anchors from `#`
 headings), as `course-requirements` is. `docs/backend-verification/tools/close_round.sh` runs the closing checks.
 

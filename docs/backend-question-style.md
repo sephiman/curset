@@ -42,7 +42,9 @@ Each rule is a check a verifier can answer yes or no.
 
 ## 2. Class rules
 
-- A question is keyed only to an F or X fact. A J (judgement) statement is never the key.
+- A question is keyed to an F or X fact. A J (judgement) statement is the key only under amendment 17: the stem
+  opens "According to AUTHOR in WORK,", the key restates a stored sentence of that source, a sentence of the same
+  source contradicts each wrong option, and the explanation reports what the source states.
 - A J statement may appear in a stem only as an attributed premise ("According to …"). Verification checks
   the attribution, not the truth.
 - F key: the explanation cites the stored Tier A anchor for the pinned version.
