@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+from hashlib import sha256
 from pathlib import Path
 
 import pytest
@@ -56,7 +57,13 @@ According to Someone, prefer rows.
 """
 
 
-def _course(root: Path, lesson_files: dict[str, str], stored: str = PAGE, storage: str = "repo") -> Path:
+def _course(
+    root: Path,
+    lesson_files: dict[str, str],
+    stored: str = PAGE,
+    storage: str = "repo",
+    recorded: str | None = None,
+) -> Path:
     course = root / "content" / "tc"
     (course / "en" / "lessons").mkdir(parents=True)
     for name, body in lesson_files.items():
@@ -64,9 +71,11 @@ def _course(root: Path, lesson_files: dict[str, str], stored: str = PAGE, storag
     (course / "sources" / "docs").mkdir(parents=True)
     page = course / "sources" / "docs" / "src.html"
     page.write_text(PAGE, encoding="utf-8")
+    digest = recorded or sha256(stored.encode("utf-8")).hexdigest()
     (course / "sources" / "sources.yaml").write_text(
         "sources:\n- id: src\n  tier: A\n  title: S\n  url: https://x.test\n  licence: MIT\n"
-        f"  extract_allowed: true\n  storage: {storage}\n  path: sources/docs/src.html\n",
+        f"  extract_allowed: true\n  storage: {storage}\n  sha256: {digest}\n"
+        "  path: sources/docs/src.html\n",
         encoding="utf-8",
     )
     tech_sources.write_anchors(course / "sources", "src", page)
@@ -112,6 +121,18 @@ def test_a_malformed_prose_citation_fails_the_citation_audit(at_root: Path) -> N
     _course(at_root, {"m06-l02": "## S\n\nClaim (`SRC#A`).\n"})
     (problem,) = check_citations.audit("tc").problems
     assert "lesson m06-l02 line 3" in problem and "is not source_id#anchor" in problem
+
+
+def test_a_repo_document_changed_after_registration_fails_the_citation_audit(at_root: Path) -> None:
+    _course(at_root, {}, recorded=sha256(b"older text").hexdigest())
+    (problem,) = check_citations.audit("tc").problems
+    assert problem.startswith("src:") and "register-file" in problem
+
+
+def test_a_repo_document_whose_file_is_gone_fails_the_citation_audit(at_root: Path) -> None:
+    (_course(at_root, {}) / "sources" / "docs" / "src.html").unlink()
+    (problem,) = check_citations.audit("tc").problems
+    assert "missing" in problem and "register-file" in problem
 
 
 def test_a_parenthetical_that_is_not_only_citations_is_not_one() -> None:

@@ -13,8 +13,9 @@
 `fetch` tries a plain HTTP GET and falls back to headless Chromium (Playwright from frontend/node_modules)
 when the site refuses or serves a script shell. HTML is stored stripped (scripts/strip_saved_pages.py rules);
 the bytes as fetched go to ~/PycharmProjects/curset-saved-originals/<course>/, out of git. A new entry is
-registered with the licence of its `sources/licences.yaml` rule (none: `pending`); a copy whose rule does not
-allow extracts is kept outside git (`storage: local`, under the originals folder) with its sha256 and anchors.
+registered with the licence of its `sources/licences.yaml` rule (none: `pending`); the rule
+decides `licence` and `extract_allowed` only. Every fetched copy is kept outside git (`storage: local`, under
+the originals folder) with its sha256 and anchors in the repo; `apply-licences` moves any remaining copy out.
 `register-file` registers a file already in the repo (tier `course`, Markdown anchors) without fetching; the
 licence rules never touch such an entry.
 """
@@ -57,7 +58,7 @@ SOURCES_HEADER = (
     "# SPDX-License-Identifier: AGPL-3.0-only\n"
     "# Sources of this course (requirements section 3.2). Written by scripts/tech_sources.py; licence\n"
     "# fields by the S0 licence check. Anchors: sources/anchors/<id>.json (generated).\n"
-    "# Files: sources/docs/ (not served to readers).\n"
+    "# Files: outside git, in curset-saved-originals/<course>/local/ (sha256 and anchors stay here).\n"
 )
 
 
@@ -398,7 +399,7 @@ def licence_rules(sources: Path) -> list[dict[str, object]]:
 
 
 def _resolve(course: str, entry: dict[str, object]) -> Path:
-    """A `storage: local` copy lives outside git: its terms do not clearly allow redistribution."""
+    """A `storage: local` copy lives outside git, under the originals folder."""
     if entry.get("storage") == "local":
         return ORIGINALS / course / "local" / str(entry["path"])
     return CONTENT / course / str(entry["path"])
@@ -410,7 +411,7 @@ def _place(course: str, entry: dict[str, object], rules: list[dict[str, object]]
     rule = _licence_for(str(entry["url"]), rules)
     entry["licence"] = rule["licence"] if rule else "pending"
     entry["extract_allowed"] = bool(rule["extract_allowed"]) if rule else False
-    entry["storage"] = "repo" if entry["extract_allowed"] else "local"
+    entry["storage"] = "local"
     after = _resolve(course, entry)
     if before != after and before.exists():
         after.parent.mkdir(parents=True, exist_ok=True)
@@ -451,7 +452,7 @@ def apply_licences(args: argparse.Namespace) -> None:
     sources = CONTENT / args.course / "sources"
     rules = licence_rules(sources)
     unmatched: set[str] = set()
-    counts = {"repo": 0, "local": 0}
+    placed = 0
     for name in ("sources.yaml", "evidence.yaml"):
         registry = sources / name
         with locked(registry):
@@ -461,10 +462,10 @@ def apply_licences(args: argparse.Namespace) -> None:
                     continue
                 if not _place(args.course, entry, rules):
                     unmatched.add(re.sub(r"^https?://(www\.)?([^/]+).*", r"\2", str(entry["url"])))
-                counts[str(entry["storage"])] += 1
+                placed += 1
             write_registry(registry, entries)
     missing = sorted(unmatched) or "none"
-    print(f"in repo {counts['repo']}, local only {counts['local']}; hosts without a licence rule: {missing}")
+    print(f"{placed} entries placed; hosts without a licence rule: {missing}")
 
 
 def main() -> None:

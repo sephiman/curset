@@ -37,6 +37,8 @@ grep -q 'failed' "$scratch/frontend.log" && fail "frontend suite"
 (cd "$repo/frontend" && npx tsc -b) && echo "tsc -b clean" || fail "tsc -b"
 
 step "backend-in-depth audits (coverage pending is reported, never a failure)"
+local="${CURSET_SOURCES_LOCAL:-$HOME/PycharmProjects/curset-saved-originals/backend-in-depth/local}"
+[ -d "$local" ] || fail "no local sources at $local: the content checks would skip"
 tech() { (cd "$repo/backend" && uv run python -m "scripts.tech_course.$1" "${@:2}"); }
 tech run_snippets --check || fail "run_snippets --check"
 tech check_citations || fail "check_citations"

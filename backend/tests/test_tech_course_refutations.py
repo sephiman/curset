@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Iterator
 from pathlib import Path
 
 import pytest
@@ -14,9 +15,10 @@ from scripts.tech_course.candidates import candidate_of
 from scripts.tech_course.check_refutations import Checker, question_problems
 from scripts.tech_course.lessons import course_dir
 
-from tradeschool.citations.tech import TechSourceIndex
+from tradeschool.citations.tech import LOCAL_ENV, TechSourceIndex
 
 COURSE = "backend-in-depth"
+LOCAL_FIXTURES = Path(__file__).parent / "fixtures" / "tech-sources"
 ANCHOR = "pg-transaction-iso#XACT-SERIALIZABLE"
 STRICTEST = "The Serializable isolation level provides the strictest transaction isolation."
 RETRY = "applications using this level must be prepared to retry transactions due to serialization failures"
@@ -27,10 +29,12 @@ SNIPPET_OUTPUT = "MatchException caused by java.lang.IllegalStateException: sens
 
 
 @pytest.fixture(scope="module")
-def checker() -> Checker:
-    index = TechSourceIndex.load(course_dir(COURSE))
-    assert index is not None
-    return Checker(index, AnchorStore(index, COURSE), course_dir(COURSE) / "snippets")
+def checker() -> Iterator[Checker]:
+    with pytest.MonkeyPatch.context() as patch:
+        patch.setenv(LOCAL_ENV, str(LOCAL_FIXTURES))
+        index = TechSourceIndex.load(course_dir(COURSE))
+        assert index is not None
+        yield Checker(index, AnchorStore(index, COURSE), course_dir(COURSE) / "snippets")
 
 
 def question(key: str = "the strictest isolation", snippet: str | None = None) -> dict[str, object]:

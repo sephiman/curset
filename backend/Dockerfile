@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.7
+# syntax=docker/dockerfile:1.20
 # SPDX-License-Identifier: AGPL-3.0-only
 # Build context is the repository ROOT (so the image can bake in ./content).
 # See docker-compose.yml: services.backend.build.{context: ., dockerfile: backend/Dockerfile}.
@@ -26,11 +26,14 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends curl \
   && rm -rf /var/lib/apt/lists/*
 RUN groupadd -g 10001 app && useradd -u 10001 -g app -m -d /app -s /usr/sbin/nologin app
+
+# Sources change rarely and weigh the most: their own early layer, untouched by code or lesson edits.
+COPY --parents --chown=app:app content/*/sources /app/
 WORKDIR /app
 
 COPY --from=build --chown=app:app /app /app
 # Course content is baked into the image; CONTENT_DIR points here.
-COPY --chown=app:app content /app/content
+COPY --chown=app:app --exclude=*/sources content /app/content
 # The published theory-only test course; served only where EXTRA_CONTENT_DIR points at it (the e2e stack).
 COPY --chown=app:app backend/tests/fixtures/content/fixture-teoria /app/e2e-content/fixture-teoria
 COPY --chown=app:app backend/tests/fixtures/content/fixture-tecnico /app/e2e-content/fixture-tecnico

@@ -1008,14 +1008,16 @@ Glyph: a calculator; accent ochre `#88521d` / `#d48f4a`. Stage 2 (round R3, `doc
 `docs/backend-in-depth-course-requirements.md`, a delta to the oposiciones requirements), `draft` until session S3.
 Session S0 (2026-11-13) locked the programme (`content/backend-in-depth/programme.md`: 68 subsections, 249 bullets
 with stable ids such as `6.2.b` and their (J) marks), pinned a version per product (`sources/versions.yaml`, Java 25
-LTS, with the page that states each version stored under `sources/evidence/`) and stored the Tier A and Tier C
+LTS, with the page that states each version registered in `sources/evidence.yaml` and kept outside git with the other sources) and stored the Tier A and Tier C
 sources (`sources/sources.yaml`: tier, product, version, URL, date, sha256, licence, `extract_allowed`, `storage`).
 `backend/scripts/tech_sources.py` fetches a page (curl, then headless Chromium from `frontend/node_modules` when the
 site refuses), strips it as saved pages are stripped, applies the site's rule from `sources/licences.yaml` and
 splits it into anchors (`sources/anchors/<id>.json`: heading, sha256); `show ID#ANCHOR` prints one anchor, which is
-how writers and verifiers read sources. A copy whose site does not clearly allow reproduction is kept outside git
-(`storage: local`, in `~/PycharmProjects/curset-saved-originals/backend-in-depth/local/`) with its hashes in the
-repo. Coverage per bullet: `docs/backend-verification/s0/source-coverage.md`; question style:
+how writers and verifiers read sources. Every stored source copy is kept outside git
+(`storage: local`, in `~/PycharmProjects/curset-saved-originals/backend-in-depth/local/`), with its sha256 and
+anchors in the repo; the licence rule decides whether extracts are allowed. The content checks of `check_citations`,
+`check_extracts` and `anchor_text` therefore run only where that folder exists (`close_round.sh` on the maintainer
+machine) and skip with a warning elsewhere (CI). Coverage per bullet: `docs/backend-verification/s0/source-coverage.md`; question style:
 `docs/backend-question-style.md`; ledgers `docs/backend-theory-ledger.md` and `docs/backend-bank-ledger.md`. The
 skeleton holds «How this course works» (`m00-l01`, written) and 68 stubs listing their bullets' source anchors.
 

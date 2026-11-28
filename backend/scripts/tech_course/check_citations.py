@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import sys
 from dataclasses import dataclass, field
+from hashlib import sha256
 
 from scripts.tech_course.anchor_text import AnchorStore
 from scripts.tech_course.lessons import add_course_argument, course_dir, read_lessons
@@ -55,8 +56,26 @@ def audit(course: str) -> Audit:
             result.problems.append(f"{where[0]}: {ref}: {why}")
             continue
         result.problems += _version_problems(store, ref, where[0])
+    result.problems += _stale_repo_documents(index, course)
     result.skipped = store.skipped_local
     return result
+
+
+def _stale_repo_documents(index: TechSourceIndex, course: str) -> list[str]:
+    problems = []
+    for source in index.sources.values():
+        if source.storage != "repo":
+            continue
+        file = index.file_of(source.id, course)
+        if not file.is_file():
+            problems.append(
+                f"{source.id}: file {file} is missing; re-register with tech_sources.py register-file"
+            )
+        elif sha256(file.read_bytes()).hexdigest() != source.sha256:
+            problems.append(
+                f"{source.id}: file changed since registered; re-register with tech_sources.py register-file"
+            )
+    return problems
 
 
 def _version_problems(store: AnchorStore, ref: SourceRef, where: str) -> list[str]:

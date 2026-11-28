@@ -44,6 +44,8 @@ class TechSource:
     storage: str
     #: Course-relative for `repo`, relative to the local-sources folder for `local`.
     path: str
+    #: Recorded digest of the file's bytes; only repo documents are checked against it.
+    sha256: str = ""
 
 
 def parse_ref(text: str) -> SourceRef | None:
@@ -112,6 +114,7 @@ def _source(entry: dict[str, object]) -> TechSource:
         extract_allowed=bool(entry.get("extract_allowed", False)),
         storage=str(entry.get("storage", "repo")),
         path=str(entry.get("path", "")),
+        sha256=str(entry.get("sha256", "")),
     )
 
 

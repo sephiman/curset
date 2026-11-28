@@ -70,3 +70,35 @@ def test_register_file_stores_a_course_tier_entry_with_a_course_relative_path(
     )
     anchors = json.loads((tmp_path / "content/c/sources/anchors/req.json").read_text())["anchors"]
     assert "4-content-classes" in [a["anchor"] for a in anchors]
+
+
+def test_apply_licences_moves_a_copy_whose_rule_allows_extracts_out_of_the_repo(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(tech_sources, "CONTENT", tmp_path / "content")
+    monkeypatch.setattr(tech_sources, "ORIGINALS", tmp_path / "originals")
+    sources = tmp_path / "content" / "c" / "sources"
+    (sources / "docs").mkdir(parents=True)
+    (sources / "docs" / "doc.html").write_text("<h1>t</h1>", encoding="utf-8")
+    (sources / "licences.yaml").write_text(
+        "licences:\n- prefix: open.example/docs\n  licence: CC-BY-4.0\n  extract_allowed: true\n",
+        encoding="utf-8",
+    )
+    tech_sources.write_registry(
+        sources / "sources.yaml",
+        [
+            {
+                "id": "doc",
+                "tier": "A",
+                "url": "https://open.example/docs/x",
+                "path": "sources/docs/doc.html",
+                "storage": "repo",
+            }
+        ],
+    )
+    (sources / "evidence.yaml").write_text("sources: []\n", encoding="utf-8")
+    tech_sources.apply_licences(argparse.Namespace(course="c"))
+    (entry,) = yaml.safe_load((sources / "sources.yaml").read_text())["sources"]
+    assert (entry["licence"], entry["extract_allowed"], entry["storage"]) == ("CC-BY-4.0", True, "local")
+    assert (tmp_path / "originals" / "c" / "local" / "sources" / "docs" / "doc.html").is_file()
+    assert not (sources / "docs" / "doc.html").exists()
