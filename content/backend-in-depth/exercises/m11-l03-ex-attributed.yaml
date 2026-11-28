@@ -22,11 +22,13 @@ variants:
       en: Text logs suit retrospective analysis, while binary logs suit real-time debugging
   explanation:
     en: The chapter says it is really useful to have multiple verbosity levels available, along with a way to increase
-      them on the fly. It rules out fixing verbosity levels at startup, because it says raising them on the fly
-      lets you examine operations in detail without having to restart the process. It rules out never sampling at
-      high traffic, because it says that, depending on the volume of traffic, statistical sampling such as one operation
-      out of every 1,000 might be better. It rules out that pairing of formats, because it says text logs are very
-      helpful for reactive debugging in real time, while structured binary logs make retrospective analysis possible.
+      them on the fly. Raising verbosity on the fly, the chapter says, lets you examine operations in detail without
+      having to restart the process, so levels need not be fixed at startup. Depending on the volume of traffic,
+      it says, statistical sampling such as one operation out of every 1,000 might be better, which contradicts
+      never sampling at high traffic. The chapter notes that text logs are very helpful for reactive debugging in
+      real time, while storing logs in a structured binary format can make it possible to build tools to conduct
+      retrospective analysis with much more information, which contradicts the claim that text logs suit retrospective
+      analysis while binary logs suit real-time debugging.
   citation: sre-book-effective-troubleshooting#logging-0bS8hLhruA
   extract:
     en: It’s really useful to have multiple verbosity levels available, along with a way to increase these levels

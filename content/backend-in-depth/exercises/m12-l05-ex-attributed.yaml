@@ -22,11 +22,11 @@ variants:
       en: Cruft slows only their later features, never the urgent ones themselves
   explanation:
     en: Fowler writes that teams who take on cruft this way end up maxing out all their credit cards and still deliver
-      later than they would have with higher internal quality. Fowler rules out staying ahead of the design payoff
-      line for months, because he writes that teams hit that line in weeks rather than months. He rules out interest
-      paid only as time passes, because he says an interest payment is triggered only when someone has to work with
-      that part of the software. He rules out cruft slowing only later features, because he writes that cruft has
-      a quick impact and slows down the very new features that are needed quickly.
+      later than they would have with higher internal quality. Fowler writes that teams hit the design payoff line
+      in weeks rather than months, not after months of staying ahead of it. In his text, an interest payment is
+      triggered only when someone has to work with that part of the software, so interest paid only as time passes
+      contradicts it. He states that cruft has a quick impact and slows down the very new features that are needed
+      quickly, which contradicts cruft slowing only later features.
   citation: fowler-technical-debt#is-high-quality-software-worth-the-cost
 - id: m12-l05-qa02
   prompt:
@@ -48,11 +48,11 @@ variants:
       en: Remove it only after a spreadsheet shows the exact cost of removal
   explanation:
     en: Fowler writes that areas of high activity need a zero-tolerance attitude to cruft, because the interest
-      payments there are cripplingly high. He rules out accepting the cruft for now, because he writes that cruft
-      accumulates where developers change code without attention to quality and that more changes mean greater risk
-      of it building up. He rules out one dedicated pass that clears all of it, because he writes that the usual
-      best route is to pay the principal off gradually. He rules out waiting for a spreadsheet with the exact cost
-      of removal, because he writes that none of these costs are objectively measurable.
+      payments there are cripplingly high. His text says cruft accumulates where developers change code without
+      attention to quality and that more changes mean greater risk of it building up, so accepting it for now contradicts
+      that. Fowler says the usual best route is to pay the principal off gradually, which contradicts clearing all
+      of it in one dedicated pass. He writes that none of these costs are objectively measurable, which contradicts
+      waiting for a spreadsheet that shows the exact cost of removal.
   citation: fowler-technical-debt#is-high-quality-software-worth-the-cost
 - id: m12-l05-qa03
   prompt:
@@ -74,11 +74,11 @@ variants:
       en: The two day difference between six days with cruft and four without
   explanation:
     en: Fowler writes that the two day difference between the six days with cruft and the four days without it is
-      the interest on the debt. He rules out the five days of cleaning up the module structure, because he describes
-      that cleanup as paying off the principal. He rules out the four days with a clear module structure, because
-      he writes that the extra effort needed to add new features is the interest paid on the debt. He rules out
-      a charge that builds up with time, because he says an interest payment is triggered only when someone has
-      to work with that part of the software.
+      the interest on the debt. He describes the five days of cleaning up the modular structure as paying off the
+      principal, so they are not the interest. Fowler writes that the extra effort needed to add new features is
+      the interest paid on the debt, so the four days with a clear module structure cannot be it. In the same account,
+      an interest payment is triggered only when someone has to work with that part of the software, which contradicts
+      a charge that builds up with time.
   citation: fowler-technical-debt#banner; fowler-technical-debt#is-high-quality-software-worth-the-cost
 - id: m12-l05-qa04
   prompt:
@@ -99,12 +99,15 @@ variants:
     text:
       en: It speeds up, because spreading the work across many teams reduces its cost
   explanation:
-    en: Wright writes that without explicit owners a deprecation process is unlikely to make meaningful progress,
-      no matter how many warnings and alerts a system generates. Wright rules out finishing once users migrate themselves,
-      because he writes that delegating deprecation to users becomes an advisory deprecation, which will never organically
-      finish. He rules out owners being a poor use of resources, because he writes that the alternatives, never
-      deprecating or delegating to users, are even worse. He rules out spreading the work across many teams, because
-      he writes that centralizing deprecation efforts makes costs more transparent and lets expertise reduce them.
+    en: 'Wright writes that without explicit owners a deprecation process is unlikely to make meaningful progress,
+      no matter how many warnings and alerts a system generates. Wright writes that delegating deprecation to users
+      becomes an advisory deprecation, which will never organically finish, so a self-migration finish contradicts
+      it. Wright concedes that having explicit project owners who are tasked with managing and running the deprecation
+      process might seem like a poor use of resources, but says the alternatives are even worse: don’t ever deprecate
+      anything, or delegate deprecation efforts to the users of the system, which contradicts the conclusion that
+      a process without explicit owners becomes cheaper. According to the chapter, centralizing deprecation efforts
+      makes costs more transparent and lets expertise reduce them, which contradicts spreading the work across many
+      teams.'
   citation: abseil-swe-ch15#process_owners
 - id: m12-l05-qa05
   prompt:
@@ -125,13 +128,14 @@ variants:
     text:
       en: The old system stops needing maintenance and resources
   explanation:
-    en: Wright writes that a warning alone can lead to slightly fewer new uses of an obsolete system but rarely
-      leads teams to migrate away from it. Wright rules out users carrying out most of the migration, because he
-      writes that advisory deprecation should not be counted on to do the majority of migration work. He rules out
-      new uses stopping altogether, because he writes that the many existing uses of the old system keep picking
-      up a large share of new uses, however much users are asked to use the new system. He rules out the old system
-      no longer needing maintenance, because he writes that it will continue to require maintenance and other resources
-      unless users are more actively encouraged to migrate.
+    en: 'Wright writes that a warning alone can lead to slightly fewer new uses of an obsolete system but rarely
+      leads teams to migrate away from it. The chapter says advisory deprecation should not be counted on to do
+      the majority of migration work, so users doing most of it contradicts that. Wright says that existing uses
+      of the old system exert a sort of conceptual (or technical) pull toward it: comparatively many uses of the
+      old system will tend to pick up a large share of new uses, no matter how much Google says, “Please use the
+      new system,” which contradicts new uses of the old system stopping altogether. The text states that the old
+      system will continue to require maintenance and other resources unless its users are more actively encouraged
+      to migrate, so an old system that stops needing maintenance and resources contradicts it.'
   citation: abseil-swe-ch15#advisory_deprecation
 - id: m12-l05-qa06
   prompt:
@@ -153,11 +157,11 @@ variants:
       en: That they need no enforcement mechanism once users have been warned
   explanation:
     en: Wright writes that he strongly advocates that compulsory deprecations are actively staffed by a specialized
-      team through completion. He rules out customer teams staffing them, because he writes that customers see unstaffed
-      deprecation work as an unfunded mandate that makes them push aside their own priorities. He rules out a fixed
-      schedule, because he writes that an enforcement mechanism does not imply that the schedule cannot change.
-      He rules out dropping enforcement after warnings, because he writes that for compulsory deprecation to work
-      its schedule needs an enforcement mechanism.
+      team through completion. Wright says customers see unstaffed deprecation work as an unfunded mandate that
+      makes them push aside their own priorities, which contradicts having customer teams staff it. In the same
+      text, he says that an enforcement mechanism does not imply that the schedule cannot change, which contradicts
+      a fixed schedule. His text is that for compulsory deprecation to work, its schedule needs an enforcement mechanism;
+      dropping enforcement after warnings contradicts it.
   citation: abseil-swe-ch15#compulsory_deprecation
 - id: m12-l05-qa07
   prompt:
@@ -180,9 +184,9 @@ variants:
         same time
   explanation:
     en: Wright writes that deprecation is best suited for systems that are demonstrably obsolete and have a replacement
-      that provides comparable functionality. Wright rules out deprecating a system for its age alone, because he
-      writes that age alone does not justify deprecation. He rules out running two systems for the same job as cheap,
-      because he writes that over time the costs of maintaining them both can grow substantially. He rules out deprecating
-      every obsolete system at once, because he writes that organizations have a limit on the amount of deprecation
-      work that is reasonable to undergo simultaneously.
+      that provides comparable functionality. The chapter states that age alone does not justify deprecation, so
+      deprecating any system that has simply grown old contradicts it. Wright writes that over time the costs of
+      maintaining two systems for the same job can grow substantially, so running both is not cheap. He says organizations
+      have a limit on the amount of deprecation work that is reasonable to undergo simultaneously, which contradicts
+      deprecating every obsolete system at once.
   citation: abseil-swe-ch15#why_deprecatequestion_mark

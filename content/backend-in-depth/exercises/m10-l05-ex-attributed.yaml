@@ -22,11 +22,11 @@ variants:
       en: Changing their toggling decision by rolling out a new release is unacceptable
   explanation:
     en: Hodgson writes that release toggles should generally not stick around much longer than a week or two, although
-      product-centric toggles may stay longer. He rules out release toggles being permanent, because he writes that
-      they are transitionary by nature. He rules out a dynamic toggling decision, because he writes that the toggling
-      decision for a release toggle is typically very static. He rules out that rolling out a new release is unacceptable,
-      because he writes that changing the decision by rolling out a new release with a toggle configuration change
-      is usually perfectly acceptable.
+      product-centric toggles may stay longer. Hodgson writes that release toggles are transitionary by nature,
+      so a permanent standing control is not what they are. The toggling decision for a release toggle is typically
+      very static, according to his text, which contradicts a very dynamic per-request decision. In the same section,
+      he says that changing the decision by rolling out a new release with a toggle configuration change is usually
+      perfectly acceptable, not unacceptable.
   citation: fowler-feature-toggles#ReleaseToggles
 - id: m10-l05-qa03
   prompt:
@@ -48,11 +48,11 @@ variants:
       en: A team that reaches its limit on toggles simply raises the limit to add a new one
   explanation:
     en: Hodgson writes that savvy teams view their feature toggles as inventory which comes with a carrying cost,
-      and work to keep that inventory as low as possible. He rules out toggles carrying no cost, because he writes
-      that toggles do come with a carrying cost. He rules out adding the removal task only for ops toggles, because
-      he writes that some teams always add a toggle removal task to the backlog whenever a release toggle is first
-      introduced. He rules out raising the limit, because he writes that once the limit is reached, whoever wants
-      a new toggle must first do the work to remove an existing flag.
+      and work to keep that inventory as low as possible. Hodgson states that toggles do come with a carrying cost,
+      so cheap creation does not make them free once in the code. In the same text, he says that some teams always
+      add a toggle removal task to the backlog whenever a release toggle is first introduced, which contradicts
+      adding the removal task only for ops toggles. Once the limit is reached, he writes, whoever wants a new toggle
+      must first do the work to remove an existing flag, which leaves no room for simply raising the limit.
   citation: fowler-feature-toggles#ManagingTheCarryingCostOfFeatureToggles
 - id: m10-l05-qa05
   prompt:
@@ -74,10 +74,10 @@ variants:
       en: A feature flag cannot be used to control which version clients use
   explanation:
     en: Sato names as the downside of parallel change that during the migrate phase the supplier has to support
-      two different versions, and clients could get confused about which is new and which is old. He rules out releasing
-      only after the contract phase, because he writes that the pattern allows the code to be released in any of
-      its three phases. He rules out requiring an explicit version, because he writes that using parallel change
-      on a remote API is an alternative to using an explicit version in the exposed API. He rules out that a feature
-      flag cannot be used, because he writes that during the migrate phase a feature flag can be used to control
-      which version of the interface is used.
+      two different versions, and clients could get confused about which is new and which is old. Sato writes that
+      the pattern allows the code to be released in any of its three phases, not only after the contract phase.
+      Parallel change on a remote API is described as an alternative to using an explicit version in the exposed
+      API, which contradicts the claim that it requires one. In the same text, he says that during the migrate phase
+      a feature flag can be used to control which version of the interface is used, which contradicts the claim
+      that a feature flag cannot be used.
   citation: fowler-parallel-change#banner

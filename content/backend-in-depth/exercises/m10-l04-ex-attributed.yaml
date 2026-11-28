@@ -22,11 +22,13 @@ variants:
       en: It analyzes the system from the defender's perspective, focusing on controls
   explanation:
     en: The cheat sheet says threat modeling is ideally performed early in the SDLC, such as during the design phase.
-      The cheat sheet rules out performing it once and never again, because it says a threat model should be maintained,
-      updated and refined alongside the system. It rules out an add-on applied after the normal process, because
-      it says threat modeling should be integrated into the team's SDLC process as a standard and necessary step,
-      not an add-on. It rules out the defender's perspective focused on controls, because it says threat modeling
-      analyzes a system from an adversarial perspective, focusing on ways an attacker can exploit it.
+      According to the cheat sheet, threat modeling is not something that is performed once and never again, which
+      contradicts performing it once and never again because the system model stays fixed. The cheat sheet states
+      that ideally, threat modeling should be integrated seamlessly into a team's normal SDLC process; it should
+      be treated as a standard and necessary step in the process, not an add-on, which contradicts treating it as
+      an add-on applied after the normal SDLC process. Per the cheat sheet, threat modeling analyzes a system from
+      an adversarial perspective, focusing on ways an attacker can exploit it, not from the defender's side focused
+      on controls.
   citation: owasp-cs-threat-modeling#overview
   extract:
     en: Threat modeling is ideally performed early in the SDLC, such as during the design phase.
@@ -50,11 +52,11 @@ variants:
       en: Systems that always run until the task ends, with no stopping conditions
   explanation:
     en: The post describes agents as systems where LLMs dynamically direct their own processes and tool usage, maintaining
-      control over how they accomplish tasks. The post rules out predefined code paths as the description of an
-      agent, because it assigns that description to workflows. It rules out starting without a human, because it
-      says agents begin their work with either a command from, or interactive discussion with, the human user. It
-      rules out running with no stopping conditions, because it says it is common to include stopping conditions,
-      such as a maximum number of iterations, to maintain control.
+      control over how they accomplish tasks. The post assigns the description of LLMs and tools orchestrated through
+      predefined code paths to workflows, so it does not describe an agent. According to the post, agents begin
+      their work with either a command from, or interactive discussion with, the human user, so starting without
+      one contradicts it. Stopping conditions, such as a maximum number of iterations, are described as common for
+      maintaining control, which contradicts running with none.
   citation: anthropic-building-effective-agents#what-are-agents; anthropic-building-effective-agents#agents
 - id: m10-l04-qa05
   prompt:
@@ -75,9 +77,11 @@ variants:
     text:
       en: Replace optimized single LLM calls with agents in most applications
   explanation:
-    en: The post recommends finding the simplest solution possible and only increasing complexity when needed. It
-      rules out starting with a framework, because it suggests developers start by using LLM APIs directly. It rules
-      out preferring agents for well-defined tasks, because it says workflows offer predictability and consistency
-      for those tasks. It rules out replacing single LLM calls with agents, because it says that for many applications
-      optimizing single LLM calls with retrieval and in-context examples is usually enough.
+    en: The post recommends finding the simplest solution possible and only increasing complexity when needed. What
+      the post suggests is that developers start by using LLM APIs directly, not with a framework. The post says
+      that when more complexity is warranted, workflows offer predictability and consistency for well-defined tasks,
+      whereas agents are the better option when flexibility and model-driven decision-making are needed at scale,
+      which contradicts preferring agents over workflows for well-defined tasks for their predictability. The post
+      states that for many applications, optimizing single LLM calls with retrieval and in-context examples is usually
+      enough, which contradicts replacing them with agents in most applications.
   citation: anthropic-building-effective-agents#when-and-when-not-to-use-agents; anthropic-building-effective-agents#when-and-how-to-use-frameworks

@@ -22,9 +22,9 @@ variants:
       en: It accepts duplicated horizontal and vertical segments and counts every copy separately
   explanation:
     en: Sedgewick and Wayne write that the algorithm only looks for intersections between a horizontal and a vertical
-      segment. They rule out reporting intersections between two horizontal segments, because they write that two
-      horizontal lines that intersect are not considered, which is why the segments were assumed to be disjoint.
-      They rule out missing intersections at an endpoint of a segment, because they write that the algorithm does
-      detect improper intersections that occur at an endpoint of one of the segments. They rule out accepting duplicated
-      segments, because they write that they assume no duplicated h-v segments.
+      segment. Sedgewick and Wayne say not to consider two horizontal lines that intersect, which contradicts a
+      sweep that also reports intersections between two horizontal segments that cross each other. In the same text
+      they state that the algorithm does detect improper intersections that occur at an endpoint of one of the segments,
+      which leaves no room for missing intersections at an endpoint. Their assumption is that there are no duplicated
+      h-v segments, so accepting duplicated segments contradicts it.
   citation: algs4-geometric-intersections#content

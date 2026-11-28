@@ -22,12 +22,12 @@ variants:
       en: Building one shared fixture that tests may change freely, since it saves rebuild time
   explanation:
     en: Fowler says he generally prefers always rebuilding the starting state from scratch, as it is often easier
-      and in particular easier to find the source of a problem. He rules out each test cleaning up after itself,
-      because he writes that with clean-up one test contains the bug but another test fails, so the real problem
-      is hard to find. He rules out ordering tests through explicit dependencies, because he writes that he prefers
-      isolation for its flexibility in running subsets of tests and parallelizing them. He rules out a shared fixture
-      that tests change freely, because he writes that the tests must not change that initial state, or must reverse
-      their changes in tear-down.
+      and in particular easier to find the source of a problem. With clean-up, he writes, one test contains the
+      bug but another test fails, so the real problem is hard to find; a failing test holding the bug contradicts
+      his account. He states that he prefers isolation because it gives more flexibility in running subsets of tests
+      and parallelizing them, which contradicts ordering tests through explicit dependencies. A shared fixture that
+      tests change freely contradicts his instruction that the tests must not change that initial state, or must
+      reverse their changes in tear-down.
   citation: fowler-eradicating-non-determinism#LackOfIsolation
 - id: m11-l06-qa04
   prompt:
@@ -49,11 +49,12 @@ variants:
       en: Share a frozen clock stub between tests without re-initialising it
   explanation:
     en: Fowler calls it the most important thing to always wrap the system clock with routines that can be replaced
-      with a seeded value for testing. He rules out allowing direct calls to the system clock, because he would
-      argue for code analysis that detects any direct call and fails the build right there. He rules out combining
-      that move with other changes, because he writes that moving the data and the clock seeds should be the only
-      thing done at that point. He rules out sharing a frozen clock stub without re-initialising it, because he
-      writes that each test that uses the stub should ensure it is properly re-initialized.
+      with a seeded value for testing. He says he would argue for code analysis that detects any direct call to
+      the system clock and fails the build right there, which contradicts allowing such calls and reviewing them
+      by hand. On moving old test data and clock seeds, his text is that this should be the only thing done at that
+      point, so combining it with other changes contradicts it. In his account, each test that uses the clock stub
+      should ensure it is properly re-initialized; sharing a frozen stub without re-initialising it contradicts
+      the instruction.
   citation: fowler-eradicating-non-determinism#Time
 - id: m11-l06-qa05
   prompt:
@@ -75,11 +76,11 @@ variants:
       en: They run the same interaction against the remote system and the double, checking they match
   explanation:
     en: Fowler says contract tests run the same interaction with the remote system and the double, and check that
-      the two match. He rules out exactly the same results, because he writes that a match may not mean the same
-      result, given the non-determinism, but results that share the same essential structure. He rules out running
-      them inside the deployment pipeline on every build, because he writes that they need to be run frequently
-      but not as part of the system's deployment pipeline. He rules out running them once and never again, because
-      he writes that periodic running based on the rate of change of the remote system is usually best.
+      the two match. Fowler writes that a match may not mean the same result, given the non-determinism, but results
+      that share the same essential structure; demanding exactly the same results contradicts that. According to
+      his text, these tests need to be run frequently but not as part of the system's deployment pipeline, so running
+      them on every build contradicts it. His text says periodic running based on the rate of change of the remote
+      system is usually best, which leaves no place for running them once and never again.
   citation: fowler-eradicating-non-determinism#RemoteServices
 - id: m11-l06-qa06
   prompt:
@@ -101,9 +102,9 @@ variants:
       en: They should call private methods directly through the test class
   explanation:
     en: Vocke writes that unit tests should ensure all non-trivial code paths are tested while not being tied to
-      the implementation too closely. He rules out reflecting the internal code structure, because he writes not
-      to reflect it in unit tests and to test for observable behaviour instead. He rules out testing getters and
-      setters for coverage, because he writes that testing simple getters, setters or other trivial implementations
-      gains nothing. He rules out calling private methods directly, because he writes that private methods cannot
-      be tested since they cannot be called from a different test class.
+      the implementation too closely. Vocke says not to reflect the internal code structure within the unit tests,
+      which contradicts unit tests that reflect the internal code structure of the production class. The page states
+      that testing simple getters, setters or other trivial implementations gains nothing, which contradicts testing
+      them to reach high coverage. In the same passage, he says private methods cannot be tested since they cannot
+      be called from a different test class; calling them directly through the test class contradicts his statement.
   citation: fowler-practical-test-pyramid#what-to-test

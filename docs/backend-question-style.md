@@ -45,6 +45,9 @@ Each rule is a check a verifier can answer yes or no.
 - A question is keyed to an F or X fact. A J (judgement) statement is the key only under amendment 17: the stem
   opens "According to AUTHOR in WORK,", the key restates a stored sentence of that source, a sentence of the same
   source contradicts each wrong option, and the explanation reports what the source states.
+- AUTHOR and WORK are two different names. When a source has no author apart from the work's own name, the stem names
+  the work once, as stems citing an RFC do: "According to the Standard Webhooks specification,". The lint fails
+  "According to Standard Webhooks in Standard Webhooks specification,".
 - A J statement may appear in a stem only as an attributed premise ("According to …"). Verification checks
   the attribution, not the truth.
 - F key: the explanation cites the stored Tier A anchor for the pinned version.
@@ -154,6 +157,11 @@ verifier sees the batch.
   `@Transactional`, `max_connections`, `ConcurrentHashMap`, `409`. Multi-line code is a fenced block.
 - The explanation has one sentence for the key and one sentence per distractor. Each distractor sentence
   names the distractor by its content and states the cited fact that contradicts it.
+- In an attributed question each sentence that refutes a wrong option reports what the source states, with the source
+  as its subject or in a phrase that attributes the statement to it ("According to …", "In his text …"), and why that
+  contradicts the option ("Fowler writes that teams hit that line in weeks rather than months, not after months of
+  staying ahead of it"). The lint fails a sentence in which "rules out" or "rule out" begins within its first forty
+  characters and no comma comes before it, such as "He rules out …" or "Fowler rules out …".
 - Two distractors are never ruled out by one sentence, and one source sentence is not reused for two
   distractors. If two distractors fall to the same fact, replace one.
 - "The documentation does not say so", "nothing indicates" and bare denials ("this is not the case") are

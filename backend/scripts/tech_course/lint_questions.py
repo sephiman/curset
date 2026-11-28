@@ -286,6 +286,8 @@ _DISMISSES_TOGETHER = re.compile(
 _REFUTATION_WORDS = (
     "wrong claim because correct incorrect answer option statement false true instead rather ruled"
 )
+_RULES_OUT_OPENER = re.compile(r"^[^,]{0,39}?\brules? out\b")
+_ATTRIBUTION = re.compile(r"^According to (?P<author>[^,]+?) in (?P<work>[^,]+),")
 _SENTENCE_END = re.compile(r"(?<=[.!?])\s+(?=[A-Z`\"'(])")
 _WORD = re.compile(r"[a-z0-9]+")
 
@@ -318,6 +320,17 @@ def code_tokens(text: str) -> list[str]:
 
 
 # --- per-question rules ------------------------------------------------------------------------------------
+
+
+def stem_attribution_failures(q: Candidate) -> list[Failure]:
+    """The author repeated as the work: "According to Standard Webhooks in Standard Webhooks spec"."""
+    match = _ATTRIBUTION.match(q.stem.strip())
+    if match is None:
+        return []
+    author, work = (_squash(match.group(name)) for name in ("author", "work"))
+    if work != author and not work.startswith(f"{author} "):
+        return []
+    return [Failure(q.id, "stem-author-is-work", f"{match.group('author')!r} is also the work")]
 
 
 def stem_length_failures(q: Candidate) -> list[Failure]:
@@ -388,6 +401,7 @@ def _novel_stems(sentence: str, key: str, distractor: str) -> list[str]:
 
 def explanation_failures(q: Candidate) -> list[Failure]:
     sentences = _SENTENCE_END.split(q.explanation.strip())
+    attributed = q.stem.lstrip().startswith("According to ")
     failures: list[Failure] = []
     by_sentence: dict[int, list[int]] = {}
     for number, distractor in enumerate(q.distractors, 1):
@@ -399,6 +413,10 @@ def explanation_failures(q: Candidate) -> list[Failure]:
         for index in hits:
             by_sentence.setdefault(index, []).append(number)
     for index, sentence in enumerate(sentences):
+        if attributed and _RULES_OUT_OPENER.match(sentence):
+            failures.append(
+                Failure(q.id, "explanation-rules-out", f"source is not the subject: {sentence[:60]}")
+            )
         if _DENIAL.search(sentence):
             failures.append(Failure(q.id, "explanation-coverage", f"silence or bare denial: {sentence[:60]}"))
         numbers = by_sentence.get(index, [])
@@ -447,6 +465,7 @@ def key_failures(q: Candidate) -> list[Failure]:
 
 def question_failures(q: Candidate, extract_allowed: dict[str, bool]) -> list[Failure]:
     return [
+        *stem_attribution_failures(q),
         *stem_length_failures(q),
         *code_format_failures(q),
         *explanation_failures(q),

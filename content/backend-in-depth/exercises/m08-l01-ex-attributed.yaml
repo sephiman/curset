@@ -8,12 +8,12 @@ variants:
       define them does the reference guide make?
   options:
   - id: a
-    text:
-      en: G1a occurs when a transaction observes a write by a committed transaction
-  - id: b
     correct: true
     text:
       en: A consistency model is a safety property declaring what a system can do
+  - id: b
+    text:
+      en: G1a occurs when a transaction observes a write by a committed transaction
   - id: c
     text:
       en: Transaction T2 write-read depends on T1 if T2 writes a value that T1 read
@@ -27,29 +27,3 @@ variants:
       value that T1 wrote, which contradicts the reverse direction. It writes that models and phenomena are often
       defined in terms of dependencies between operations, which contradicts never defining them that way.
   citation: jepsen-consistency#models; jepsen-consistency#phenomena; jepsen-consistency#dependencies
-- id: m08-l01-qa02
-  prompt:
-    en: According to Jepsen in Consistency, which statement about Serializability and how consistency models are
-      defined does the reference guide make?
-  options:
-  - id: a
-    correct: true
-    text:
-      en: Serializability makes every legal history equivalent to a totally ordered execution
-  - id: b
-    text:
-      en: A consistency model is a liveness property declaring what a system must eventually do
-  - id: c
-    text:
-      en: Preventing specific cycles in the dependency graph gives rise to a single consistency model
-  - id: d
-    text:
-      en: A phenomenon is a performance metric measured while the system is under load
-  explanation:
-    en: Jepsen writes that the model known as Serializability guarantees that every legal history must be equivalent
-      to a totally ordered execution. It writes that a consistency model is a safety property which declares what
-      a system can do, which contradicts calling it a liveness property. It writes that preventing specific cycles
-      in the dependency graph gives rise to different consistency models, which contradicts a single model. It writes
-      that models are often defined in terms of proscribed phenomena, specific patterns of operations, which contradicts
-      a performance metric.
-  citation: jepsen-consistency#models; jepsen-consistency#dependencies; jepsen-consistency#phenomena

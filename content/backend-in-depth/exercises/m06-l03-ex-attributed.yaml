@@ -22,11 +22,11 @@ variants:
       en: An index is limited to eight columns, and that limit cannot be changed in any build
   explanation:
     en: The documentation states that indexes with more than three columns are unlikely to be helpful unless the
-      usage of the table is extremely stylized. It rules out the claim that a single-column index is rarely sufficient,
-      because it says that in most situations an index on a single column is sufficient and saves space and time.
-      It rules out the claim that every index type supports several key columns, because it says that currently
-      only the B-tree, GiST, GIN, and BRIN index types support multiple-key-column indexes. It rules out the eight-column
-      limit, because it says indexes can have up to 32 columns, including `INCLUDE` columns.
+      usage of the table is extremely stylized. The documentation says that in most situations an index on a single
+      column is sufficient and saves space and time, which contradicts the claim that a single-column index is rarely
+      sufficient. It states that currently only the B-tree, GiST, GIN, and BRIN index types support multiple-key-column
+      indexes, so not every index type does. In the same text, indexes can have up to 32 columns, including `INCLUDE`
+      columns, which leaves no room for an eight-column limit.
   citation: pg-indexes-multicolumn#INDEXES-MULTICOLUMN
   extract:
     en: Indexes with more than three columns are unlikely to be helpful unless the usage of the table is extremely
@@ -51,11 +51,12 @@ variants:
       en: When the table changes quickly, so that most heap pages have their all-visible bits cleared
   explanation:
     en: The documentation states that there is little point in including payload columns in an index unless the
-      table changes slowly enough that an index-only scan is likely to not need to access the heap. It rules out
-      wide payload columns, because it says it is wise to be conservative about adding non-key payload columns,
-      especially wide columns. It rules out hash indexes, because it says that only B-tree, GiST and SP-GiST indexes
-      currently support included columns. It rules out a quickly changing table, because it says an index-only scan
-      will be a win only if a significant fraction of the table's heap pages have their all-visible map bits set.
+      table changes slowly enough that an index-only scan is likely to not need to access the heap. The documentation
+      says it is wise to be conservative about adding non-key payload columns, especially wide columns, so including
+      wide payload columns contradicts the advice. It states that only B-tree, GiST and SP-GiST indexes currently
+      support included columns, so hash indexes are not among them. Its text says an index-only scan will be a win
+      only if a significant fraction of the table's heap pages have their all-visible map bits set, which a quickly
+      changing table contradicts.
   citation: pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS
   extract:
     en: there is little point in including payload columns in an index unless the table changes slowly enough that
@@ -81,9 +82,9 @@ variants:
   explanation:
     en: The guide states that, although `@BatchSize` is better than running into an N + 1 query issue, most of the
       time a DTO projection or a `JOIN FETCH` is a much better alternative since it fetches all the required data
-      with a single query. It rules out `FetchType.EAGER` on every association, because it says EAGER fetching is
-      almost always a bad choice. It rules out a loop that initializes each proxy with its own query, because it
-      says that without `@BatchSize` you would run into an N + 1 query issue with 10 queries instead of 2. It rules
-      out one `JOIN FETCH` over several collections, because it says that to avoid a Cartesian Product you should
-      use secondary queries when you need to fetch multiple collections.
+      with a single query. The guide says EAGER fetching is almost always a bad choice, which contradicts `FetchType.EAGER`
+      on every association. It says that without `@BatchSize` you would run into an N + 1 query issue with 10 queries
+      instead of 2, which contradicts a loop that initializes each proxy with its own query. According to the guide,
+      to avoid a Cartesian Product you should use secondary queries when you need to fetch multiple collections,
+      so one `JOIN FETCH` over several collections goes against it.
   citation: hibernate-user-guide#fetching-batch; hibernate-user-guide#best-practices-fetching-associations; hibernate-user-guide#best-practices-fetching-associations

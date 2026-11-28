@@ -22,9 +22,9 @@ variants:
       en: The configuration of a bucket is fixed when it is created and cannot be changed afterwards
   explanation:
     en: The README states that Bucket4j does not operate with floats or doubles and that all calculation is performed
-      in integer arithmetic. It rules out boxed values in the API, because the README says the API tries to use
-      primitive types as much as possible in order to avoid boxing. It rules out a lock by default as the only strategy,
-      because the README says the library uses a lock-free implementation by default and provides other concurrency
-      strategies that can be chosen. It rules out a fixed configuration, because the README says the configuration
-      of a bucket can be changed on the fly.
+      in integer arithmetic. The README says the API tries to use primitive types as much as possible in order to
+      avoid boxing, which contradicts boxed values in the API. The README says that Bucket4j scales well in the
+      multi-threading case because it uses a lock-free implementation by default, which contradicts a bucket guarded
+      by a lock by default with no other concurrency strategy on offer. The README also says the configuration of
+      a bucket can be changed on the fly, which a fixed configuration contradicts.
   citation: bucket4j-readme#top

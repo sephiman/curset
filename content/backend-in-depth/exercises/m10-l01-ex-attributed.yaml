@@ -22,10 +22,11 @@ variants:
       en: The proportion of the resource that is used, where 100% means no more work can be accepted
   explanation:
     en: Gregg defines saturation as the degree to which the resource has extra work which it can't service, often
-      queued. He rules out the average time the resource was busy servicing work, because his terminology lists
-      that as the definition of utilization. He rules out the count of error events, because his terminology lists
-      that as the definition of errors. He rules out the proportion of the resource used, because he gives that
-      as an alternative definition of utilization, where 100% utilization means no more work can be accepted.
+      queued. In his terminology, the average time the resource was busy servicing work is the definition of utilization,
+      which is a different measure from saturation. The count of error events is listed there as the definition
+      of errors, so it does not define saturation. Gregg gives the proportion of the resource used as an alternative
+      definition of utilization, where 100% utilization means no more work can be accepted, so it is not saturation
+      either.
   citation: gregg-use-method#Summary
 - id: m10-l01-qa02
   prompt:
@@ -47,11 +48,11 @@ variants:
       en: It cannot be used together with any other method
   explanation:
     en: Dam quotes Wilkie saying that the USE Method does not really apply to services, because it applies to hardware,
-      network disks and things like that. Wilkie rules out the USE Method being too concrete, because Dam reports
-      he pointed out that the method, while useful, is somewhat abstract. He rules out the USE Method leaving out
-      errors, because the page lists errors, as a count of error events, among the things to monitor for every resource
-      under it. He rules out the USE Method being unusable with another method, because Dam reports he recommended
-      using the USE and RED Methods together.
+      network disks and things like that. Dam reports that Wilkie pointed out the method, while useful, is somewhat
+      abstract, which contradicts calling it too concrete. Under the USE Method, the page lists errors, as a count
+      of error events, among the things to monitor for every resource, so it does not leave errors out. Dam reports
+      that Wilkie recommended using the USE and RED Methods together, which contradicts any claim that the USE Method
+      cannot be combined with another.
   citation: grafana-red-method#the-red-method; grafana-red-method#the-use-method; grafana-red-method#two-sides-of-the-same-coin
 - id: m10-l01-qa04
   prompt:
@@ -73,12 +74,11 @@ variants:
       en: Page as soon as a single run of a batch job fails to complete
   explanation:
     en: The documentation says to aim for as few alerts as possible, by alerting on symptoms associated with end-user
-      pain rather than trying to catch every possible cause. It rules out paging on latency at every level, because
-      it says to page on latency at only one point in a stack. It rules out separate pages for errors further down
-      the stack, because it says that when such errors cause a user-visible failure there is no need to page on
-      them separately. It rules out paging on a single failed batch run, because it says that if you cannot withstand
-      a single run failing you should run the job more frequently, as a single failure should not require human
-      intervention.
+      pain rather than trying to catch every possible cause. The documentation says to page on latency at only one
+      point in a stack, not at every level. According to the same section, errors further down the stack that will
+      cause a user-visible failure need no separate page. It says that if you cannot withstand a single run failing
+      you should run the job more frequently, as a single failure should not require human intervention, which contradicts
+      paging on a single failed batch run.
   citation: prom-alerting-practices#what-to-alert-on; prom-alerting-practices#online-serving-systems; prom-alerting-practices#batch-jobs
   extract:
     en: Aim to have as few alerts as possible, by alerting on symptoms that are associated with end-user pain rather
@@ -103,12 +103,11 @@ variants:
       en: It adds a shorter window to check that the budget is still being consumed
   explanation:
     en: Thurgood writes that the alert needs another parameter, a shorter window, to check whether the error budget
-      is still being consumed as the alert triggers. He rules out firing for an hour after the errors stop, because
-      he writes that the page-level alert ceases to fire five minutes later rather than one hour later. He rules
-      out firing as soon as the short window crosses the threshold, because he writes that the alert starts firing
-      when the long window average also goes over the threshold. He rules out more false positives, because he writes
-      that the enhancement notifies only when the budget is still being burned, thereby reducing the number of false
-      positives.
+      is still being consumed as the alert triggers. Thurgood writes that the page-level alert ceases to fire five
+      minutes later rather than one hour later, so it does not keep firing for an hour after the errors stop. In
+      his example, the alert starts firing when the long window average also goes over the threshold, not as soon
+      as the short window does. His account says the enhancement notifies only when the budget is still being burned,
+      thereby reducing the number of false positives, which leaves no room for more of them.
   citation: sre-workbook-slo-alerting#6-multiwindow-multi-burn-rate-alerts
   extract:
     en: 'To do this, we need to add another parameter: a shorter window to check if the error budget is still being

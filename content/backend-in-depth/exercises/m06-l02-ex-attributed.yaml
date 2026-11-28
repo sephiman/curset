@@ -22,13 +22,12 @@ variants:
       en: Pessimistic locking is allowed only for entities that contain a version attribute
   explanation:
     en: The specification states that a portable application should not rely on how pessimistic locking is achieved
-      on the database. It rules out the claim that the provider locks exactly the selected rows, because the specification
-      says a persistence provider or the underlying database management system may lock more rows than the ones
-      selected by the application. It rules out the claim that locking a join-table relationship also locks the
-      referenced entities, because the specification says the state of entities referenced by such relationships
-      will not be locked unless those entities are explicitly locked. It rules out the claim that only versioned
-      entities can be locked, because the specification says pessimistic locking may be applied to entities that
-      do not contain version attributes.
+      on the database. The specification says a persistence provider or the underlying database management system
+      may lock more rows than the ones selected by the application, so the claim that the provider locks exactly
+      the selected rows contradicts it. Its text says the state of entities referenced by such relationships will
+      not be locked unless those entities are explicitly locked, which contradicts the claim that locking a join-table
+      relationship also locks the referenced entities. It states that pessimistic locking may be applied to entities
+      that do not contain version attributes, which the claim that only versioned entities can be locked contradicts.
   citation: jakarta-persistence-spec#a2066
   extract:
     en: a portable application should not rely on how pessimistic locking is achieved on the database
@@ -52,11 +51,11 @@ variants:
       en: At one connection per CPU core, because more connections only add context switching
   explanation:
     en: The wiki states that a properly tuned pool is set right at the limit of the number of queries the database
-      is capable of processing simultaneously. It rules out a pool sized to the application threads, because it
-      says you want the rest of the application threads blocked on the pool awaiting connections. It rules out sizing
-      by disk spindles alone, because it names CPU, Disk and Network as the three basic categories of database bottlenecks.
-      It rules out exactly one connection per CPU core, because it says that when threads become blocked on I/O
-      you can get more work done with more connections than physical computing cores.
+      is capable of processing simultaneously. The wiki says you want the rest of the application threads blocked
+      on the pool awaiting connections, which contradicts a pool sized to the application threads. It names CPU,
+      Disk and Network as the three basic categories of database bottlenecks, which sizing by disk spindles alone
+      does not match. Its text says that when threads become blocked on I/O you can get more work done with more
+      connections than physical computing cores, so exactly one connection per CPU core contradicts it.
   citation: hikaricp-pool-sizing#axiom-you-want-a-small-pool-saturated-with-threads-waiting-for-connections; hikaricp-pool-sizing#limited-resources;
     hikaricp-pool-sizing#limited-resources
   extract:

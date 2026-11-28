@@ -8,17 +8,23 @@ from pathlib import Path
 
 import pytest
 from scripts.tech_course import fill_keys, lint_questions
-from scripts.tech_course.candidates import Candidate, candidate_of, published_lessons, select_files
+from scripts.tech_course.candidates import (
+    Candidate,
+    candidate_of,
+    failed_ids,
+    published_lessons,
+    select_files,
+)
 from scripts.tech_course.lint_questions import (
     citation_failures,
     code_format_failures,
     code_tokens,
     explanation_failures,
     extract_failures,
-    failed_ids,
     key_failures,
     key_longest_share,
     lint_lesson,
+    stem_attribution_failures,
     stem_length_failures,
 )
 
@@ -172,6 +178,70 @@ def test_explanation_naming_options_by_letter_fails(text: str) -> None:
 def test_answer_as_article_is_not_a_letter_reference() -> None:
     q = make(explanation=f"{EXPLANATION} The answer a reader expects is wrong.")
     assert "explanation-letter" not in rules(explanation_failures(q))
+
+
+ATTRIBUTED_STEM = (
+    "According to Martin Fowler in Technical Debt, what happens to teams that take on cruft "
+    "to deliver urgent new features faster than they otherwise would?"
+)
+
+
+@pytest.mark.parametrize(
+    "sentence",
+    [
+        "He rules out readers blocking as well, because he writes that reads continue.",
+        "It rules out readers blocking as well, because the page says reads continue.",
+        "They rule out readers blocking as well, because they write that reads continue.",
+        "Fowler rules out readers blocking as well, because he writes that reads continue.",
+    ],
+)
+def test_attributed_explanation_sentence_opening_with_rules_out_fails(sentence: str) -> None:
+    q = make(stem=ATTRIBUTED_STEM, explanation=f"{EXPLANATION} {sentence}")
+    assert "explanation-rules-out" in rules(explanation_failures(q))
+
+
+def test_source_statement_followed_by_rules_out_passes() -> None:
+    sentence = "He writes that reads continue during the build, which rules out readers blocking as well."
+    q = make(stem=ATTRIBUTED_STEM, explanation=f"{EXPLANATION} {sentence}")
+    assert "explanation-rules-out" not in rules(explanation_failures(q))
+
+
+def test_rules_out_opener_in_a_question_without_attribution_passes() -> None:
+    q = make(explanation=f"{EXPLANATION} That single default rules out readers blocking as well.")
+    assert "explanation-rules-out" not in rules(explanation_failures(q))
+
+
+# --- attribution -------------------------------------------------------------------------------------------
+
+ATTRIBUTED = (
+    "which statement about retrying failed webhook deliveries does the source make in its current text?"
+)
+
+
+@pytest.mark.parametrize(
+    "attribution",
+    [
+        "According to Standard Webhooks in Standard Webhooks specification,",
+        "According to Standard Webhooks in Standard Webhooks,",
+        "According to standard webhooks in Standard Webhooks specification,",
+    ],
+)
+def test_stem_naming_the_author_as_the_work_fails(attribution: str) -> None:
+    q = make(stem=f"{attribution} {ATTRIBUTED}")
+    assert rules(stem_attribution_failures(q)) == ["stem-author-is-work"]
+
+
+@pytest.mark.parametrize(
+    "attribution",
+    [
+        "According to the Standard Webhooks specification,",
+        "According to Martin Fowler in Technical Debt,",
+        "According to Google in AIP-158: Pagination,",
+        "According to Webhooks in Standard Webhooks specification,",
+    ],
+)
+def test_stem_with_a_distinct_author_and_work_passes(attribution: str) -> None:
+    assert stem_attribution_failures(make(stem=f"{attribution} {ATTRIBUTED}")) == []
 
 
 # --- citation, extract, key --------------------------------------------------------------------------------
